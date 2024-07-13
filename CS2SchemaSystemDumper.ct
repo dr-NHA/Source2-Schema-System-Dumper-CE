@@ -1,0 +1,1319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheatTable MicrosoftDefenderTableVersion="45">
+  <CheatEntries>
+    <CheatEntry>
+      <ID>0</ID>
+      <Description>"Attach"</Description>
+      <Options moHideChildren="1"/>
+      <LastState Activated="1"/>
+      <VariableType>Auto Assembler Script</VariableType>
+      <AssemblerScript>{$lua}
+[ENABLE]
+if OpenProcess("cS2") then;
+createThread();
+createThread(function();sleep(100);if memrec.Active then;
+SetupCSGOBases();
+CSchemaSystem.GetSchemaSystem();
+end;end);
+else
+createThread(function();sleep(100);memrec.Active=false;end);
+end
+[DISABLE]
+</AssemblerScript>
+      <CheatEntries>
+        <CheatEntry>
+          <ID>196</ID>
+          <Description>"Schema System Dumpers"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>254</ID>
+              <Description>"Dump SchemaSytem To Root Of C Drive (Edit To Change Path)"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$lua}
+[ENABLE]
+if memrec~=nil and NHA_CS2_D2CD==nil then;
+NHA_CS2_D2CD=true;
+createThread(function();
+sleep(100);
+if memrec.Active then;
+CSchemaSystem.DumpSchemaSystemToFilePath("C:\\CS2SchemaSystem_DumpedByNHA.txt");
+memrec.Active=false;
+end;
+NHA_CS2_D2CD=nil;
+end);
+end;
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>197</ID>
+              <Description>"Dump SchemaSytem To Lua Console (Cheat engine will lag but give it a moment!)"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$lua}
+[ENABLE]
+if memrec~=nil and NHA_CS2_D2LC==nil then;
+NHA_CS2_D2LC=true;
+createThread(function();
+sleep(100);
+if memrec.Active then;
+CSchemaSystem.DumpSchemaSystemToLuaConsole();
+memrec.Active=false;
+end;
+NHA_CS2_D2LC=nil;
+end);
+end;
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1</ID>
+          <Description>"ViewMatrix"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="7FF9A357FCB0"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <GroupHeader>1</GroupHeader>
+          <Address>ViewMatrix</Address>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>6</ID>
+              <Description>"M0"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="7FF9A357FCB0"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>+0</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2</ID>
+                  <Description>"0"</Description>
+                  <LastState Value="0.620834887" RealAddress="7FF9A357FCB0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>3</ID>
+                  <Description>"1"</Description>
+                  <LastState Value="-0.1030214205" RealAddress="7FF9A357FCB4"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>4</ID>
+                  <Description>"2"</Description>
+                  <LastState Value="0" RealAddress="7FF9A357FCB8"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>5</ID>
+                  <Description>"3"</Description>
+                  <LastState Value="-676.4572754" RealAddress="7FF9A357FCBC"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+C</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>17</ID>
+              <Description>"M1"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="7FF9A357FCC0"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>+10</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>18</ID>
+                  <Description>"0"</Description>
+                  <LastState Value="-8.005705432E-9" RealAddress="7FF9A357FCC0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>19</ID>
+                  <Description>"1"</Description>
+                  <LastState Value="-4.824454081E-8" RealAddress="7FF9A357FCC4"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>20</ID>
+                  <Description>"2"</Description>
+                  <LastState Value="1.11879909" RealAddress="7FF9A357FCC8"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>21</ID>
+                  <Description>"3"</Description>
+                  <LastState Value="-71.0810318" RealAddress="7FF9A357FCCC"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+C</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>12</ID>
+              <Description>"M2"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="7FF9A357FCD0"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>+20</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>13</ID>
+                  <Description>"0"</Description>
+                  <LastState Value="0.1637670994" RealAddress="7FF9A357FCD0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>14</ID>
+                  <Description>"1"</Description>
+                  <LastState Value="0.9869046807" RealAddress="7FF9A357FCD4"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>15</ID>
+                  <Description>"2"</Description>
+                  <LastState Value="4.372888185E-8" RealAddress="7FF9A357FCD8"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>16</ID>
+                  <Description>"3"</Description>
+                  <LastState Value="751.5430908" RealAddress="7FF9A357FCDC"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+C</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>7</ID>
+              <Description>"M3"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="7FF9A357FCE0"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>+30</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>8</ID>
+                  <Description>"0"</Description>
+                  <LastState Value="0.1637015939" RealAddress="7FF9A357FCE0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>9</ID>
+                  <Description>"1"</Description>
+                  <LastState Value="0.9865099192" RealAddress="7FF9A357FCE4"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>10</ID>
+                  <Description>"2"</Description>
+                  <LastState Value="4.371138829E-8" RealAddress="7FF9A357FCE8"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+8</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>11</ID>
+                  <Description>"3"</Description>
+                  <LastState Value="755.2424316" RealAddress="7FF9A357FCEC"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+C</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>190</ID>
+              <Description>"Position"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="7FF9A35802B0"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>+0x600</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>191</ID>
+                  <Description>"0"</Description>
+                  <LastState Value="936.7594604" RealAddress="7FF9A35802B0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>192</ID>
+                  <Description>"1"</Description>
+                  <LastState Value="-921.0159912" RealAddress="7FF9A35802B4"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+4</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>193</ID>
+                  <Description>"2"</Description>
+                  <LastState Value="63.53329468" RealAddress="7FF9A35802B8"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+8</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>198</ID>
+          <Description>"PlayerControllers"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>47</ID>
+              <Description>"Player1"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="19506D43C00"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>GetEntityByIndex:1</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>41</ID>
+                  <Description>"IsLocalPlayerController"</Description>
+                  <LastState Value="1" RealAddress="19506D442C0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>+CBasePlayerController.m_bIsLocalPlayerController</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>42</ID>
+                  <Description>"CHandle&lt;C_CSPlayerPawn&gt;"</Description>
+                  <LastState Value="01E903F6" RealAddress="19506D441FC"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+CBasePlayerController.m_hPawn</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>43</ID>
+                  <Description>"PlayerName"</Description>
+                  <LastState RealAddress="19506D44230"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>String</VariableType>
+                  <Length>255</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>+CBasePlayerController.m_iszPlayerName</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>258</ID>
+                  <Description>"SteamID"</Description>
+                  <LastState Value="0110000168D87059" RealAddress="19506D442B8"/>
+                  <ShowAsHex>1</ShowAsHex>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>8 Bytes</VariableType>
+                  <Address>+CBasePlayerController.m_steamID</Address>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>199</ID>
+          <Description>"PlayerPawns"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>207</ID>
+              <Description>"Player1"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="1958EE90000"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>GetPawnByIndex:1</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>211</ID>
+                  <Description>"Landing"</Description>
+                  <LastState Value="161" RealAddress="1958EE903CC"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>+3CC</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>256</ID>
+                  <Description>"m_iHealth"</Description>
+                  <LastState Value="100" RealAddress="1958EE90324"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+C_BaseEntity.m_iHealth</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>257</ID>
+                  <Description>"m_iHealth"</Description>
+                  <LastState Value="100" RealAddress="1958EE90320"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+C_BaseEntity.m_iMaxHealth</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>218</ID>
+                  <Description>"Velocity"</Description>
+                  <LastState Value="0" RealAddress="1958EE903E0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>+0x3E0</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>220</ID>
+                  <Description>"vOldOrigin"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="1958EE91274"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+C_BasePlayerPawn.m_vOldOrigin</Address>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>221</ID>
+                      <Description>"0"</Description>
+                      <LastState Value="1216.124756" RealAddress="1958EE91274"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>+0</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>222</ID>
+                      <Description>"1"</Description>
+                      <LastState Value="-1185.248779" RealAddress="1958EE91278"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>+4</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>223</ID>
+                      <Description>"2"</Description>
+                      <LastState Value="-135.46875" RealAddress="1958EE9127C"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>+8</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
+  <LuaScript>--If 1 then Statements Are Being Used As #pragma regions Here
+
+--Free Symbol Callbacks If Re Executing The Script, (Required!)
+if CSGO_RSLC~=nil then;unregisterSymbolLookupCallback(CSGO_RSLC);CSGO_RSLC=nil;end;
+if CSGO_RSDO~=nil then;unregisterStructureDissectOverride(CSGO_RSDO);CSGO_RSDO=nil;end;
+
+if 1 then;--NHA CE Helpers
+if 1 then;--Function Name Register
+FNR=function(Name);registerLuaFunctionHighlight(Name);end;FNR("FNR");
+-- Fast Function Name Register
+FFNR=function(BaseName,Names);print("FFNR.."..BaseName..": ERROR!");end
+FFNR=function(BaseName,Names)
+local PF,ind="";
+if BaseName~=nil then;
+FNR(BaseName);
+PF=BaseName..".";
+end
+for ind=1,#Names,1 do
+if type( Names[ind])=="table" then
+FFNR(Names[ind][1],Names[ind][2]);
+else
+FNR(PF..Names[ind]);
+end
+end
+PF=nil;
+ind=nil;
+end
+FNR("FFNR");
+end;
+
+if NHA_CE==nil then;--Only Execute Once
+NHA_CE={};
+FNR("NHA_CE");
+end;
+
+NHA_CE.GetHexAddress=function(NHA_DB)
+if IsNumber(NHA_DB) then;
+NHA_DB=GetAddress(NHA_DB);
+end;
+return string.format('%X',NHA_DB);
+end
+FNR("NHA_CE.GetHexAddress");
+
+--Scan A Module For A Signature/Aob
+NHA_CE.UniqueScanModule=function(Signature,ModuleName)
+if ModuleName==nil then;ModuleName=process;end;
+RegionBase=getAddress(ModuleName);
+RegionEnd=getAddress(ModuleName)+getModuleSize(ModuleName);
+local ms = createMemScan();
+ms.OnlyOneResult=true;
+ms.firstScan(soExactValue, vtByteArray, nil, Signature, nil, RegionBase, RegionEnd,"*X*C*W", nil, nil ,true, nil, nil, nil)
+ms.waitTillDone()
+if ms.OnlyOneResult then;
+local O=ms.result;
+ms.destroy();
+return O;
+else;
+local found = createFoundList(ms)
+found.initialize()
+local Values={};
+if found.Count&gt;0 then;
+for ind=0,found.Count-1,1 do
+Values[#Values+1]=found[ind];
+end
+end
+ms.destroy();
+found.destroy();
+return Values;
+end;
+end
+FNR("NHA_CE.UniqueScanModule");
+
+--Scan A Region For A Signature/Aob
+NHA_CE.UniqueScanRegion=function(Signature,RegionBase,RegionEnd)
+if RegionBase==nil or RegionEnd==nil then
+RegionBase=getAddress(process);
+RegionEnd=RegionBase+getModuleSize(process);
+end;
+local ms = createMemScan();
+ms.OnlyOneResult=true;
+ms.firstScan(soExactValue, vtByteArray, nil, Signature, nil, RegionBase, RegionEnd,"*X*C*W", nil, nil ,true, nil, nil, nil)
+ms.waitTillDone()
+if ms.OnlyOneResult then;
+local O=ms.result;
+ms.destroy();
+return O;
+else;
+local found = createFoundList(ms)
+found.initialize()
+local Values={};
+if found.Count&gt;0 then;
+for ind=0,found.Count-1,1 do
+Values[#Values+1]=found[ind];
+end
+end
+ms.destroy();
+found.destroy();
+return Values;
+end;
+end
+FNR("NHA_CE.UniqueScanRegion");
+
+--CBUFF From An Address Name
+NHA_CE.CBUFF=function(AsmBase,CBUFFOFFSET,DontFix)
+if not IsNumber(AsmBase) then;
+AsmBase=GetAddress(AsmBase);
+end;
+if not IsNumber(CBUFFOFFSET) then;
+CBUFFOFFSET=GetAddress(CBUFFOFFSET);
+end;
+local ADDITION=readInteger(AsmBase+CBUFFOFFSET);
+if ADDITION==nil then;return nil;end
+local C= (AsmBase+ADDITION)+(CBUFFOFFSET+0x4);
+if DontFix==nil or DontFix==false then
+if readInteger(C)==nil then;C=C-0x100000000;
+if readInteger(C)==nil then;C=C+0x100000000;end;end
+end
+return C;
+end
+FNR("NHA_CE.CBUFF");
+
+
+NHA_CE.GetClassName=function(Address)
+if Address==nil then;return;end;
+local D=nil;
+if InModule(Address) then
+local A=allocateMemory(0x8);
+writePointer(A,Address);
+D=getRTTIClassName(A);
+if D~=nil then;D=D.."VFT";end;
+--print(NHA_CE.HEX.GetAddress(A));
+deAlloc(A);
+else
+D=getRTTIClassName(Address);
+end
+return D;
+end;
+FNR("NHA_CE.GetClassName");
+
+--Safer Read String
+NHA_CE.ReadString=function(Address);
+local _Na=Address;
+local Byte=readByte(_Na);
+if (_Na==nil or _Na==0) or (Byte==nil or Byte==0) then;return nil;end;
+local BA={};
+while true do;
+Byte=readByte(_Na+#BA);
+if Byte==0 then;break;end;
+BA[#BA+1]=Byte;
+end;
+return byteTableToString(BA);
+end;
+FNR("NHA_CE.ReadString");
+
+
+RegisterAndPrint=function(Name,Address)
+registerSymbol(Name,CSchemaSystem.Instruction);
+print(Name..": 0x"..NHA_CE.GetHexAddress(Address));
+end
+FNR("RegisterAndPrint");
+
+end;
+
+if 1 then;--Schema System Dumper
+
+if 1 then;--Instructions
+--[[Exposed In All Modules But Found In Client.dll (Yes I Could Just Use GetProcAddress But Eh)
+client.InstallSchemaBindings - 40 53                 - push rbx
+client.InstallSchemaBindings+2- 48 83 EC 20           - sub rsp,20 { 32 }
+client.InstallSchemaBindings+6- 48 8B DA              - mov rbx,rdx
+client.InstallSchemaBindings+9- 48 8B D1              - mov rdx,rcx
+client.InstallSchemaBindings+C- 48 8D 0D F53B2300     - lea rcx,[client.dll.rdata+182098] { ("SchemaSystem_001") }
+client.InstallSchemaBindings+13- E8 38BC0200           - call client.dll.text+114F0E0
+client.InstallSchemaBindings+18- 85 C0                 - test eax,eax
+client.InstallSchemaBindings+1A- 74 08                 - je client.InstallSchemaBindings+24
+client.InstallSchemaBindings+1C- 32 C0                 - xor al,al
+client.InstallSchemaBindings+1E- 48 83 C4 20           - add rsp,20 { 32 }
+client.InstallSchemaBindings+22- 5B                    - pop rbx
+client.InstallSchemaBindings+23- C3                    - ret
+client.InstallSchemaBindings+24- 80 3D 555E9F00 00     - cmp byte ptr [client.dll+1B1A310],00 { (1),0 }
+client.InstallSchemaBindings+2B- 75 16                 - jne client.InstallSchemaBindings+43
+client.InstallSchemaBindings+2D- 48 8B CB              - mov rcx,rbx
+client.InstallSchemaBindings+30- 48 89 1D B94A9F00     - mov [CSchemaSystem],rbx { (7FFA0F8FC710) }
+client.InstallSchemaBindings+37- E8 44FEFFFF           - call client.GetResourceManifests+19D0
+client.InstallSchemaBindings+3C- C6 05 3D5E9F00 01     - mov byte ptr [client.dll+1B1A310],01 { (1),1 }
+client.InstallSchemaBindings+43- B0 01                 - mov al,01 { 1 }
+client.InstallSchemaBindings+45- 48 83 C4 20           - add rsp,20 { 32 }
+client.InstallSchemaBindings+49- 5B                    - pop rbx
+client.InstallSchemaBindings+4A- C3                    - ret
+]]
+CSchemaSystem={
+Module="schemasystem.dll";
+AOB="40 53 48 83 EC 20 48 8B DA 48 8B D1 48 8D 0D";
+Offset=0x30;Instruction=0;Pointer=0;Base=0;Output={}
+};
+FFNR("CSchemaSystem",{"Module","AOB","Offset","Instruction","Output","Pointer","Base"});
+
+
+--[[CSchemaSystem::ReadRoot:
+CSchemaSystemVFT+0xE0:
+schemasystem.dll.text+11910 - 48 89 5C 24 10        - mov [rsp+10],rbx
+schemasystem.dll.text+11915 - 57                    - push rdi
+schemasystem.dll.text+11916 - 48 83 EC 20           - sub rsp,20 { 32 }
+schemasystem.dll.text+1191A - 48 8B F9              - mov rdi,rcx
+schemasystem.dll.text+1191D - 4C 8B C2              - mov r8,rdx
+schemasystem.dll.text+11920 - 48 81 C1 A0010000     - add rcx,000001A0 { 416 }
+schemasystem.dll.text+11927 - 48 8D 54 24 30        - lea rdx,[rsp+30]
+schemasystem.dll.text+1192C - FF 15 9E5A0200        - call qword ptr [tier0.CUtlSymbolTable::Find]
+schemasystem.dll.text+11932 - 0FB7 44 24 30         - movzx eax,word ptr [rsp+30]
+schemasystem.dll.text+11937 - B9 FFFF0000           - mov ecx,0000FFFF { 65535 }
+schemasystem.dll.text+1193C - 66 3B C1              - cmp ax,cx
+schemasystem.dll.text+1193F - 75 0A                 - jne schemasystem.dll.text+1194B
+schemasystem.dll.text+11941 - B8 FFFFFFFF           - mov eax,FFFFFFFF { -1 }
+schemasystem.dll.text+11946 - 66 3B C1              - cmp ax,cx
+schemasystem.dll.text+11949 - 74 13                 - je schemasystem.dll.text+1195E
+schemasystem.dll.text+1194B - 48 8B 8F 90010000     - mov rcx,[rdi+00000190] &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; TypeScopeOffset
+schemasystem.dll.text+11952 - 0FB7 C0               - movzx eax,ax
+schemasystem.dll.text+11955 - 48 8B 0C C1           - mov rcx,[rcx+rax*8]
+schemasystem.dll.text+11959 - E8 C2E7FFFF           - call schemasystem.dll.text+10120 &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; All Offsets (TypeScope)
+schemasystem.dll.text+1195E - 48 8B 9F D8020000     - mov rbx,[rdi+000002D8]
+schemasystem.dll.text+11965 - 48 63 BF D0020000     - movsxd  rdi,dword ptr [rdi+000002D0]
+schemasystem.dll.text+1196C - 48 C1 E7 04           - shl rdi,04 { 4 }
+schemasystem.dll.text+11970 - 48 03 FB              - add rdi,rbx
+schemasystem.dll.text+11973 - 48 3B DF              - cmp rbx,rdi
+schemasystem.dll.text+11976 - 74 0F                 - je schemasystem.dll.text+11987
+schemasystem.dll.text+11978 - 48 8B 4B 08           - mov rcx,[rbx+08]
+schemasystem.dll.text+1197C - FF 13                 - call qword ptr [rbx]
+schemasystem.dll.text+1197E - 48 83 C3 10           - add rbx,10 { 16 }
+schemasystem.dll.text+11982 - 48 3B DF              - cmp rbx,rdi
+schemasystem.dll.text+11985 - 75 F1                 - jne schemasystem.dll.text+11978
+schemasystem.dll.text+11987 - 48 8B 5C 24 38        - mov rbx,[rsp+38]
+schemasystem.dll.text+1198C - 48 83 C4 20           - add rsp,20 { 32 }
+schemasystem.dll.text+11990 - 5F                    - pop rdi
+schemasystem.dll.text+11991 - C3                    - ret
+]]
+CSchemaSystem.ReadRoot={
+AOB="48 89 5C 24 10 57 48 83 EC 20 48 8B F9 4C 8B C2 48 81 C1 ?? ?? ?? ?? 48 8D 54 24 30 FF 15";
+Instruction=0;End=0};
+FFNR("CSchemaSystem.ReadRoot",{"AOB","Instruction","End"});
+
+--[[CSchemaSystem::ReadRoot:ReadTypeScope
+E8 ?? ?? ?? ?? 48 8B 9F
+]]
+CSchemaSystem.ReadTypeScope={
+AOB="E8 ?? ?? ?? ?? 48 8B 9F";
+Instruction=0;End=0};
+FFNR("CSchemaSystem.ReadTypeScope",{"AOB","Instruction","End"});
+
+--[[CSchemaSystem::ReadRoot::TypeScopeOffset
+48 8B 8F ?? ?? ?? ?? 0F B7 C0 48 8B 0C C1
+schemasystem.dll.text+11941 - B8 FFFFFFFF           - mov eax,FFFFFFFF { -1 }
+schemasystem.dll.text+11946 - 66 3B C1              - cmp ax,cx
+schemasystem.dll.text+11949 - 74 13                 - je schemasystem.dll.text+1195E
+schemasystem.dll.text+1194B - 48 8B 8F 90010000     - mov rcx,[rdi+00000190] &lt; TypeScopeOffset
+schemasystem.dll.text+11952 - 0FB7 C0               - movzx eax,ax
+schemasystem.dll.text+11955 - 48 8B 0C C1           - mov rcx,[rcx+rax*8]
+]]
+CSchemaSystem.TypeScope={
+AOB="48 8B 8F ?? ?? ?? ?? 0F B7";
+Offset=0x190;Instruction=0};
+FFNR("CSchemaSystem.TypeScope",{"AOB","Offset","Instruction"});
+
+--[[CSchemaSystem::ReadTypeScope::ClassArrayOffset
+49 8B 86 ?? ?? ?? ?? 48 8D.
+schemasystem.dll.text+10483 - 90                    - nop
+schemasystem.dll.text+10484 - 41 87 45 00           - xchg [r13+00],eax
+schemasystem.dll.text+10488 - EB 33                 - jmp schemasystem.dll.text+104BD
+schemasystem.dll.text+1048A - 0FB7 C8               - movzx ecx,ax
+schemasystem.dll.text+1048D - 49 8B 86 40040000     - mov rax,[r14+00000440] &lt;&lt;&lt;&lt;&lt;&lt; Classes Offset
+schemasystem.dll.text+10494 - 48 8D 14 49           - lea rdx,[rcx+rcx*2]
+schemasystem.dll.text+10498 - 48 8B 4C D0 10        - mov rcx,[rax+rdx*8+10]
+schemasystem.dll.text+1049D - 41 8B 45 04           - mov eax,[r13+04]
+schemasystem.dll.text+104A1 - FF C8                 - dec eax
+schemasystem.dll.text+104A3 - 41 89 45 04           - mov [r13+04],eax
+schemasystem.dll.text+104A7 - 41 8B 45 04           - mov eax,[r13+04]
+schemasystem.dll.text+104AB - 85 C0                 - test eax,eax
+schemasystem.dll.text+104AD - 75 05                 - jne schemasystem.dll.text+104B4
+schemasystem.dll.text+104AF - 90                    - nop
+]]
+CSchemaSystem.Classes={
+AOB="49 8B 86 ?? ?? ?? ?? 48 8D";
+Offset=0x440;Instruction=0};
+FFNR("CSchemaSystem.Classes",{"AOB","Instruction","Offset"});
+
+--[[CSchemaSystem::ReadTypeScope::EnumArrayOffset
+49 8B 86 ?? ?? ?? ?? 48 8B.
+schemasystem.dll.text+10AC3 - 90                    - nop
+schemasystem.dll.text+10AC4 - 41 87 45 00           - xchg [r13+00],eax
+schemasystem.dll.text+10AC8 - EB 33                 - jmp schemasystem.dll.text+10AFD
+schemasystem.dll.text+10ACA - 0FB7 C2               - movzx eax,dx
+schemasystem.dll.text+10ACD - 48 8D 0C 40           - lea rcx,[rax+rax*2]
+schemasystem.dll.text+10AD1 - 49 8B 86 68040000     - mov rax,[r14+00000468] &lt;&lt;&lt;&lt;&lt;&lt;&lt; Enums Offset
+schemasystem.dll.text+10AD8 - 48 8B 54 C8 10        - mov rdx,[rax+rcx*8+10]
+schemasystem.dll.text+10ADD - 41 8B 45 04           - mov eax,[r13+04]
+schemasystem.dll.text+10AE1 - FF C8                 - dec eax
+schemasystem.dll.text+10AE3 - 41 89 45 04           - mov [r13+04],eax
+schemasystem.dll.text+10AE7 - 41 8B 45 04           - mov eax,[r13+04]
+schemasystem.dll.text+10AEB - 85 C0                 - test eax,eax
+schemasystem.dll.text+10AED - 75 05                 - jne schemasystem.dll.text+10AF4
+schemasystem.dll.text+10AEF - 90                    - nop
+]]
+CSchemaSystem.Enums={
+AOB="49 8B 86 ?? ?? ?? ?? 48 8B";
+Offset=0x468;Instruction=0};
+FFNR("CSchemaSystem.Enums",{"AOB","Instruction","Offset"});
+
+end;
+
+--Read A CSchemaType_Builtin Struct By Address
+CSchemaSystem.Read_CSchemaType_Builtin=function(address);
+local _Type="";
+local TypeRoot=readPointer(address+0x8);
+if TypeRoot~=nil then;
+local _TypeRoot=readPointer(TypeRoot+0x8)
+if _TypeRoot~=nil then;
+_Type=readString(_TypeRoot,69);
+if _Type==nil then;_Type=readString(_TypeRoot,40);end;
+if _Type==nil then;_Type="";end;
+end;
+end;
+
+local _Offsetr=readSmallInteger(address+0x10);
+if _Offsetr~=nil and _Offsetr&gt;=0xF000 then;_Offsetr=_Offsetr-0xF000;end
+
+return {
+Name=readString(readPointer(address),69);
+Type=_Type;
+Offset=_Offsetr;
+}
+end;
+FNR("CSchemaSystem.Read_CSchemaType_Builtin");
+
+--Read A Read_CSchemaType_DeclaredEnum Struct By Address
+CSchemaSystem.Read_CSchemaType_DeclaredEnum=function(address);
+local _ModuleName=readQword(address+0x10);
+if _ModuleName== nil or _ModuleName==0 then; return nil end;
+local _Name=readString(readQword(address+0x8),50);
+local _ClassPtr=readQword(address+0x20);
+local _NumValues=readSmallInteger(_ClassPtr+0x1C);
+if _Name==nil or _NumValues==nil or (#_Name)==0 then;return nil;end;
+local _ValuesAddress=readQword(_ClassPtr+0x20);
+local _Values={};
+local I=0;
+if _NumValues~=0 then;
+local _Value=0;
+for I=0,_NumValues-1,1 do
+_Value=_ValuesAddress+(I*0x20);
+_Values[I+1]={
+Name=readString(readQword(_Value),50);
+Value=readInteger(_Value+0x8);
+}
+end;
+end;
+return {
+Name=_Name;
+ModuleName=readString(_ModuleName+0x8,50);
+ClassPtr=_ClassPtr;
+--Class Pointer Offsets
+Size=readSmallInteger(_ClassPtr+0x18);
+NumValues=_NumValues;
+Values=_Values;
+};
+end;
+FNR("CSchemaSystem.Read_CSchemaType_DeclaredEnum");
+
+
+--Read A CSchemaType_DeclaredClass Struct By Address
+CSchemaSystem.Read_CSchemaType_DeclaredClass=function(address);
+local _ModuleName=readQword(address+0x10);
+if _ModuleName== nil or _ModuleName==0 then; return nil end;
+local Sze=10;
+local _Na=readQword(address+0x8);
+if (_Na==nil or _Na==0) or (readByte(_Na)==nil or readByte(_Na)==0) then;return nil;end;
+local _Name=NHA_CE.ReadString(_Na);
+if _Name==nil then;return nil;end;
+
+local _ClassPtr=readPointer(address+0x20);
+local _ParentPtr=readPointer(_ClassPtr+0x38);
+local _Parent=nil;
+if _ParentPtr~=nil then;
+_ParentPtr=readPointer(_ParentPtr+0x8);
+if _ParentPtr~=nil then;
+_Parent=NHA_CE.ReadString(readPointer(_ParentPtr+0x8));
+end;end;
+
+local _NumFields=readSmallInteger(_ClassPtr+0x1C,true);
+if string.find( _Name,"CStrongHandleVolatile")==1 then;_NumFields=0;end;
+local _FieldsAddress=readPointer(_ClassPtr+0x28);
+local _Fields={};
+local _Field=nil;
+local I=0;
+if _NumFields==nil then;_NumFields=0;end;
+if _NumFields~=0 then;
+for I=0,_NumFields-1,1 do
+_Field=CSchemaSystem.Read_CSchemaType_Builtin((_FieldsAddress+(I*0x20)));
+if _Field~=nil then;_Fields[I+1]=_Field;end;end;
+end;
+
+--print(_Name);
+return {
+Name=_Name;
+ModuleName=readString(_ModuleName+0x8,50);
+ClassPtr=_ClassPtr;
+--Class Pointer Offsets
+Size=readInteger(_ClassPtr+0x18);
+NumFields=_NumFields;
+StaticSize=readSmallInteger(_ClassPtr+0x24,true);
+MetadataSize=readSmallInteger(_ClassPtr+0x26,true);
+Fields=_Fields;
+Parent=_Parent;
+Childeren=nil;
+};
+end;
+FNR("CSchemaSystem.Read_CSchemaType_DeclaredClass");
+
+--Read A CSchemaSystemTypeScope Struct By Address
+CSchemaSystem.Read_CSchemaSystemTypeScope=function(address);
+local Array=readQword(address+CSchemaSystem.Classes.Offset)+0x10;
+local Count=readSmallInteger(address+CSchemaSystem.Classes.Offset+0x8);
+local I=0;
+local _Classes={};
+local RSSTDC=nil;
+local AD=0;
+for I=0,Count-1,1 do
+AD=readPointer(Array+(I*0x18));
+RSSTDC=CSchemaSystem.Read_CSchemaType_DeclaredClass(AD);
+if RSSTDC~=nil then;_Classes[I+1]=RSSTDC;end;
+end
+
+local _Enums={};
+local RSSTDE=nil;
+Array=readQword(address+CSchemaSystem.Enums.Offset)+0x10;
+Count=readSmallInteger(address+CSchemaSystem.Enums.Offset+0x8);
+for I=0,Count-1,1 do
+RSSTDE=CSchemaSystem.Read_CSchemaType_DeclaredEnum(readPointer(Array+(I*0x18)));
+if RSSTDE~=nil then;_Enums[I+1]=RSSTDE;end;
+end;
+
+local _Name=readString(address+0x8,50);
+return {
+Name=_Name;
+Classes=_Classes;
+NumClasses=#_Classes;
+Enums=_Enums;
+NumEnums=#_Enums;
+};
+end;
+FNR("CSchemaSystem.Read_CSchemaSystemTypeScope");
+
+--Parse And Get The SchemaSystem As A Lua Array (Dont Run From The UI Thread)
+CSchemaSystem.GetSchemaSystem=function();
+print("CSchemaSystem::GetSchemaSystem: Started!");
+if 1 then--Find Instructions And Offsets
+CSchemaSystem.Instruction=NHA_CE.UniqueScanModule(CSchemaSystem.AOB,CSchemaSystem.Module)+CSchemaSystem.Offset;
+RegisterAndPrint("CSchemaSystem::Instruction",CSchemaSystem.Instruction);
+
+CSchemaSystem.Pointer= NHA_CE.CBUFF(CSchemaSystem.Instruction,0x3);
+RegisterAndPrint("CSchemaSystem::Pointer",CSchemaSystem.Pointer);
+
+CSchemaSystem.Base= readPointer(CSchemaSystem.Pointer);
+RegisterAndPrint("CSchemaSystem::Base",CSchemaSystem.Base);
+
+CSchemaSystem.ReadRoot.Instruction=NHA_CE.UniqueScanModule(CSchemaSystem.ReadRoot.AOB,CSchemaSystem.Module);
+RegisterAndPrint("CSchemaSystem::ReadRoot::Instruction",CSchemaSystem.ReadRoot.Instruction);
+CSchemaSystem.ReadRoot.End=CSchemaSystem.ReadRoot.Instruction+0x400;
+
+CSchemaSystem.TypeScope.Instruction=NHA_CE.UniqueScanRegion(CSchemaSystem.TypeScope.AOB,CSchemaSystem.ReadRoot.Instruction,CSchemaSystem.ReadRoot.End);
+RegisterAndPrint("CSchemaSystem::TypeScope::Instruction",CSchemaSystem.TypeScope.Instruction);
+CSchemaSystem.TypeScope.Offset=readInteger(CSchemaSystem.TypeScope.Instruction+0x3);
+RegisterAndPrint("CSchemaSystem::TypeScope::Offset",CSchemaSystem.TypeScope.Offset);
+
+CSchemaSystem.ReadTypeScope.Instruction=NHA_CE.UniqueScanRegion(CSchemaSystem.ReadTypeScope.AOB,CSchemaSystem.ReadRoot.Instruction,CSchemaSystem.ReadRoot.End);
+RegisterAndPrint("CSchemaSystem::ReadTypeScope::CallToInstruction",CSchemaSystem.ReadTypeScope.Instruction);
+CSchemaSystem.ReadTypeScope.Instruction=NHA_CE.CBUFF(CSchemaSystem.ReadTypeScope.Instruction,1);
+RegisterAndPrint("CSchemaSystem::ReadTypeScope::Instruction",CSchemaSystem.ReadTypeScope.Instruction);
+CSchemaSystem.ReadTypeScope.End=CSchemaSystem.ReadTypeScope.Instruction+0x1000;
+
+CSchemaSystem.Classes.Instruction=NHA_CE.UniqueScanRegion(CSchemaSystem.Classes.AOB,CSchemaSystem.ReadTypeScope.Instruction,CSchemaSystem.ReadTypeScope.End);
+RegisterAndPrint("CSchemaSystem::TypeScope::Classes::Instruction",CSchemaSystem.Classes.Instruction);
+CSchemaSystem.Classes.Offset=readInteger(CSchemaSystem.Classes.Instruction+0x3);
+RegisterAndPrint("CSchemaSystem::TypeScope::Classes",CSchemaSystem.Classes.Offset);
+
+CSchemaSystem.Enums.Instruction=NHA_CE.UniqueScanRegion(CSchemaSystem.Enums.AOB,CSchemaSystem.ReadTypeScope.Instruction,CSchemaSystem.ReadTypeScope.End);
+RegisterAndPrint("CSchemaSystem::TypeScope::Enums::Instruction",CSchemaSystem.Enums.Instruction);
+CSchemaSystem.Enums.Offset=readInteger(CSchemaSystem.Enums.Instruction+0x3);
+RegisterAndPrint("CSchemaSystem::TypeScope::Enums",CSchemaSystem.Enums.Offset);
+
+if CSchemaSystem.Classes.Offset==nil or CSchemaSystem.Classes.Offset==0 then;
+print("Classes Offset Failed To Be Found!");
+return;
+end;
+
+if (CSchemaSystem.Enums.Offset==nil or CSchemaSystem.Enums.Offset==0 or CSchemaSystem.Enums.Offset==CSchemaSystem.Classes.Offset) then;
+print("Enums Offset Failed To Be Found!");
+return;
+end;
+end;
+
+local TypesSize=(readPointer(CSchemaSystem.Base+CSchemaSystem.TypeScope.Offset-0x8)-1);
+local Typess=readPointer(CSchemaSystem.Base+CSchemaSystem.TypeScope.Offset);
+local Types={};
+local I=0;
+local E=0;
+for I=0,TypesSize,1 do
+local CI=I;
+createThread(function();
+Types[CI+1]=CSchemaSystem.Read_CSchemaSystemTypeScope(ReadPointer(Typess+(CI*8)));
+E=E+1;
+end);
+end
+while E~=TypesSize do;sleep(2);end;
+
+print("CSchemaSystem::GetSchemaSystem: Finished: "..E.." Results!");
+CSchemaSystem.Output=Types;
+return Types;
+end;
+FNR("CSchemaSystem.GetSchemaSystem");
+
+--Construct The Dump
+CSchemaSystem.DumpSchemaSystem=function();
+local content="";
+if CSchemaSystem.Output==nil or #(CSchemaSystem.Output)&lt;=1 then;CSchemaSystem.Output= CSchemaSystem.GetSchemaSystem();end;
+local S=1;
+local J=1;
+for S=1,#(CSchemaSystem.Output),1 do
+
+if 1 then;--Enums
+content=content.."Type:"..S..": "..CSchemaSystem.Output[S].Name..", Enums: "..CSchemaSystem.Output[S].NumEnums.."\n";
+J=1;
+for J=1,CSchemaSystem.Output[S].NumEnums,1 do
+if CSchemaSystem.Output[S].Enums[J]~=nil then
+if CSchemaSystem.Output[S].Enums[J].Name==nil then;
+CSchemaSystem.Output[S].Enums[J].Name="UnknownEnumName!";
+end;
+content=content.."Enum:"..J..": "..CSchemaSystem.Output[S].Enums[J].Name..", Values: "..CSchemaSystem.Output[S].Enums[J].NumValues.."\n";
+local Fields="";
+local J2=1;
+for J2=1,CSchemaSystem.Output[S].Enums[J].NumValues,1 do
+if CSchemaSystem.Output[S].Enums[J].Values[J2].Name~=nil then;
+Fields=Fields..CSchemaSystem.Output[S].Enums[J].Values[J2].Name..
+", Offset: 0x"..NHA_CE.GetHexAddress(CSchemaSystem.Output[S].Enums[J].Values[J2].Value)..",\n";
+end;end;
+if Fields~="" then;
+content=content..Fields.."\n";
+end;
+end;
+end;
+end;
+
+if 1 then;--Classes
+content=content.."Type:"..S..": "..CSchemaSystem.Output[S].Name..", Classes: "..CSchemaSystem.Output[S].NumClasses.."\n";
+J=1;
+for J=1,CSchemaSystem.Output[S].NumClasses,1 do
+if CSchemaSystem.Output[S].Classes[J]~=nil then
+content=content.."Class:"..J..": "..CSchemaSystem.Output[S].Classes[J].Name..", Fields: "..CSchemaSystem.Output[S].Classes[J].NumFields..", Parent: "..(CSchemaSystem.Output[S].Classes[J].Parent == nil and "None" or CSchemaSystem.Output[S].Classes[J].Parent).."\n";
+local Fields="";
+local J2=1;
+for J2=1,#(CSchemaSystem.Output[S].Classes[J].Fields),1 do
+if CSchemaSystem.Output[S].Classes[J].Fields[J2].Name~=nil then;
+Fields=Fields..CSchemaSystem.Output[S].Classes[J].Fields[J2].Name..
+", Offset: 0x"..NHA_CE.GetHexAddress(CSchemaSystem.Output[S].Classes[J].Fields[J2].Offset)..
+", Type: "..CSchemaSystem.Output[S].Classes[J].Fields[J2].Type..",\n";
+end;end;
+if Fields~="" then;
+content=content..Fields.."\n";
+end;
+end;
+end;
+end;
+
+end;
+return content;
+end;
+FNR("CSchemaSystem.DumpSchemaSystem");
+
+--Dump The SchemaSystem Array To The Lua Console
+CSchemaSystem.DumpSchemaSystemToLuaConsole=function();
+print(CSchemaSystem.DumpSchemaSystem());
+end;
+FNR("CSchemaSystem.DumpSchemaSystemToLuaConsole");
+
+--Dump The SchemaSystem Array To The File Path
+CSchemaSystem.DumpSchemaSystemToFilePath=function(FilePath);
+local file = io.open(FilePath,"w+b")
+if file then
+file:write("NHAs CS2 Schema System Dumper\n"..
+"Based Off Public Sources\n"..
+"Cheat Engine Is A Very Interactive Enviroment To Develop In &lt;3\n\n"..
+CSchemaSystem.DumpSchemaSystem());
+file:close();
+print("Dump Finished!");
+end
+end;
+FNR("CSchemaSystem.DumpSchemaSystemToFilePath");
+
+--Get A Class Object By Its Name
+CSchemaSystem.GetClassByName=function(ClassName);
+if ClassName==nil then;print("Please Enter A ClassName!");return nil;end;
+if CSchemaSystem.Output==nil or #(CSchemaSystem.Output)&lt;=1 then;print("Run GetSchemaSystem Before GetClassByName!");return nil;end;
+if ClassName == "CBaseModelEntity" then;ClassName="C_BaseModelEntity";end;--This Needs Fixing, Idk Why Some Things Are Saying The Parent Is The Opposite BaseModelEntity
+--print("CSchemaSystem.GetClassByName: "..ClassName);
+local S=1;
+local J=1;
+for S=1,#(CSchemaSystem.Output),1 do
+if CSchemaSystem.Output[S]~=nil and CSchemaSystem.Output[S].Name~=nil then;
+
+if 1 then;--Classes
+J=1;
+for J=1,CSchemaSystem.Output[S].NumClasses-1,1 do
+if CSchemaSystem.Output[S].Classes[J]~=nil and CSchemaSystem.Output[S].Classes[J].Name==ClassName then;
+return CSchemaSystem.Output[S].Classes[J];
+end;
+end;
+end;
+
+end;
+end;
+
+if ClassName == "C_BaseEntity" then;print("WTF Happened?");end;
+return nil;
+end;
+FNR("CSchemaSystem.GetClassByName");
+
+end;
+
+if 1 then;--Entity System
+--Get Root Of Game Entity System
+GetGameEntitySystem=function()
+return ReadPointer("EntityList");
+end;
+FNR("GetGameEntitySystem");
+
+--Get Entity By Id
+GetEntity=function(Id)
+if(Id==nil or Id &gt;= 0x7FFF)then return 0;end;
+local game_entity_system =GetGameEntitySystem();
+if game_entity_system==nil or game_entity_system==0 then;return 0;end;
+local controller_chunk =ReadPointer(game_entity_system +(0x8*(Id &gt;&gt; 9))+ 0x10);
+if(controller_chunk == nil or controller_chunk  == 0)then return 0;end;
+local controller= controller_chunk +(0x78*(Id&amp; 0x1FF));
+local controller_ent_idx =ReadInteger(controller + 0x10) &amp; 0x7FFF;
+if(controller_ent_idx == Id)then
+return ReadPointer(controller);
+else;
+return 0;end;
+end
+FNR("GetEntity");
+
+--Get Pawn From Controller
+ControllerToPawn=function(PlayerController)
+if(PlayerController==nil or PlayerController==0) then return 0;end;
+local game_entity_system=GetGameEntitySystem();
+if game_entity_system==nil or game_entity_system==0 then;return 0;end;
+local pawn_handle=ReadInteger(PlayerController+0x5FC);
+if (pawn_handle==0 or pawn_handle &gt;=0x7FFFFFF) then return 0;end
+local identities_chunk  =ReadPointer(game_entity_system+ 0x10 +(0x8*((pawn_handle &amp; 0x7FFF)&gt;&gt; 9)));
+if (identities_chunk ==0) then return 0;end;
+local identity= identities_chunk +(0x78*(pawn_handle&amp; 0x1FF));
+if (identity ==0) then return 0;end;
+return ReadPointer(identity);
+end
+FNR("ControllerToPawn");
+
+--Get Pawn From Controller
+HandleToEntity=function(pawn_handle)
+local game_entity_system=GetGameEntitySystem();
+if game_entity_system==nil or game_entity_system==0 then;return 0;end;
+if (pawn_handle==0 or pawn_handle &gt;=0x7FFFFFF) then return 0;end
+local identities_chunk  =ReadPointer(game_entity_system+ 0x10 +(0x8*((pawn_handle &amp; 0x7FFF)&gt;&gt; 9)));
+if (identities_chunk ==0) then return 0;end;
+local identity= identities_chunk +(0x78*(pawn_handle&amp; 0x1FF));
+if (identity ==0) then return 0;end;
+return ReadPointer(identity);
+end
+FNR("HandleToEntity");
+
+end;
+
+if 1 then;--Basic Stuff
+
+SetupCSGOBases=function();
+
+--[[
+client.dll.text+1E0FED - 48 8B 05 AC5D6001     - mov rax,[client.dll+17E7DA0] { (27931320000) }
+client.dll.text+1E0FF4 - 8B 35 9E236301        - mov esi,[client.dll+1814398] { (71) }
+client.dll.text+1E0FFA - C6 80 E50B0000 00     - mov byte ptr [rax+00000BE5],00 { 0 }
+client.dll.text+1E1001 - EB 04                 - jmp client.dll.text+1E1007
+client.dll.text+1E1003 - 44 8B 6D 6F           - mov r13d,[rbp+6F]
+client.dll.text+1E1007 - 8B 0D 074B4301        - mov ecx,[client.dll+1616B14] { (20) }
+client.dll.text+1E100D - BA 01000000           - mov edx,00000001 { 1 }
+client.dll.text+1E1012 - FF 15 8046E500        - call qword ptr [client.dll.rdata+1698] { -&gt;tier0.LoggingSystem_IsChannelEnabled }
+client.dll.text+1E1018 - 84 C0                 - test al,al
+client.dll.text+1E101A - 74 48                 - je client.dll.text+1E1064
+
+]]
+local EntityListInstruction=NHA_CE.UniqueScanModule("48 8B 05 ?? ?? ?? ?? 8B 35 ?? ?? ?? ?? C6 80 ?? ?? ?? ?? 00","client.dll");
+registerSymbol("EntityList",NHA_CE.CBUFF(EntityListInstruction,0x3));
+
+
+--[[
+client.dll.text+7D4E1C - 48 8D 4C 24 40        - lea rcx,[rsp+40]
+client.dll.text+7D4E21 - E8 AACDF4FF           - call client.dll.text+721BD0
+client.dll.text+7D4E26 - 48 8D 05 D3A52401     - lea rax,[client.dll+1A20400] { (455.68) }
+client.dll.text+7D4E2D - 41 C6 86 30130000 01  - mov byte ptr [r14+00001330],01 { 1 }
+client.dll.text+7D4E35 - 48 8D 0D 949E2401     - lea rcx,[client.dll+1A1FCD0] { (0.75) } &lt;View Matrix
+client.dll.text+7D4E3C - 48 89 44 24 28        - mov [rsp+28],rax
+client.dll.text+7D4E41 - 48 89 4C 24 20        - mov [rsp+20],rcx
+client.dll.text+7D4E46 - 4C 8D 0D 73A52401     - lea r9,[client.dll+1A203C0] { (0.75) }
+client.dll.text+7D4E4D - 48 8B 0D 8C151401     - mov rcx,[client.dll+19173E0] { (14EBDEE05C0) }
+client.dll.text+7D4E54 - 4C 8D 05 25A52401     - lea r8,[client.dll+1A20380] { (1.00) }
+client.dll.text+7D4E5B - 49 8D 56 10           - lea rdx,[r14+10]
+client.dll.text+7D4E5F - E8 CCEFA2FF           - call client.dll.text+203E30
+client.dll.text+7D4E64 - 41 F6 86 9D050000 02  - test byte ptr [r14+0000059D],02 { 2 }
+48 8D 0D ?? ?? ?? ?? 48 89 44 24 28 48 89 4C 24 20 4C 8D 0D ?? ?? ?? ?? 48 8B 0D 8C151401    4C 8D 05 25A52401    49 8D 56 10
+48 8D 0D ?? ?? ?? ?? 48 89 44 24 28 48 89 4C 24 20 4C
+
+]]
+local VMInstruction=NHA_CE.UniqueScanModule("48 8D 0D ?? ?? ?? ?? 48 89 44 24 28 48 89 4C 24 20 4C 8D","client.dll");
+registerSymbol("ViewMatrix",NHA_CE.CBUFF(VMInstruction,0x3));
+
+--[[
+client.dll.text+577336 - 74 08                 - je client.dll.text+577340
+client.dll.text+577338 - 8B 90 08060000        - mov edx,[rax+00000608]
+client.dll.text+57733E - EB 02                 - jmp client.dll.text+577342
+client.dll.text+577340 - 33 D2                 - xor edx,edx
+client.dll.text+577342 - 48 8B 0D F7A82B01     - mov rcx,[CSGOInput] { (7FFBF3217E30) }
+client.dll.text+577349 - 45 33 C9              - xor r9d,r9d
+client.dll.text+57734C - 44 8B C5              - mov r8d,ebp
+client.dll.text+57734F - E8 CCB61E00           - call client.dll.text+762A20
+]]
+local CSGOInputInstruction=NHA_CE.UniqueScanModule("8B 90 ?? ?? ?? ?? EB 02 33 D2 48 8B 0D","client.dll");
+registerSymbol("CSGOInput",NHA_CE.CBUFF(CSGOInputInstruction+10,0x3));
+
+
+--[[
+client.dll.text+849F50 - 48 89 5C 24 08        - mov [rsp+08],rbx
+client.dll.text+849F55 - 57                    - push rdi
+client.dll.text+849F56 - 48 83 EC 20           - sub rsp,20 { 32 }
+client.dll.text+849F5A - 48 8B 1D C765FE00     - mov rbx,[client.dll.data+BF528] { (7FFBF3021538) }
+client.dll.text+849F61 - 48 63 05 B865FE00     - movsxd  rax,dword ptr [client.dll.data+BF520] { (0) }
+client.dll.text+849F68 - 48 8D 3C C3           - lea rdi,[rbx+rax*8]
+client.dll.text+849F6C - 48 3B DF              - cmp rbx,rdi
+client.dll.text+849F6F - 74 15                 - je client.dll.text+849F86
+client.dll.text+849F71 - 48 8B 0B              - mov rcx,[rbx]
+client.dll.text+849F74 - 48 8B 01              - mov rax,[rcx]
+client.dll.text+849F77 - FF 90 800A0000        - call qword ptr [rax+00000A80]
+]]
+local LocalPlayerInstruction=NHA_CE.UniqueScanModule("48 8B 1D ?? ?? ?? ?? 48 63 05 ?? ?? ?? ?? 48 8D 3C C3 48 ?? ?? 74 15","client.dll");
+registerSymbol("LocalPlayerPawnPtr",NHA_CE.CBUFF(LocalPlayerInstruction,0x3));
+
+end;
+FNR("SetupCSGOBases");
+
+end;
+
+if 1 then;--Symbol Callbacks
+CSGO_RSLC= registerSymbolLookupCallback(function(INPUT)
+local INDEX=0;
+local QUERY="GetEntityByIndex:";
+INDEX=string.find(INPUT,QUERY);
+if INDEX~=nil and INDEX~=0 then;
+INDEX=string.sub(INPUT,INDEX+#QUERY);
+if INDEX ~=nil then;
+INDEX=tonumber(INDEX);
+return GetEntity(INDEX);
+end;end
+
+QUERY="GetPawnByIndex:";
+INDEX=string.find(INPUT,QUERY);
+if INDEX~=nil and INDEX~=0 then;
+INDEX=string.sub(INPUT,INDEX+#QUERY);
+if INDEX ~=nil then;
+INDEX=tonumber(INDEX);
+return ControllerToPawn(GetEntity(INDEX));
+end;end
+
+local Out=nil;--Allows Cheat Engine To Use The Fields As Offsets By Their Class.FieldName
+if CSchemaSystem.Output~=nil then;
+local J1=1;
+local J2=1;
+local J3=1;
+for J1=1,#(CSchemaSystem.Output),1 do
+if CSchemaSystem.Output[J1]~=nil and CSchemaSystem.Output[J1].Classes~=nil then;
+for J2=1,#(CSchemaSystem.Output[J1].Classes),1 do
+if CSchemaSystem.Output[J1].Classes[J2]~=nil then
+INDEX=string.find(INPUT,CSchemaSystem.Output[J1].Classes[J2].Name);
+if INDEX~=nil and INDEX~=0 then;--FoundClassName
+local Find=string.sub(INPUT,INDEX+(#CSchemaSystem.Output[J1].Classes[J2].Name)+1);
+for J3=1,#(CSchemaSystem.Output[J1].Classes[J2].Fields),1 do
+if Find==CSchemaSystem.Output[J1].Classes[J2].Fields[J3].Name then;
+Out=CSchemaSystem.Output[J1].Classes[J2].Fields[J3].Offset;
+break;
+end;end;
+
+break;
+end;
+end;
+end;
+end;
+end;
+end;
+
+return Out;
+end, slFailure);
+
+if 1 then;--StructureDissectOverride
+CSGO_RSLC_AddElement=function(structure,Offset,Vartype,Name,size,hex);
+local O_=structure.addElement();
+if Offset==nil then;Offset=0;end;
+O_.setOffset(Offset);
+O_.Vartype=Vartype;
+O_.setVartype(Vartype);
+if size~=nil then;O_.setBytesize(size);end;
+if Name~=nil then;O_.setName(Name);end;
+if hex then;O_.DisplayMethod='dtHexadecimal';end
+return O_;
+end;
+FNR("CSGO_RSLC_AddElement");
+
+CSGO_RSDOFILLSTRUCTURE=function(structure, Class,IsParent);end;
+CSGO_RSDOFILLSTRUCTURE=function(structure, Class,IsParent)
+if Class~=nil then
+local Type=vtPointer;
+local F=0;
+for F=1,#(Class.Fields),1 do
+Type=vtPointer;
+if --[[IsHandle]]string.find(Class.Fields[F].Type,"CHandle&lt;")==1 or Class.Fields[F].Type=="int32" or Class.Fields[F].Type=="uint32" then
+Type=vtDword;
+elseif --[[IsPointer]]Class.Fields[F].Type[#Class.Fields[F].Type]=="*" or Class.Fields[F].Type== "CUtlString" then;
+Type=vtPointer;
+elseif  Class.Fields[F].Type=="GameTick_t" or Class.Fields[F].Type=="int64" or Class.Fields[F].Type=="uint64" then
+Type=vtQword;
+elseif Class.Fields[F].Type=="int16" or Class.Fields[F].Type=="uint16" then
+Type=vtWord;
+elseif Class.Fields[F].Type=="float32" then
+Type=vtSingle;
+elseif Class.Fields[F].Type=="bool" or (Class.Fields[F].Type=="int8" or Class.Fields[F].Type=="uint8") then
+Type=vtByte;
+end
+if Class.Fields[F].Type=="Vector" then;
+Type=vtSingle;
+CSGO_RSLC_AddElement(structure,Class.Fields[F].Offset,Type,Class.Fields[F].Name..".X",false);
+CSGO_RSLC_AddElement(structure,Class.Fields[F].Offset+0x4,Type,Class.Fields[F].Name..".Y",false);
+CSGO_RSLC_AddElement(structure,Class.Fields[F].Offset+0x8,Type,Class.Fields[F].Name..".Z",false);
+else
+CSGO_RSLC_AddElement(structure,Class.Fields[F].Offset,Type,Class.Fields[F].Name,Type==vtPointer);
+end;
+
+end;
+
+if Class.Parent~=nil then
+CSGO_RSDOFILLSTRUCTURE(structure,CSchemaSystem.GetClassByName(Class.Parent),true);
+end;
+end;
+end;
+FNR("CSGO_RSDOFILLSTRUCTURE");
+
+FNR("CSGO_RSLC");
+CSGO_RSDO=registerStructureDissectOverride(function(structure, baseaddress)
+local Name=NHA_CE.GetClassName(baseaddress);
+if Name==nil then;return false;end
+local Class=CSchemaSystem.GetClassByName(Name);
+if Class==nil then;return false;end
+if structure==nil then;structure=createStructure(Name);end
+structure.beginUpdate();
+CSGO_RSLC_AddElement(structure,0,vtPointer,Class.Name..".VFTable",true);
+CSGO_RSDOFILLSTRUCTURE(structure,Class);
+structure.setName(Name);
+structure.endUpdate();
+return true;
+end);
+FNR("CSGO_RSDO");
+end;
+
+end;
+
+</LuaScript>
+</CheatTable>
