@@ -5,7 +5,7 @@
       <ID>0</ID>
       <Description>"Attach"</Description>
       <Options moHideChildren="1"/>
-      <LastState Activated="1"/>
+      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>{$lua}
 [ENABLE]
@@ -28,7 +28,7 @@ end
           <ID>196</ID>
           <Description>"Dumpers"</Description>
           <Options moHideChildren="1"/>
-          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -86,7 +86,7 @@ end;
               <ID>389</ID>
               <Description>"Buttons"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" Activated="1" RealAddress="00000000"/>
+              <LastState Value="" RealAddress="00000000"/>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
@@ -137,7 +137,7 @@ end;
               <ID>411</ID>
               <Description>"CVars"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" Activated="1" RealAddress="00000000"/>
+              <LastState Value="" RealAddress="00000000"/>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
@@ -249,6 +249,39 @@ end;
 end);
 [DISABLE]
 </AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>419</ID>
+          <Description>"CVars"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>418</ID>
+              <Description>"CVar.sv_cheats"</Description>
+              <LastState Value="0" RealAddress="1D168CD1800"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>CVar.sv_cheats</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>420</ID>
+              <Description>"CVar.sv_infinite_ammo"</Description>
+              <LastState Value="0" RealAddress="1D19C9113F8"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>CVar.sv_infinite_ammo</Address>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>421</ID>
+              <Description>"CVar.cl_crosshair_recoil"</Description>
+              <LastState Value="1" RealAddress="1D19D0F02D0"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>Byte</VariableType>
+              <Address>CVar.cl_crosshair_recoil</Address>
             </CheatEntry>
           </CheatEntries>
         </CheatEntry>
@@ -550,7 +583,7 @@ end);
                     <CheatEntry>
                       <ID>403</ID>
                       <Description>"State"</Description>
-                      <LastState Value="0" RealAddress="7FFA422AC040"/>
+                      <LastState Value="256" RealAddress="7FFA422AC040"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -648,7 +681,7 @@ end);
                 <CheatEntry>
                   <ID>2</ID>
                   <Description>"0"</Description>
-                  <LastState Value="0.290194124" RealAddress="7FFA424AFCB0"/>
+                  <LastState Value="0.7499672174" RealAddress="7FFA424AFCB0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -656,7 +689,7 @@ end);
                 <CheatEntry>
                   <ID>3</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.6915830374" RealAddress="7FFA424AFCB4"/>
+                  <LastState Value="0.006997065153" RealAddress="7FFA424AFCB4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -672,7 +705,7 @@ end);
                 <CheatEntry>
                   <ID>5</ID>
                   <Description>"3"</Description>
-                  <LastState Value="646.8771973" RealAddress="7FFA424AFCBC"/>
+                  <LastState Value="-2886.291748" RealAddress="7FFA424AFCBC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -691,7 +724,7 @@ end);
                 <CheatEntry>
                   <ID>18</ID>
                   <Description>"0"</Description>
-                  <LastState Value="5.374231193E-8" RealAddress="7FFA424AFCC0"/>
+                  <LastState Value="5.437358341E-10" RealAddress="7FFA424AFCC0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -699,7 +732,7 @@ end);
                 <CheatEntry>
                   <ID>19</ID>
                   <Description>"1"</Description>
-                  <LastState Value="-2.255073461E-8" RealAddress="7FFA424AFCC4"/>
+                  <LastState Value="-5.827929783E-8" RealAddress="7FFA424AFCC4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -715,7 +748,7 @@ end);
                 <CheatEntry>
                   <ID>21</ID>
                   <Description>"3"</Description>
-                  <LastState Value="95.50484467" RealAddress="7FFA424AFCCC"/>
+                  <LastState Value="51.17193985" RealAddress="7FFA424AFCCC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -734,7 +767,7 @@ end);
                 <CheatEntry>
                   <ID>13</ID>
                   <Description>"0"</Description>
-                  <LastState Value="-0.9223438501" RealAddress="7FFA424AFCD0"/>
+                  <LastState Value="-0.009331778623" RealAddress="7FFA424AFCD0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -742,7 +775,7 @@ end);
                 <CheatEntry>
                   <ID>14</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.3870233595" RealAddress="7FFA424AFCD4"/>
+                  <LastState Value="1.000209093" RealAddress="7FFA424AFCD4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -758,7 +791,7 @@ end);
                 <CheatEntry>
                   <ID>16</ID>
                   <Description>"3"</Description>
-                  <LastState Value="2231.841797" RealAddress="7FFA424AFCDC"/>
+                  <LastState Value="718.0891724" RealAddress="7FFA424AFCDC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -777,7 +810,7 @@ end);
                 <CheatEntry>
                   <ID>8</ID>
                   <Description>"0"</Description>
-                  <LastState Value="-0.9221109152" RealAddress="7FFA424AFCE0"/>
+                  <LastState Value="-0.009329422377" RealAddress="7FFA424AFCE0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -785,7 +818,7 @@ end);
                 <CheatEntry>
                   <ID>9</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.3869256079" RealAddress="7FFA424AFCE4"/>
+                  <LastState Value="0.9999564886" RealAddress="7FFA424AFCE4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -801,7 +834,7 @@ end);
                 <CheatEntry>
                   <ID>11</ID>
                   <Description>"3"</Description>
-                  <LastState Value="2237.77832" RealAddress="7FFA424AFCEC"/>
+                  <LastState Value="724.4078369" RealAddress="7FFA424AFCEC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -820,7 +853,7 @@ end);
                 <CheatEntry>
                   <ID>191</ID>
                   <Description>"0"</Description>
-                  <LastState Value="1729.755249" RealAddress="7FFA424B02B0"/>
+                  <LastState Value="3854.980713" RealAddress="7FFA424B02B0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -828,7 +861,7 @@ end);
                 <CheatEntry>
                   <ID>192</ID>
                   <Description>"1"</Description>
-                  <LastState Value="-1661.177368" RealAddress="7FFA424B02B4"/>
+                  <LastState Value="-688.4730835" RealAddress="7FFA424B02B4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -836,7 +869,7 @@ end);
                 <CheatEntry>
                   <ID>193</ID>
                   <Description>"2"</Description>
-                  <LastState Value="-71.62875366" RealAddress="7FFA424B02B8"/>
+                  <LastState Value="-38.3789978" RealAddress="7FFA424B02B8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -990,7 +1023,7 @@ end);
                     <CheatEntry>
                       <ID>367</ID>
                       <Description>"0"</Description>
-                      <LastState Value="1729.754517" RealAddress="1D290DB3A74"/>
+                      <LastState Value="3854.980713" RealAddress="1D290DB3A74"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -998,7 +1031,7 @@ end);
                     <CheatEntry>
                       <ID>368</ID>
                       <Description>"1"</Description>
-                      <LastState Value="-1661.177124" RealAddress="1D290DB3A78"/>
+                      <LastState Value="-688.4730835" RealAddress="1D290DB3A78"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -1006,7 +1039,7 @@ end);
                     <CheatEntry>
                       <ID>369</ID>
                       <Description>"2"</Description>
-                      <LastState Value="-135.46875" RealAddress="1D290DB3A7C"/>
+                      <LastState Value="-102.2189941" RealAddress="1D290DB3A7C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
@@ -2062,7 +2095,6 @@ end;
 end;
 end;
 
-
 if CSGOInput~=nil then;--Allow Cheat Engine To Use CSGOInput.ButtonName Offsets
 QUERY="CSGOInput.";
 INDEX=string.find(INPUT,QUERY);
@@ -2078,6 +2110,47 @@ ButtonOffset=CSGOInput[index].Offset;
 end
 end
 if ButtonOffset~=-1 then;return ButtonOffset;end;
+end;
+end;
+end;
+
+if 1 then;--Allow Cheat Engine To Use CVar.NAME Offsets
+QUERY="CVar.";
+INDEX=string.find(INPUT,QUERY);
+if INDEX~=nil and INDEX~=0 and getAddressSafe("CVarPtr")~=nil then;
+INDEX=string.sub(INPUT,INDEX+#QUERY);
+if INDEX ~=nil then;
+INDEX=string.lower(INDEX);
+
+local CVarBase=ReadPointer("CVarPtr");
+if CVarBase~=nil and CVarBase~=0 then
+local Array=readPointer(CVarBase+0x40);
+if Array~=nil and Array~=0 then
+local Count=readInteger(CVarBase+0x48);
+local Child=nil;
+local ChildName=nil;
+local Ind=0;
+local Address=nil;
+for Ind=0,Count,1 do
+Child=readPointer(Array+(Ind*0x10));
+if not (Child==nil or Child==0) then;
+ChildName=readPointer(Child);
+if not (ChildName==nil or ChildName==0) then;
+ChildName=readString(ChildName);
+if (not (ChildName==nil or #ChildName==0)) and INDEX==ChildName then;
+Address=Child+0x40;--Value Address
+break;
+end;
+end;
+end;
+end;
+if Address~=0 then;
+return Address;
+end;
+
+end;
+end;
+
 end;
 end;
 end;
