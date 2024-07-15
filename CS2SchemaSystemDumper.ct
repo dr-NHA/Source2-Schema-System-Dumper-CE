@@ -12,7 +12,10 @@
 if OpenProcess("cS2") then;
 createThread();
 createThread(function();sleep(100);if memrec.Active then;
-SetupCSGOBases();
+CSGOSetupBasics();
+CSGOSetupEntitySystem();
+CSGOSetupCVars();
+CSGOSetupButtons();
 CSchemaSystem.GetSchemaSystem();
 end;end);
 else
@@ -23,17 +26,24 @@ end
       <CheatEntries>
         <CheatEntry>
           <ID>196</ID>
-          <Description>"Schema System Dumpers"</Description>
+          <Description>"Dumpers"</Description>
           <Options moHideChildren="1"/>
           <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
-              <ID>254</ID>
-              <Description>"Dump SchemaSytem To Root Of C Drive (Edit To Change Path)"</Description>
-              <LastState/>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
+              <ID>388</ID>
+              <Description>"Schema System"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>387</ID>
+                  <Description>"Dump To Root Of C Drive (Edit To Change Path)"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
 [ENABLE]
 if memrec~=nil and NHA_CS2_D2CD==nil then;
 NHA_CS2_D2CD=true;
@@ -48,13 +58,13 @@ end);
 end;
 [DISABLE]
 </AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>197</ID>
-              <Description>"Dump SchemaSytem To Lua Console (Cheat engine will lag but give it a moment!)"</Description>
-              <LastState/>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>197</ID>
+                  <Description>"Dump To Lua Console (Cheat engine will lag but give it a moment!)"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
 [ENABLE]
 if memrec~=nil and NHA_CS2_D2LC==nil then;
 NHA_CS2_D2LC=true;
@@ -69,6 +79,574 @@ end);
 end;
 [DISABLE]
 </AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>389</ID>
+              <Description>"Buttons"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>254</ID>
+                  <Description>"Dump To Root Of C Drive (Edit To Change Path)"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+[ENABLE]
+if memrec~=nil and NHA_CS2_D2CD==nil then;
+NHA_CS2_D2CD=true;
+createThread(function();
+sleep(100);
+if memrec.Active then;
+CSGODumpButtonsToFilePath("C:\\CS2Buttons_DumpedByNHA.txt");
+memrec.Active=false;
+end;
+NHA_CS2_D2CD=nil;
+end);
+end;
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>410</ID>
+                  <Description>"Dump To Lua Console (Cheat engine will lag but give it a moment!)"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+[ENABLE]
+if memrec~=nil and NHA_CS2_D2LC==nil then;
+NHA_CS2_D2LC=true;
+createThread(function();
+sleep(100);
+if memrec.Active then;
+CSGODumpButtonsToLuaConsole();
+memrec.Active=false;
+end;
+NHA_CS2_D2LC=nil;
+end);
+end;
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>411</ID>
+              <Description>"CVars"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>417</ID>
+                  <Description>"This doesnt work with commands like noclip and kill"</Description>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <GroupHeader>1</GroupHeader>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>416</ID>
+                  <Description>"Enable sv_infinite_ammo"</Description>
+                  <LastState Activated="1"/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+[ENABLE]
+CSGOSetCVarValue("sv_infinite_ammo",true);
+[DISABLE]
+CSGOSetCVarValue("sv_infinite_ammo",false);
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>415</ID>
+                  <Description>"Enable cl_crosshair_recoil "</Description>
+                  <LastState Activated="1"/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+[ENABLE]
+CSGOSetCVarValue("cl_crosshair_recoil",true);
+[DISABLE]
+CSGOSetCVarValue("cl_crosshair_recoil",false);
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>414</ID>
+                  <Description>"Enable Cheats"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+[ENABLE]
+CSGOSetCVarValue("sv_cheats",true);
+[DISABLE]
+CSGOSetCVarValue("sv_cheats",false);
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>412</ID>
+                  <Description>"Dump To Root Of C Drive (Edit To Change Path)"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+[ENABLE]
+createThread(function();
+sleep(100);
+if memrec.Active then;
+CSGODumpCVarsToFilePath("C:\\CS2CVars_DumpedByNHA.txt");
+memrec.Active=false;
+end;
+end);
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>413</ID>
+                  <Description>"Dump To Lua Console (Cheat engine will lag but give it a moment!)"</Description>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+[ENABLE]
+createThread(function();
+sleep(100);
+if memrec.Active then;
+CSGODumpCVarsToLuaConsole();
+memrec.Active=false;
+end;
+end);
+[DISABLE]
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>355</ID>
+          <Description>"Functions"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="00000000"/>
+          <GroupHeader>1</GroupHeader>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>356</ID>
+              <Description>"Test Call Plat_MessageBox"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$lua}
+[ENABLE]
+createThread(function();
+sleep(10);
+if memrec.Active and CSGOCallPlatformMessageBox==nil then;
+CSGOCallPlatformMessageBox=allocateMemory(0x1000);
+writeString(CSGOCallPlatformMessageBox,"Title?");
+writePointer(CSGOCallPlatformMessageBox+0x200,CSGOCallPlatformMessageBox+0x208);
+writeString(CSGOCallPlatformMessageBox+0x208,"Text?");
+executeCodeEx(0,90000, getAddress("tier0.Plat_MessageBox"),CSGOCallPlatformMessageBox,CSGOCallPlatformMessageBox+0x208);
+deAlloc(CSGOCallPlatformMessageBox);
+memrec.Active=false;
+CSGOCallPlatformMessageBox=nil;
+end;
+end);
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>357</ID>
+              <Description>"Test Call Plat_MessageBox"</Description>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$lua}
+[ENABLE]
+createThread(function();
+sleep(10);
+if memrec.Active and CSGOCallPlatformMessageBox==nil then;
+CSGOCallPlatformMessageBox=allocateMemory(0x1000);
+writeString(CSGOCallPlatformMessageBox,"echo Lol Printing Made Easy?");
+writePointer(CSGOCallPlatformMessageBox+0x200,CSGOCallPlatformMessageBox+0x208);
+writeString(CSGOCallPlatformMessageBox+0x208,"echo Lol Printing Made Easy?");
+executeCodeEx(0,90000, 0x7FF9DEEC9190,CSGOCallPlatformMessageBox,CSGOCallPlatformMessageBox+0x208);
+deAlloc(CSGOCallPlatformMessageBox);
+memrec.Active=false;
+CSGOCallPlatformMessageBox=nil;
+end;
+end);
+[DISABLE]
+</AssemblerScript>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>359</ID>
+          <Description>"CSGOInput"</Description>
+          <Options moHideChildren="1"/>
+          <LastState Value="" RealAddress="7FFA424B7E10"/>
+          <ShowAsSigned>0</ShowAsSigned>
+          <GroupHeader>1</GroupHeader>
+          <Address>CSGOInput</Address>
+          <Offsets>
+            <Offset>0</Offset>
+          </Offsets>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>375</ID>
+              <Description>"Buttons"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <GroupHeader>1</GroupHeader>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>374</ID>
+                  <Description>"attack"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA422AC130"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.attack</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>376</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="256" RealAddress="7FFA422AC160"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>377</ID>
+                  <Description>"jump"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA422AC640"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.jump</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>378</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="256" RealAddress="7FFA422AC670"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>379</ID>
+                  <Description>"duck"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA422AC6D0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.duck</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>380</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="256" RealAddress="7FFA422AC700"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>381</ID>
+                  <Description>"forward"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA422AC370"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.forward</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>382</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="256" RealAddress="7FFA422AC3A0"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>383</ID>
+                  <Description>"back"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA422AC400"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.back</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>384</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="256" RealAddress="7FFA422AC430"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>385</ID>
+                  <Description>"use"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA422AC5B0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.use</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>386</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="256" RealAddress="7FFA422AC5E0"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>390</ID>
+                  <Description>"turnleft"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA422AC250"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.turnleft</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>391</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="0" RealAddress="7FFA422AC280"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>392</ID>
+                  <Description>"turnright"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA422AC2E0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.turnright</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>393</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="0" RealAddress="7FFA422AC310"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>394</ID>
+                  <Description>"left"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA422AC490"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.left</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>395</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="256" RealAddress="7FFA422AC4C0"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>396</ID>
+                  <Description>"right"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA422AC520"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.right</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>397</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="256" RealAddress="7FFA422AC550"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>398</ID>
+                  <Description>"attack2"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA422AC1C0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.attack2</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>399</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="256" RealAddress="7FFA422AC1F0"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>400</ID>
+                  <Description>"reload"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA422AC0A0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.reload</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>401</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="256" RealAddress="7FFA422AC0D0"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>402</ID>
+                  <Description>"sprint"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA422AC010"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.sprint</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>403</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="0" RealAddress="7FFA422AC040"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>404</ID>
+                  <Description>"showscores"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA424B7BE0"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.showscores</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>405</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="0" RealAddress="7FFA424B7C10"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>406</ID>
+                  <Description>"zoom"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA424B7C70"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.zoom</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>407</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="0" RealAddress="7FFA424B7CA0"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>408</ID>
+                  <Description>"lookatweapon"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="7FFA424B7D00"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+CSGOInput.lookatweapon</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>409</ID>
+                      <Description>"State"</Description>
+                      <LastState Value="0" RealAddress="7FFA424B7D30"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>4 Bytes</VariableType>
+                      <Address>+30</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
             </CheatEntry>
           </CheatEntries>
         </CheatEntry>
@@ -76,7 +654,7 @@ end;
           <ID>1</ID>
           <Description>"ViewMatrix"</Description>
           <Options moHideChildren="1"/>
-          <LastState Value="" RealAddress="7FF9A357FCB0"/>
+          <LastState Value="" RealAddress="7FFA424AFCB0"/>
           <ShowAsSigned>0</ShowAsSigned>
           <GroupHeader>1</GroupHeader>
           <Address>ViewMatrix</Address>
@@ -85,7 +663,7 @@ end;
               <ID>6</ID>
               <Description>"M0"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="7FF9A357FCB0"/>
+              <LastState Value="" RealAddress="7FFA424AFCB0"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>+0</Address>
@@ -93,7 +671,7 @@ end;
                 <CheatEntry>
                   <ID>2</ID>
                   <Description>"0"</Description>
-                  <LastState Value="0.620834887" RealAddress="7FF9A357FCB0"/>
+                  <LastState Value="0.290194124" RealAddress="7FFA424AFCB0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -101,7 +679,7 @@ end;
                 <CheatEntry>
                   <ID>3</ID>
                   <Description>"1"</Description>
-                  <LastState Value="-0.1030214205" RealAddress="7FF9A357FCB4"/>
+                  <LastState Value="0.6915830374" RealAddress="7FFA424AFCB4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -109,7 +687,7 @@ end;
                 <CheatEntry>
                   <ID>4</ID>
                   <Description>"2"</Description>
-                  <LastState Value="0" RealAddress="7FF9A357FCB8"/>
+                  <LastState Value="0" RealAddress="7FFA424AFCB8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -117,7 +695,7 @@ end;
                 <CheatEntry>
                   <ID>5</ID>
                   <Description>"3"</Description>
-                  <LastState Value="-676.4572754" RealAddress="7FF9A357FCBC"/>
+                  <LastState Value="646.8771973" RealAddress="7FFA424AFCBC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -128,7 +706,7 @@ end;
               <ID>17</ID>
               <Description>"M1"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="7FF9A357FCC0"/>
+              <LastState Value="" RealAddress="7FFA424AFCC0"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>+10</Address>
@@ -136,7 +714,7 @@ end;
                 <CheatEntry>
                   <ID>18</ID>
                   <Description>"0"</Description>
-                  <LastState Value="-8.005705432E-9" RealAddress="7FF9A357FCC0"/>
+                  <LastState Value="5.374231193E-8" RealAddress="7FFA424AFCC0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -144,7 +722,7 @@ end;
                 <CheatEntry>
                   <ID>19</ID>
                   <Description>"1"</Description>
-                  <LastState Value="-4.824454081E-8" RealAddress="7FF9A357FCC4"/>
+                  <LastState Value="-2.255073461E-8" RealAddress="7FFA424AFCC4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -152,7 +730,7 @@ end;
                 <CheatEntry>
                   <ID>20</ID>
                   <Description>"2"</Description>
-                  <LastState Value="1.11879909" RealAddress="7FF9A357FCC8"/>
+                  <LastState Value="1.333332896" RealAddress="7FFA424AFCC8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -160,7 +738,7 @@ end;
                 <CheatEntry>
                   <ID>21</ID>
                   <Description>"3"</Description>
-                  <LastState Value="-71.0810318" RealAddress="7FF9A357FCCC"/>
+                  <LastState Value="95.50484467" RealAddress="7FFA424AFCCC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -171,7 +749,7 @@ end;
               <ID>12</ID>
               <Description>"M2"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="7FF9A357FCD0"/>
+              <LastState Value="" RealAddress="7FFA424AFCD0"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>+20</Address>
@@ -179,7 +757,7 @@ end;
                 <CheatEntry>
                   <ID>13</ID>
                   <Description>"0"</Description>
-                  <LastState Value="0.1637670994" RealAddress="7FF9A357FCD0"/>
+                  <LastState Value="-0.9223438501" RealAddress="7FFA424AFCD0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -187,7 +765,7 @@ end;
                 <CheatEntry>
                   <ID>14</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.9869046807" RealAddress="7FF9A357FCD4"/>
+                  <LastState Value="0.3870233595" RealAddress="7FFA424AFCD4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -195,7 +773,7 @@ end;
                 <CheatEntry>
                   <ID>15</ID>
                   <Description>"2"</Description>
-                  <LastState Value="4.372888185E-8" RealAddress="7FF9A357FCD8"/>
+                  <LastState Value="4.372243012E-8" RealAddress="7FFA424AFCD8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -203,7 +781,7 @@ end;
                 <CheatEntry>
                   <ID>16</ID>
                   <Description>"3"</Description>
-                  <LastState Value="751.5430908" RealAddress="7FF9A357FCDC"/>
+                  <LastState Value="2231.841797" RealAddress="7FFA424AFCDC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -214,7 +792,7 @@ end;
               <ID>7</ID>
               <Description>"M3"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="7FF9A357FCE0"/>
+              <LastState Value="" RealAddress="7FFA424AFCE0"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>+30</Address>
@@ -222,7 +800,7 @@ end;
                 <CheatEntry>
                   <ID>8</ID>
                   <Description>"0"</Description>
-                  <LastState Value="0.1637015939" RealAddress="7FF9A357FCE0"/>
+                  <LastState Value="-0.9221109152" RealAddress="7FFA424AFCE0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -230,7 +808,7 @@ end;
                 <CheatEntry>
                   <ID>9</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.9865099192" RealAddress="7FF9A357FCE4"/>
+                  <LastState Value="0.3869256079" RealAddress="7FFA424AFCE4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -238,7 +816,7 @@ end;
                 <CheatEntry>
                   <ID>10</ID>
                   <Description>"2"</Description>
-                  <LastState Value="4.371138829E-8" RealAddress="7FF9A357FCE8"/>
+                  <LastState Value="4.371138829E-8" RealAddress="7FFA424AFCE8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -246,7 +824,7 @@ end;
                 <CheatEntry>
                   <ID>11</ID>
                   <Description>"3"</Description>
-                  <LastState Value="755.2424316" RealAddress="7FF9A357FCEC"/>
+                  <LastState Value="2237.77832" RealAddress="7FFA424AFCEC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -257,7 +835,7 @@ end;
               <ID>190</ID>
               <Description>"Position"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="7FF9A35802B0"/>
+              <LastState Value="" RealAddress="7FFA424B02B0"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>+0x600</Address>
@@ -265,7 +843,7 @@ end;
                 <CheatEntry>
                   <ID>191</ID>
                   <Description>"0"</Description>
-                  <LastState Value="936.7594604" RealAddress="7FF9A35802B0"/>
+                  <LastState Value="1729.755249" RealAddress="7FFA424B02B0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -273,7 +851,7 @@ end;
                 <CheatEntry>
                   <ID>192</ID>
                   <Description>"1"</Description>
-                  <LastState Value="-921.0159912" RealAddress="7FF9A35802B4"/>
+                  <LastState Value="-1661.177368" RealAddress="7FFA424B02B4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -281,7 +859,7 @@ end;
                 <CheatEntry>
                   <ID>193</ID>
                   <Description>"2"</Description>
-                  <LastState Value="63.53329468" RealAddress="7FF9A35802B8"/>
+                  <LastState Value="-71.62875366" RealAddress="7FFA424B02B8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -294,14 +872,14 @@ end;
           <ID>198</ID>
           <Description>"PlayerControllers"</Description>
           <Options moHideChildren="1"/>
-          <LastState Value="" Activated="1" RealAddress="00000000"/>
+          <LastState Value="" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
               <ID>47</ID>
               <Description>"Player1"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="19506D43C00"/>
+              <LastState Value="" RealAddress="1D29EB72800"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>GetEntityByIndex:1</Address>
@@ -309,7 +887,7 @@ end;
                 <CheatEntry>
                   <ID>41</ID>
                   <Description>"IsLocalPlayerController"</Description>
-                  <LastState Value="1" RealAddress="19506D442C0"/>
+                  <LastState Value="1" RealAddress="1D29EB72EC0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>+CBasePlayerController.m_bIsLocalPlayerController</Address>
@@ -317,7 +895,7 @@ end;
                 <CheatEntry>
                   <ID>42</ID>
                   <Description>"CHandle&lt;C_CSPlayerPawn&gt;"</Description>
-                  <LastState Value="01E903F6" RealAddress="19506D441FC"/>
+                  <LastState Value="01400109" RealAddress="1D29EB72DFC"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
@@ -326,7 +904,7 @@ end;
                 <CheatEntry>
                   <ID>43</ID>
                   <Description>"PlayerName"</Description>
-                  <LastState RealAddress="19506D44230"/>
+                  <LastState RealAddress="1D29EB72E30"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>String</VariableType>
                   <Length>255</Length>
@@ -338,7 +916,7 @@ end;
                 <CheatEntry>
                   <ID>258</ID>
                   <Description>"SteamID"</Description>
-                  <LastState Value="0110000168D87059" RealAddress="19506D442B8"/>
+                  <LastState Value="0110000168D87059" RealAddress="1D29EB72EB8"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>8 Bytes</VariableType>
@@ -359,7 +937,7 @@ end;
               <ID>207</ID>
               <Description>"Player1"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="1958EE90000"/>
+              <LastState Value="" RealAddress="1D290DB2800"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>GetPawnByIndex:1</Address>
@@ -367,15 +945,15 @@ end;
                 <CheatEntry>
                   <ID>211</ID>
                   <Description>"Landing"</Description>
-                  <LastState Value="161" RealAddress="1958EE903CC"/>
+                  <LastState Value="129" RealAddress="1D290DB2BCC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
-                  <Address>+3CC</Address>
+                  <Address>+C_BaseEntity.m_fFlags</Address>
                 </CheatEntry>
                 <CheatEntry>
                   <ID>256</ID>
                   <Description>"m_iHealth"</Description>
-                  <LastState Value="100" RealAddress="1958EE90324"/>
+                  <LastState Value="100" RealAddress="1D290DB2B24"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>+C_BaseEntity.m_iHealth</Address>
@@ -383,32 +961,24 @@ end;
                 <CheatEntry>
                   <ID>257</ID>
                   <Description>"m_iHealth"</Description>
-                  <LastState Value="100" RealAddress="1958EE90320"/>
+                  <LastState Value="100" RealAddress="1D290DB2B20"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>+C_BaseEntity.m_iMaxHealth</Address>
                 </CheatEntry>
                 <CheatEntry>
-                  <ID>218</ID>
-                  <Description>"Velocity"</Description>
-                  <LastState Value="0" RealAddress="1958EE903E0"/>
-                  <ShowAsSigned>0</ShowAsSigned>
-                  <VariableType>Float</VariableType>
-                  <Address>+0x3E0</Address>
-                </CheatEntry>
-                <CheatEntry>
                   <ID>220</ID>
-                  <Description>"vOldOrigin"</Description>
+                  <Description>"Velocity"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="1958EE91274"/>
+                  <LastState Value="" RealAddress="1D290DB2BE0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
-                  <Address>+C_BasePlayerPawn.m_vOldOrigin</Address>
+                  <Address>+C_BaseEntity.m_vecVelocity</Address>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>221</ID>
                       <Description>"0"</Description>
-                      <LastState Value="1216.124756" RealAddress="1958EE91274"/>
+                      <LastState Value="0" RealAddress="1D290DB2BE0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -416,7 +986,7 @@ end;
                     <CheatEntry>
                       <ID>222</ID>
                       <Description>"1"</Description>
-                      <LastState Value="-1185.248779" RealAddress="1958EE91278"/>
+                      <LastState Value="0" RealAddress="1D290DB2BE4"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -424,7 +994,42 @@ end;
                     <CheatEntry>
                       <ID>223</ID>
                       <Description>"2"</Description>
-                      <LastState Value="-135.46875" RealAddress="1958EE9127C"/>
+                      <LastState Value="0" RealAddress="1D290DB2BE8"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>+8</Address>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>366</ID>
+                  <Description>"vOldOrigin"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="1D290DB3A74"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+C_BasePlayerPawn.m_vOldOrigin</Address>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>367</ID>
+                      <Description>"0"</Description>
+                      <LastState Value="1729.754517" RealAddress="1D290DB3A74"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>+0</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>368</ID>
+                      <Description>"1"</Description>
+                      <LastState Value="-1661.177124" RealAddress="1D290DB3A78"/>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>Float</VariableType>
+                      <Address>+4</Address>
+                    </CheatEntry>
+                    <CheatEntry>
+                      <ID>369</ID>
+                      <Description>"2"</Description>
+                      <LastState Value="-135.46875" RealAddress="1D290DB3A7C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
@@ -445,7 +1050,7 @@ end;
 if CSGO_RSLC~=nil then;unregisterSymbolLookupCallback(CSGO_RSLC);CSGO_RSLC=nil;end;
 if CSGO_RSDO~=nil then;unregisterStructureDissectOverride(CSGO_RSDO);CSGO_RSDO=nil;end;
 
-if 1 then;--NHA CE Helpers
+if 1 then;--NHA CE Helpers,
 if 1 then;--Function Name Register
 FNR=function(Name);registerLuaFunctionHighlight(Name);end;FNR("FNR");
 -- Fast Function Name Register
@@ -593,16 +1198,101 @@ return byteTableToString(BA);
 end;
 FNR("NHA_CE.ReadString");
 
+NHA_CE.FindPattern=function(body, pattern, masks, start)
+    start = start or 0
+    local foundIndex = -1
+    if not body or #body == 0 or #pattern == 0 or start &gt; #body - #pattern or #pattern &gt; #body then
+        return foundIndex
+    end
+
+    for index = start, #body - #pattern do
+        if (body[index + 1] &amp; masks[1]) == (pattern[1] &amp; masks[1]) then
+            local match = true
+            for index2 = 2, #pattern do
+                if (body[index + index2] &amp; masks[index2]) ~= (pattern[index2] &amp; masks[index2]) then
+                    match = false
+                    break
+                end
+            end
+            if match then
+                foundIndex = index
+                break
+            end
+        end
+    end
+
+    return foundIndex
+end
+FNR("NHA_CE.FindPattern");
+
+ NHA_CE.FindIndexOf=function(body, start, ...)
+    local search = {...}
+    start = start or 0
+    local mask = {}
+    for i = 1, #search do
+        mask[i] = 0xFF
+    end
+    return NHA_CE.FindPattern(body, search, mask, start)
+end
+FNR("NHA_CE.FindIndexOf");
 
 RegisterAndPrint=function(Name,Address)
-registerSymbol(Name,CSchemaSystem.Instruction);
+registerSymbol(Name,Address);
 print(Name..": 0x"..NHA_CE.GetHexAddress(Address));
 end
 FNR("RegisterAndPrint");
 
 end;
 
-if 1 then;--Schema System Dumper
+if 1 then;--Basic Stuff,
+
+CSGOSetupBasics=function();
+
+--[[
+client.dll.text+7D4E1C - 48 8D 4C 24 40        - lea rcx,[rsp+40]
+client.dll.text+7D4E21 - E8 AACDF4FF           - call client.dll.text+721BD0
+client.dll.text+7D4E26 - 48 8D 05 D3A52401     - lea rax,[client.dll+1A20400] { (455.68) }
+client.dll.text+7D4E2D - 41 C6 86 30130000 01  - mov byte ptr [r14+00001330],01 { 1 }
+client.dll.text+7D4E35 - 48 8D 0D 949E2401     - lea rcx,[client.dll+1A1FCD0] { (0.75) } &lt;View Matrix
+client.dll.text+7D4E3C - 48 89 44 24 28        - mov [rsp+28],rax
+client.dll.text+7D4E41 - 48 89 4C 24 20        - mov [rsp+20],rcx
+client.dll.text+7D4E46 - 4C 8D 0D 73A52401     - lea r9,[client.dll+1A203C0] { (0.75) }
+client.dll.text+7D4E4D - 48 8B 0D 8C151401     - mov rcx,[client.dll+19173E0] { (14EBDEE05C0) }
+client.dll.text+7D4E54 - 4C 8D 05 25A52401     - lea r8,[client.dll+1A20380] { (1.00) }
+client.dll.text+7D4E5B - 49 8D 56 10           - lea rdx,[r14+10]
+client.dll.text+7D4E5F - E8 CCEFA2FF           - call client.dll.text+203E30
+client.dll.text+7D4E64 - 41 F6 86 9D050000 02  - test byte ptr [r14+0000059D],02 { 2 }
+48 8D 0D ?? ?? ?? ?? 48 89 44 24 28 48 89 4C 24 20 4C 8D 0D ?? ?? ?? ?? 48 8B 0D 8C151401    4C 8D 05 25A52401    49 8D 56 10
+48 8D 0D ?? ?? ?? ?? 48 89 44 24 28 48 89 4C 24 20 4C
+
+]]
+local ViewMatrixInstruction=NHA_CE.UniqueScanModule("48 8D 0D ?? ?? ?? ?? 48 89 44 24 28 48 89 4C 24 20 4C 8D","client.dll");
+RegisterAndPrint("ViewMatrixInstruction",ViewMatrixInstruction);
+RegisterAndPrint("ViewMatrix",NHA_CE.CBUFF(ViewMatrixInstruction,0x3));
+
+--[[
+client.dll.text+849F50 - 48 89 5C 24 08        - mov [rsp+08],rbx
+client.dll.text+849F55 - 57                    - push rdi
+client.dll.text+849F56 - 48 83 EC 20           - sub rsp,20 { 32 }
+client.dll.text+849F5A - 48 8B 1D C765FE00     - mov rbx,[client.dll.data+BF528] { (7FFBF3021538) }
+client.dll.text+849F61 - 48 63 05 B865FE00     - movsxd  rax,dword ptr [client.dll.data+BF520] { (0) }
+client.dll.text+849F68 - 48 8D 3C C3           - lea rdi,[rbx+rax*8]
+client.dll.text+849F6C - 48 3B DF              - cmp rbx,rdi
+client.dll.text+849F6F - 74 15                 - je client.dll.text+849F86
+client.dll.text+849F71 - 48 8B 0B              - mov rcx,[rbx]
+client.dll.text+849F74 - 48 8B 01              - mov rax,[rcx]
+client.dll.text+849F77 - FF 90 800A0000        - call qword ptr [rax+00000A80]
+]]
+local LocalPlayerInstruction=NHA_CE.UniqueScanModule("48 8B 1D ?? ?? ?? ?? 48 63 05 ?? ?? ?? ?? 48 8D 3C C3 48 ?? ?? 74 15","client.dll");
+RegisterAndPrint("LocalPlayerInstruction",LocalPlayerInstruction);
+RegisterAndPrint("LocalPlayerPawnPtr",NHA_CE.CBUFF(LocalPlayerInstruction,0x3));
+
+end;
+FNR("CSGOSetupBasics");
+
+end;
+
+if 1 then;--Schema System Dumper,
 
 if 1 then;--Instructions
 --[[Exposed In All Modules But Found In Client.dll (Yes I Could Just Use GetProcAddress But Eh)
@@ -747,6 +1437,7 @@ FFNR("CSchemaSystem.Enums",{"AOB","Instruction","Offset"});
 
 end;
 
+if 1 then--Structure Readers
 --Read A CSchemaType_Builtin Struct By Address
 CSchemaSystem.Read_CSchemaType_Builtin=function(address);
 local _Type="";
@@ -887,6 +1578,7 @@ NumEnums=#_Enums;
 };
 end;
 FNR("CSchemaSystem.Read_CSchemaSystemTypeScope");
+end;
 
 --Parse And Get The SchemaSystem As A Lua Array (Dont Run From The UI Thread)
 CSchemaSystem.GetSchemaSystem=function();
@@ -1064,7 +1756,28 @@ FNR("CSchemaSystem.GetClassByName");
 
 end;
 
-if 1 then;--Entity System
+if 1 then;--Entity System,
+
+CSGOSetupEntitySystem=function();
+--[[
+client.dll.text+1E0FED - 48 8B 05 AC5D6001     - mov rax,[client.dll+17E7DA0] { (27931320000) }
+client.dll.text+1E0FF4 - 8B 35 9E236301        - mov esi,[client.dll+1814398] { (71) }
+client.dll.text+1E0FFA - C6 80 E50B0000 00     - mov byte ptr [rax+00000BE5],00 { 0 }
+client.dll.text+1E1001 - EB 04                 - jmp client.dll.text+1E1007
+client.dll.text+1E1003 - 44 8B 6D 6F           - mov r13d,[rbp+6F]
+client.dll.text+1E1007 - 8B 0D 074B4301        - mov ecx,[client.dll+1616B14] { (20) }
+client.dll.text+1E100D - BA 01000000           - mov edx,00000001 { 1 }
+client.dll.text+1E1012 - FF 15 8046E500        - call qword ptr [client.dll.rdata+1698] { -&gt;tier0.LoggingSystem_IsChannelEnabled }
+client.dll.text+1E1018 - 84 C0                 - test al,al
+client.dll.text+1E101A - 74 48                 - je client.dll.text+1E1064
+
+]]
+local EntityListInstruction=NHA_CE.UniqueScanModule("48 8B 05 ?? ?? ?? ?? 8B 35 ?? ?? ?? ?? C6 80 ?? ?? ?? ?? 00","client.dll");
+RegisterAndPrint("EntityListInstruction",EntityListInstruction);
+RegisterAndPrint("EntityList",NHA_CE.CBUFF(EntityListInstruction,0x3));
+end;
+FNR("CSGOSetupEntitySystem");
+
 --Get Root Of Game Entity System
 GetGameEntitySystem=function()
 return ReadPointer("EntityList");
@@ -1117,48 +1830,143 @@ FNR("HandleToEntity");
 
 end;
 
-if 1 then;--Basic Stuff
+if 1 then;--Cvars,
 
-SetupCSGOBases=function();
-
+CSGOSetupCVars=function();
 --[[
-client.dll.text+1E0FED - 48 8B 05 AC5D6001     - mov rax,[client.dll+17E7DA0] { (27931320000) }
-client.dll.text+1E0FF4 - 8B 35 9E236301        - mov esi,[client.dll+1814398] { (71) }
-client.dll.text+1E0FFA - C6 80 E50B0000 00     - mov byte ptr [rax+00000BE5],00 { 0 }
-client.dll.text+1E1001 - EB 04                 - jmp client.dll.text+1E1007
-client.dll.text+1E1003 - 44 8B 6D 6F           - mov r13d,[rbp+6F]
-client.dll.text+1E1007 - 8B 0D 074B4301        - mov ecx,[client.dll+1616B14] { (20) }
-client.dll.text+1E100D - BA 01000000           - mov edx,00000001 { 1 }
-client.dll.text+1E1012 - FF 15 8046E500        - call qword ptr [client.dll.rdata+1698] { -&gt;tier0.LoggingSystem_IsChannelEnabled }
-client.dll.text+1E1018 - 84 C0                 - test al,al
-client.dll.text+1E101A - 74 48                 - je client.dll.text+1E1064
-
+ client.dll.text+111B8F0 - 48 83 EC 28           - sub rsp,28 { 40 }
+client.dll.text+111B8F4 - 48 83 3D BCC59F00 00  - cmp qword ptr [CCvar],00 { (7FFA802AC590),0 }
+client.dll.text+111B8FC - 74 25                 - je client.dll.text+111B923
+client.dll.text+111B8FE - 80 3D 2BD39F00 00     - cmp byte ptr [client.dll+1B19C30],00 { (1),0 }
+client.dll.text+111B905 - 75 1C                 - jne client.dll.text+111B923
+client.dll.text+111B907 - C6 05 22D39F00 01     - mov byte ptr [client.dll+1B19C30],01 { (1),1 }
+client.dll.text+111B90E - 48 89 0D 13D39F00     - mov [client.dll+1B19C28],rcx { (8) }
+client.dll.text+111B915 - E8 5655FFFF           - call client.dll.text+1110E70
+client.dll.text+111B91A - 48 83 C4 28           - add rsp,28 { 40 }
+client.dll.text+111B91E - E9 1D79FEFF           - jmp client.dll.text+1103240
+client.dll.text+111B923 - 48 83 C4 28           - add rsp,28 { 40 }
+client.dll.text+111B927 - C3                    - ret
 ]]
-local EntityListInstruction=NHA_CE.UniqueScanModule("48 8B 05 ?? ?? ?? ?? 8B 35 ?? ?? ?? ?? C6 80 ?? ?? ?? ?? 00","client.dll");
-registerSymbol("EntityList",NHA_CE.CBUFF(EntityListInstruction,0x3));
+local CVarInstruction=NHA_CE.UniqueScanModule("48 83 3D ?? ?? ?? ?? 00 74 25 80 3D ?? ?? ?? ?? 00","client.dll");
+RegisterAndPrint("CVarInstruction",CVarInstruction);
+local CVarPtr=NHA_CE.CBUFF(CVarInstruction,0x3)+1;
+RegisterAndPrint("CVarPtr",CVarPtr);
+end;
+FNR("CSGOSetupCVars");
 
+CSGODumpCVars=function();
+local CVarBase=ReadPointer("CVarPtr");
+local Array=readPointer(CVarBase+0x40);
+local Count=readInteger(CVarBase+0x48);
+local Child=nil;
+local ChildName=nil;
+local Ind=0;
+local Content="Count: "..Count.."\n";
+for Ind=0,Count,1 do
+Child=readPointer(Array+(Ind*0x10));
+if not (Child==nil or Child==0) then;
+ChildName=readPointer(Child);
+if not (ChildName==nil or ChildName==0) then;
+ChildName=readString(ChildName);
+if not (ChildName==nil or #ChildName==0) then;
+local iTimesModified=readInteger(Child+0x2C);
+--Data Seems To Be At 40,
+local bState=readInteger(Child+0x40);
+Content=Content.."CVAR["..Ind.."]: "..ChildName..", Value: "..NHA_CE.GetHexAddress(bState).." Address: "..NHA_CE.GetHexAddress(Child).."\n";
+end;
+end;
+end;
+end;
+return Content;
+end;
+FNR("CSGODumpCVars");
 
---[[
-client.dll.text+7D4E1C - 48 8D 4C 24 40        - lea rcx,[rsp+40]
-client.dll.text+7D4E21 - E8 AACDF4FF           - call client.dll.text+721BD0
-client.dll.text+7D4E26 - 48 8D 05 D3A52401     - lea rax,[client.dll+1A20400] { (455.68) }
-client.dll.text+7D4E2D - 41 C6 86 30130000 01  - mov byte ptr [r14+00001330],01 { 1 }
-client.dll.text+7D4E35 - 48 8D 0D 949E2401     - lea rcx,[client.dll+1A1FCD0] { (0.75) } &lt;View Matrix
-client.dll.text+7D4E3C - 48 89 44 24 28        - mov [rsp+28],rax
-client.dll.text+7D4E41 - 48 89 4C 24 20        - mov [rsp+20],rcx
-client.dll.text+7D4E46 - 4C 8D 0D 73A52401     - lea r9,[client.dll+1A203C0] { (0.75) }
-client.dll.text+7D4E4D - 48 8B 0D 8C151401     - mov rcx,[client.dll+19173E0] { (14EBDEE05C0) }
-client.dll.text+7D4E54 - 4C 8D 05 25A52401     - lea r8,[client.dll+1A20380] { (1.00) }
-client.dll.text+7D4E5B - 49 8D 56 10           - lea rdx,[r14+10]
-client.dll.text+7D4E5F - E8 CCEFA2FF           - call client.dll.text+203E30
-client.dll.text+7D4E64 - 41 F6 86 9D050000 02  - test byte ptr [r14+0000059D],02 { 2 }
-48 8D 0D ?? ?? ?? ?? 48 89 44 24 28 48 89 4C 24 20 4C 8D 0D ?? ?? ?? ?? 48 8B 0D 8C151401    4C 8D 05 25A52401    49 8D 56 10
-48 8D 0D ?? ?? ?? ?? 48 89 44 24 28 48 89 4C 24 20 4C
+--Dump The CVars Array To The Lua Console
+CSGODumpCVarsToLuaConsole=function();
+print(CSGODumpCVars());
+end;
+FNR("CSGODumpCVarsToLuaConsole");
 
-]]
-local VMInstruction=NHA_CE.UniqueScanModule("48 8D 0D ?? ?? ?? ?? 48 89 44 24 28 48 89 4C 24 20 4C 8D","client.dll");
-registerSymbol("ViewMatrix",NHA_CE.CBUFF(VMInstruction,0x3));
+--Dump The CVars Array To The File Path
+CSGODumpCVarsToFilePath=function(FilePath);
+local file = io.open(FilePath,"w+b")
+if file then
+file:write("NHAs CS2 CVars Dumper\n"..
+"Based Off Public Sources\n"..
+"Cheat Engine Is A Very Interactive Enviroment To Develop In &lt;3\n\n"..
+CSGODumpCVars());
+file:close();
+print("Dump Finished!");
+end
+end;
+FNR("CSGODumpCVarsToFilePath");
 
+CSGOGetCVarValue=function(Name);
+local CVarBase=ReadPointer("CVarPtr");
+local Array=readPointer(CVarBase+0x40);
+local Count=readInteger(CVarBase+0x48);
+local Child=nil;
+local ChildName=nil;
+local Ind=0;
+local Content=nil;
+for Ind=0,Count,1 do
+Child=readPointer(Array+(Ind*0x10));
+if not (Child==nil or Child==0) then;
+ChildName=readPointer(Child);
+if not (ChildName==nil or ChildName==0) then;
+ChildName=readString(ChildName);
+if (not (ChildName==nil or #ChildName==0)) and Name==ChildName then;
+--Data Seems To Be At 40,
+local bState=readInteger(Child+0x40);
+Content=bState;
+break;
+end;
+end;
+end;
+end;
+return Content;
+end;
+FNR("CSGOGetCVarValue");
+
+CSGOSetCVarValue=function(Name,Value);
+local CVarBase=ReadPointer("CVarPtr");
+local Array=readPointer(CVarBase+0x40);
+local Count=readInteger(CVarBase+0x48);
+local Child=nil;
+local ChildName=nil;
+local Ind=0;
+local Content=nil;
+for Ind=0,Count,1 do
+Child=readPointer(Array+(Ind*0x10));
+if not (Child==nil or Child==0) then;
+ChildName=readPointer(Child);
+if not (ChildName==nil or ChildName==0) then;
+ChildName=readString(ChildName);
+if (not (ChildName==nil or #ChildName==0)) and Name==ChildName then;
+--Increase Times Modified,
+--[[NotNeeded?]]--writeInteger(Child+0x2C,readInteger(Child+0x2C)+1);
+--Data Seems To Be At 40,
+if type(true)=="boolean" then;
+writeQword(Child+0x40,Value and 1 or 0);
+elseif type(true)=="number" then;
+writeQword(Child+0x40,Value);
+else
+writeInteger(Child+0x40,Value);
+end;
+break;
+end;
+end;
+end;
+end;
+return Content;
+end;
+FNR("CSGOSetCVarValue");
+
+end;
+
+if 1 then;--Buttons,
+
+CSGOSetupButtons=function();
 --[[
 client.dll.text+577336 - 74 08                 - je client.dll.text+577340
 client.dll.text+577338 - 8B 90 08060000        - mov edx,[rax+00000608]
@@ -1170,31 +1978,67 @@ client.dll.text+57734C - 44 8B C5              - mov r8d,ebp
 client.dll.text+57734F - E8 CCB61E00           - call client.dll.text+762A20
 ]]
 local CSGOInputInstruction=NHA_CE.UniqueScanModule("8B 90 ?? ?? ?? ?? EB 02 33 D2 48 8B 0D","client.dll");
-registerSymbol("CSGOInput",NHA_CE.CBUFF(CSGOInputInstruction+10,0x3));
-
-
---[[
-client.dll.text+849F50 - 48 89 5C 24 08        - mov [rsp+08],rbx
-client.dll.text+849F55 - 57                    - push rdi
-client.dll.text+849F56 - 48 83 EC 20           - sub rsp,20 { 32 }
-client.dll.text+849F5A - 48 8B 1D C765FE00     - mov rbx,[client.dll.data+BF528] { (7FFBF3021538) }
-client.dll.text+849F61 - 48 63 05 B865FE00     - movsxd  rax,dword ptr [client.dll.data+BF520] { (0) }
-client.dll.text+849F68 - 48 8D 3C C3           - lea rdi,[rbx+rax*8]
-client.dll.text+849F6C - 48 3B DF              - cmp rbx,rdi
-client.dll.text+849F6F - 74 15                 - je client.dll.text+849F86
-client.dll.text+849F71 - 48 8B 0B              - mov rcx,[rbx]
-client.dll.text+849F74 - 48 8B 01              - mov rax,[rcx]
-client.dll.text+849F77 - FF 90 800A0000        - call qword ptr [rax+00000A80]
-]]
-local LocalPlayerInstruction=NHA_CE.UniqueScanModule("48 8B 1D ?? ?? ?? ?? 48 63 05 ?? ?? ?? ?? 48 8D 3C C3 48 ?? ?? 74 15","client.dll");
-registerSymbol("LocalPlayerPawnPtr",NHA_CE.CBUFF(LocalPlayerInstruction,0x3));
+RegisterAndPrint("CSGOInputInstruction",CSGOInputInstruction);
+local CSGOInputPtr=NHA_CE.CBUFF(CSGOInputInstruction+10,0x3);
+RegisterAndPrint("CSGOInput",CSGOInputPtr);
+if 1 then;--Button Dumper
+local CSGOInputAddress=readPointer(CSGOInputPtr);
+--Global
+CSGOInput={};
+local index=0;
+local ButtonOffset,Button,ButtonName,ButtonNext=0,0,nil,0;
+for index=0,0x500,0x8 do
+Button=readPointer(CSGOInputAddress+index);
+if readInteger(Button+0x4)==0 or readInteger(Button)==0 then;
+ButtonName=readPointer(Button+0x8);
+if ButtonName==nil or ButtonName==0 then;break;end;
+ButtonName=ReadString(ButtonName,32);
+if ButtonName==nil or #ButtonName==0 then;break;end;
+ButtonOffset=index;
+CSGOInput[#CSGOInput+1]={Name=ButtonName,Offset=ButtonOffset};
+--print("CSGOInput+0x"..NHA_CE.GetHexAddress(ButtonOffset).." = "..NHA_CE.GetHexAddress(Button).." &gt; ".."CSGOInput."..ButtonName);
+end;
+end
+end;
 
 end;
-FNR("SetupCSGOBases");
+FNR("CSGOSetupButtons");
+
+CSGODumpButtons=function();
+local Output="";
+if CSGOInput~=nil then;--Allow Cheat Engine To Use CSGOInput.ButtonName Offsets
+local index=1;
+for index=1,#CSGOInput,1 do
+Output=Output.."CSGOInput."..CSGOInput[index].Name.." = 0x"..NHA_CE.GetHexAddress(CSGOInput[index].Offset).."\n";
+end
+end;
+return Output;
+end;
+FNR("CSGODumpButtons");
+
+--Dump The CSGOInput Array To The Lua Console
+CSGODumpButtonsToLuaConsole=function();
+print(CSGODumpButtons());
+end;
+FNR("CSGODumpButtonsToLuaConsole");
+
+--Dump The CSGOInput Array To The File Path
+CSGODumpButtonsToFilePath=function(FilePath);
+local file = io.open(FilePath,"w+b")
+if file then
+file:write("NHAs CS2 Button Dumper\n"..
+"Based Off Public Sources\n"..
+"Cheat Engine Is A Very Interactive Enviroment To Develop In &lt;3\n\n"..
+CSGODumpButtons());
+file:close();
+print("Dump Finished!");
+end
+end;
+FNR("CSGODumpButtonsToFilePath");
 
 end;
 
-if 1 then;--Symbol Callbacks
+if 1 then;--Symbol Callbacks,
 CSGO_RSLC= registerSymbolLookupCallback(function(INPUT)
 local INDEX=0;
 local QUERY="GetEntityByIndex:";
@@ -1237,6 +2081,26 @@ break;
 end;
 end;
 end;
+end;
+end;
+end;
+
+
+if CSGOInput~=nil then;--Allow Cheat Engine To Use CSGOInput.ButtonName Offsets
+QUERY="CSGOInput.";
+INDEX=string.find(INPUT,QUERY);
+if INDEX~=nil and INDEX~=0 then;
+INDEX=string.sub(INPUT,INDEX+#QUERY);
+if INDEX ~=nil then;
+INDEX=string.lower(INDEX);
+local index=1;
+local ButtonOffset=-1;
+for index=1,#CSGOInput,1 do
+if CSGOInput[index].Name==INDEX then;
+ButtonOffset=CSGOInput[index].Offset;
+end
+end
+if ButtonOffset~=-1 then;return ButtonOffset;end;
 end;
 end;
 end;
@@ -1311,6 +2175,8 @@ structure.endUpdate();
 return true;
 end);
 FNR("CSGO_RSDO");
+
+
 end;
 
 end;
