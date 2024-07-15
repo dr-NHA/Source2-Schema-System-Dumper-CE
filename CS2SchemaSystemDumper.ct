@@ -28,7 +28,7 @@ end
           <ID>196</ID>
           <Description>"Dumpers"</Description>
           <Options moHideChildren="1"/>
-          <LastState Value="" RealAddress="00000000"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -86,7 +86,7 @@ end;
               <ID>389</ID>
               <Description>"Buttons"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="00000000"/>
+              <LastState Value="" Activated="1" RealAddress="00000000"/>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
@@ -137,7 +137,7 @@ end;
               <ID>411</ID>
               <Description>"CVars"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="00000000"/>
+              <LastState Value="" Activated="1" RealAddress="00000000"/>
               <GroupHeader>1</GroupHeader>
               <CheatEntries>
                 <CheatEntry>
@@ -242,29 +242,6 @@ writeString(CSGOCallPlatformMessageBox,"Title?");
 writePointer(CSGOCallPlatformMessageBox+0x200,CSGOCallPlatformMessageBox+0x208);
 writeString(CSGOCallPlatformMessageBox+0x208,"Text?");
 executeCodeEx(0,90000, getAddress("tier0.Plat_MessageBox"),CSGOCallPlatformMessageBox,CSGOCallPlatformMessageBox+0x208);
-deAlloc(CSGOCallPlatformMessageBox);
-memrec.Active=false;
-CSGOCallPlatformMessageBox=nil;
-end;
-end);
-[DISABLE]
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>357</ID>
-              <Description>"Test Call Plat_MessageBox"</Description>
-              <LastState/>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-[ENABLE]
-createThread(function();
-sleep(10);
-if memrec.Active and CSGOCallPlatformMessageBox==nil then;
-CSGOCallPlatformMessageBox=allocateMemory(0x1000);
-writeString(CSGOCallPlatformMessageBox,"echo Lol Printing Made Easy?");
-writePointer(CSGOCallPlatformMessageBox+0x200,CSGOCallPlatformMessageBox+0x208);
-writeString(CSGOCallPlatformMessageBox+0x208,"echo Lol Printing Made Easy?");
-executeCodeEx(0,90000, 0x7FF9DEEC9190,CSGOCallPlatformMessageBox,CSGOCallPlatformMessageBox+0x208);
 deAlloc(CSGOCallPlatformMessageBox);
 memrec.Active=false;
 CSGOCallPlatformMessageBox=nil;
