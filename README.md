@@ -15,3 +15,18 @@ Should Be Very Solid When It Comes To Games Updates!
 # Much Improvement Needed!
 
 Feel Free To Push Updates <3
+
+
+# what the fuck unknown cheats
+![image](https://github.com/user-attachments/assets/da803bad-746d-4942-94b1-b3cdd3b555f0)
+
+![image](https://github.com/user-attachments/assets/aa1f893b-6996-4ed7-b81f-7909ea8356fe)
+
+
+# clearly some bullshitery goin on behind the scenes,
+If im not allowed to post github links the same way then nobody else should be allowed to,
+So imma take my shit elsewhere OPEN CHEAT TABLES . COM
+https://opencheattables.com/
+
+FUCK YOUR ADMINS @ Unknown Cheats,
+They nothing but power tripping childeren!
