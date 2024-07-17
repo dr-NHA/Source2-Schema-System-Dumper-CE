@@ -25,8 +25,10 @@ Feel Free To Push Updates <3
 
 # clearly some bullshitery goin on behind the scenes,
 If im not allowed to post github links the same way then nobody else should be allowed to,
-So imma take my shit elsewhere OPEN CHEAT TABLES . COM
-[https://opencheattables.com/](https://opencheattables.com/viewtopic.php?t=1087)
+So imma take my shit elsewhere:
+OPEN CHEAT TABLES . COM The #1 Site For Real Modders,
+Every Other Website Is A Joke, Prove Me Wrong!
+[My Post On opencheattables](https://opencheattables.com/viewtopic.php?t=1087)
 
 FUCK YOUR ADMINS @ Unknown Cheats,
 They nothing but power tripping childeren!
