@@ -1,7 +1,11 @@
 # Source2-Schema-System-Dumper-CE
+
 Cheat Engine Source2 Schema System Offset Dumper
+
 Now With Button Dumper & CVar Dumper & Modifier <3
+
 Should Be Very Solid When It Comes To Games Updates!
+
 Works On CS2 & Deadlock, More Testing Needed For More Support!
 
 # Live Structure Analysis
