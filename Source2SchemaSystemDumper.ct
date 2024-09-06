@@ -4,7 +4,7 @@
     <CheatEntry>
       <ID>0</ID>
       <Description>"Attach"</Description>
-      <LastState/>
+      <LastState Activated="1"/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>{$lua}
 [ENABLE]
@@ -846,7 +846,7 @@ writeByte("SilentAngsRefE",0);
           <ID>1449</ID>
           <Description>"Deadlock"</Description>
           <Options moHideChildren="1"/>
-          <LastState Value="" RealAddress="00000000"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -1482,7 +1482,7 @@ end
                 <CheatEntry>
                   <ID>483</ID>
                   <Description>"r_drawskybox"</Description>
-                  <LastState Value="1" RealAddress="2428C671C70"/>
+                  <LastState Value="0" RealAddress="2428C671C70"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.r_drawskybox</Address>
@@ -1800,7 +1800,7 @@ end);
                     <CheatEntry>
                       <ID>613</ID>
                       <Description>"Count"</Description>
-                      <LastState Value="1" RealAddress="24404DE1368"/>
+                      <LastState Value="2" RealAddress="24404DE1368"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+18</Address>
@@ -2430,7 +2430,7 @@ end);
                 <CheatEntry>
                   <ID>2</ID>
                   <Description>"0"</Description>
-                  <LastState Value="0.8729196787" RealAddress="7FFB502FF680"/>
+                  <LastState Value="0.9739305973" RealAddress="7FFB502FF680"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -2438,7 +2438,7 @@ end);
                 <CheatEntry>
                   <ID>3</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.4370064139" RealAddress="7FFB502FF684"/>
+                  <LastState Value="-0.06650272012" RealAddress="7FFB502FF684"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -2446,7 +2446,7 @@ end);
                 <CheatEntry>
                   <ID>4</ID>
                   <Description>"2"</Description>
-                  <LastState Value="-1.396402438E-10" RealAddress="7FFB502FF688"/>
+                  <LastState Value="2.930142351E-9" RealAddress="7FFB502FF688"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -2454,7 +2454,7 @@ end);
                 <CheatEntry>
                   <ID>5</ID>
                   <Description>"3"</Description>
-                  <LastState Value="-1446.666992" RealAddress="7FFB502FF68C"/>
+                  <LastState Value="321.7347107" RealAddress="7FFB502FF68C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -2473,7 +2473,7 @@ end);
                 <CheatEntry>
                   <ID>18</ID>
                   <Description>"0"</Description>
-                  <LastState Value="0.002545607975" RealAddress="7FFB502FF690"/>
+                  <LastState Value="0.008128583431" RealAddress="7FFB502FF690"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -2481,7 +2481,7 @@ end);
                 <CheatEntry>
                   <ID>19</ID>
                   <Description>"1"</Description>
-                  <LastState Value="-0.005084848031" RealAddress="7FFB502FF694"/>
+                  <LastState Value="0.1190429702" RealAddress="7FFB502FF694"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -2489,7 +2489,7 @@ end);
                 <CheatEntry>
                   <ID>20</ID>
                   <Description>"2"</Description>
-                  <LastState Value="1.73762393" RealAddress="7FFB502FF698"/>
+                  <LastState Value="1.733531594" RealAddress="7FFB502FF698"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -2497,7 +2497,7 @@ end);
                 <CheatEntry>
                   <ID>21</ID>
                   <Description>"3"</Description>
-                  <LastState Value="-147.0265198" RealAddress="7FFB502FF69C"/>
+                  <LastState Value="-12.85634136" RealAddress="7FFB502FF69C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -2516,7 +2516,7 @@ end);
                 <CheatEntry>
                   <ID>13</ID>
                   <Description>"0"</Description>
-                  <LastState Value="-0.4477808177" RealAddress="7FFB502FF6A0"/>
+                  <LastState Value="0.06798186153" RealAddress="7FFB502FF6A0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -2524,7 +2524,7 @@ end);
                 <CheatEntry>
                   <ID>14</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.8944416046" RealAddress="7FFB502FF6A4"/>
+                  <LastState Value="0.9955926538" RealAddress="7FFB502FF6A4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -2532,7 +2532,7 @@ end);
                 <CheatEntry>
                   <ID>15</ID>
                   <Description>"2"</Description>
-                  <LastState Value="0.003273420734" RealAddress="7FFB502FF6A8"/>
+                  <LastState Value="-0.06868688762" RealAddress="7FFB502FF6A8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -2540,7 +2540,7 @@ end);
                 <CheatEntry>
                   <ID>16</ID>
                   <Description>"3"</Description>
-                  <LastState Value="2701.925537" RealAddress="7FFB502FF6AC"/>
+                  <LastState Value="1089.508667" RealAddress="7FFB502FF6AC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -2559,7 +2559,7 @@ end);
                 <CheatEntry>
                   <ID>8</ID>
                   <Description>"0"</Description>
-                  <LastState Value="-0.4476590455" RealAddress="7FFB502FF6B0"/>
+                  <LastState Value="0.06796337664" RealAddress="7FFB502FF6B0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -2567,7 +2567,7 @@ end);
                 <CheatEntry>
                   <ID>9</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.8941983581" RealAddress="7FFB502FF6B4"/>
+                  <LastState Value="0.9953218699" RealAddress="7FFB502FF6B4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -2575,7 +2575,7 @@ end);
                 <CheatEntry>
                   <ID>10</ID>
                   <Description>"2"</Description>
-                  <LastState Value="0.00327253039" RealAddress="7FFB502FF6B8"/>
+                  <LastState Value="-0.06866820902" RealAddress="7FFB502FF6B8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -2583,7 +2583,7 @@ end);
                 <CheatEntry>
                   <ID>11</ID>
                   <Description>"3"</Description>
-                  <LastState Value="2708.190674" RealAddress="7FFB502FF6BC"/>
+                  <LastState Value="1096.212402" RealAddress="7FFB502FF6BC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -2609,7 +2609,7 @@ end);
                     <CheatEntry>
                       <ID>191</ID>
                       <Description>"0"</Description>
-                      <LastState Value="0.448556751" RealAddress="7FFB502FFC88"/>
+                      <LastState Value="0.4370822608" RealAddress="7FFB502FFC88"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -2617,7 +2617,7 @@ end);
                     <CheatEntry>
                       <ID>192</ID>
                       <Description>"1"</Description>
-                      <LastState Value="0.4434841275" RealAddress="7FFB502FFC8C"/>
+                      <LastState Value="0.5558381677" RealAddress="7FFB502FFC8C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -2625,7 +2625,7 @@ end);
                     <CheatEntry>
                       <ID>193</ID>
                       <Description>"2"</Description>
-                      <LastState Value="0.002341697691" RealAddress="7FFB502FFC90"/>
+                      <LastState Value="0.0491370298" RealAddress="7FFB502FFC90"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
@@ -2653,7 +2653,7 @@ end);
                     <CheatEntry>
                       <ID>1836</ID>
                       <Description>"0"</Description>
-                      <LastState Value="2537.625" RealAddress="7FFB502FFDE0"/>
+                      <LastState Value="-403.28125" RealAddress="7FFB502FFDE0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -2661,7 +2661,7 @@ end);
                     <CheatEntry>
                       <ID>1837</ID>
                       <Description>"1"</Description>
-                      <LastState Value="-1758.5" RealAddress="7FFB502FFDE4"/>
+                      <LastState Value="-1068.125" RealAddress="7FFB502FFDE4"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -2669,7 +2669,7 @@ end);
                     <CheatEntry>
                       <ID>1838</ID>
                       <Description>"2"</Description>
-                      <LastState Value="75.75" RealAddress="7FFB502FFDE8"/>
+                      <LastState Value="82.65625" RealAddress="7FFB502FFDE8"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
@@ -3559,7 +3559,7 @@ end);
                         <CheatEntry>
                           <ID>1655</ID>
                           <Description>"m_flLatchValue"</Description>
-                          <LastState Value="0.3233399391" RealAddress="24420032488"/>
+                          <LastState Value="0.4266601801" RealAddress="24420032488"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flLatchValue</Address>
@@ -3803,7 +3803,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>663</ID>
                               <Description>"Yaw"</Description>
-                              <LastState Value="108.5" RealAddress="24420050130"/>
+                              <LastState Value="85.5625" RealAddress="24420050130"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+4</Address>
@@ -3813,7 +3813,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>659</ID>
                           <Description>"vecOrigin.X"</Description>
-                          <LastState Value="2467.75" RealAddress="244200500D8"/>
+                          <LastState Value="-426.6875" RealAddress="244200500D8"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.CGameSceneNode.m_vecOrigin</Address>
@@ -3821,7 +3821,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>660</ID>
                               <Description>"vecOrigin.Y"</Description>
-                              <LastState Value="-1685.9375" RealAddress="244200500DC"/>
+                              <LastState Value="-970.375" RealAddress="244200500DC"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+4</Address>
@@ -3829,7 +3829,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>661</ID>
                               <Description>"vecOrigin.Z"</Description>
-                              <LastState Value="-7.9375" RealAddress="244200500E0"/>
+                              <LastState Value="-7.96875" RealAddress="244200500E0"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+8</Address>
@@ -3847,7 +3847,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>658</ID>
                               <Description>"Yaw"</Description>
-                              <LastState Value="108.5" RealAddress="24420050114"/>
+                              <LastState Value="85.5625" RealAddress="24420050114"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+4</Address>
@@ -3904,7 +3904,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>256</ID>
                   <Description>"m_iHealth"</Description>
-                  <LastState Value="937" RealAddress="2442003174C"/>
+                  <LastState Value="1059" RealAddress="2442003174C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>+client.C_BaseEntity.m_iHealth</Address>
@@ -3956,7 +3956,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>367</ID>
                       <Description>"0"</Description>
-                      <LastState Value="2467.75" RealAddress="2442003222C"/>
+                      <LastState Value="-426.6875" RealAddress="2442003222C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -3964,7 +3964,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>368</ID>
                       <Description>"1"</Description>
-                      <LastState Value="-1685.9375" RealAddress="24420032230"/>
+                      <LastState Value="-970.375" RealAddress="24420032230"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -3972,7 +3972,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>369</ID>
                       <Description>"2"</Description>
-                      <LastState Value="-7.9375" RealAddress="24420032234"/>
+                      <LastState Value="-7.96875" RealAddress="24420032234"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
@@ -4392,7 +4392,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>475</ID>
                       <Description>"m_flGlowStartTime"</Description>
-                      <LastState Value="4927.650391" RealAddress="24420031B6C"/>
+                      <LastState Value="6270.983887" RealAddress="24420031B6C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CGlowProperty.m_flGlowStartTime</Address>
@@ -5268,7 +5268,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1620</ID>
                       <Description>"m_flGlowStartTime"</Description>
-                      <LastState Value="4927.650391" RealAddress="2442003076C"/>
+                      <LastState Value="6270.983887" RealAddress="2442003076C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CGlowProperty.m_flGlowStartTime</Address>
@@ -6144,7 +6144,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1789</ID>
                       <Description>"m_flGlowStartTime"</Description>
-                      <LastState Value="4927.650391" RealAddress="243C6332F6C"/>
+                      <LastState Value="6270.983887" RealAddress="243C6332F6C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CGlowProperty.m_flGlowStartTime</Address>
@@ -6266,7 +6266,925 @@ CSGOSKINx=nil;
       </CheatEntries>
     </CheatEntry>
   </CheatEntries>
-  <UserdefinedSymbols/>
+  <UserdefinedSymbols>
+    <SymbolEntry>
+      <Name>GetMapPathInstruction</Name>
+      <Address>7FFBC7E7E9B9</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CNetworkGameClient</Name>
+      <Address>7FFBC84A5E58</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CNetworkGameClient.MapPathOffsetInstruction</Name>
+      <Address>7FFBC7E7E9CE</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CNetworkGameClient.MapPathOffset</Name>
+      <Address>210</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>LocalPlayerInstruction</Name>
+      <Address>7FFB4DE8B750</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>LocalPlayerPawnPtr</Name>
+      <Address>7FFB4FFEE4F0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>Engine2CommandBufferInstruction</Name>
+      <Address>7FFBC7FCD7E5</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>Engine2CommandBuffer</Name>
+      <Address>7FFBC84671A8</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ViewMatrixInstruction</Name>
+      <Address>7FFB4E46336B</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>ViewMatrix</Name>
+      <Address>7FFB502FF680</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CameraInstruction</Name>
+      <Address>7FFB4E0ED3D0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CameraManager</Name>
+      <Address>7FFB501648E0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CSchemaSystem::Instruction</Name>
+      <Address>7FFC16432F26</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CSchemaSystem::Pointer</Name>
+      <Address>7FFC1646F630</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CSchemaSystem::Base</Name>
+      <Address>7FFC16476720</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CSchemaSystem::ReadRoot::Instruction</Name>
+      <Address>7FFC16413500</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CSchemaSystem::TypeScope::Instruction</Name>
+      <Address>7FFC1641353B</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CSchemaSystem::TypeScope::Offset</Name>
+      <Address>190</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CSchemaSystem::ReadTypeScope::CallToInstruction</Name>
+      <Address>7FFC16413549</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CSchemaSystem::ReadTypeScope::Instruction</Name>
+      <Address>7FFC16411CD0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CSchemaSystem::TypeScope::Classes::Instruction</Name>
+      <Address>7FFC16412081</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CSchemaSystem::TypeScope::Classes</Name>
+      <Address>440</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CSchemaSystem::TypeScope::Enums::Instruction</Name>
+      <Address>7FFC164126C1</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CSchemaSystem::TypeScope::Enums</Name>
+      <Address>468</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>EntityListInstruction</Name>
+      <Address>7FFB4E45D8CB</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>EntityList</Name>
+      <Address>7FFB50354C80</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CVarInstruction</Name>
+      <Address>7FFB4F394004</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CVarPtr</Name>
+      <Address>7FFB50390D68</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>PE_SEGMENTS</Name>
+      <Address>7FF60D180220</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CUIEngineSource2Instruction</Name>
+      <Address>7FFBB16CD763</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CUIEngineSource2</Name>
+      <Address>7FFBB1BA9718</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CLabelVFTInstruction</Name>
+      <Address>7FFB4F1D69EE</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CLabelVFT</Name>
+      <Address>7FFB4FB271B0</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CPanel2DVFTInstruction</Name>
+      <Address>7FFB4F1C6971</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CPanel2DVFT</Name>
+      <Address>7FFB4FB22700</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CHud_PerfStatsBasicsVFTInstruction</Name>
+      <Address>7FFB4E728FDF</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CHud_PerfStatsBasicsVFT</Name>
+      <Address>7FFB4F84B448</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CImagePanelVFTInstruction</Name>
+      <Address>7FFB4F1FE878</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CImagePanelVFT</Name>
+      <Address>7FFB4FB2C5F8</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CCitadelInputInstruction</Name>
+      <Address>7FFB4EB4086B</Address>
+    </SymbolEntry>
+    <SymbolEntry>
+      <Name>CInput</Name>
+      <Address>7FFB4FEFE4F8</Address>
+    </SymbolEntry>
+  </UserdefinedSymbols>
+  <Structures StructVersion="2">
+    <Structure Name="CUserCmd" AutoFill="0" AutoCreate="1" DefaultHex="0" AutoDestroy="0" DoNotSaveLocal="0" RLECompression="1" AutoCreateStructsize="4096">
+      <Elements>
+        <Element Offset="0" Vartype="Pointer" Bytesize="8" OffsetHex="00000000" DisplayMethod="unsigned integer"/>
+        <Element Offset="8" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000008" DisplayMethod="hexadecimal"/>
+        <Element Offset="12" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000000C" DisplayMethod="unsigned integer"/>
+        <Element Offset="16" Vartype="Pointer" Bytesize="8" OffsetHex="00000010" DisplayMethod="unsigned integer"/>
+        <Element Offset="24" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000018" DisplayMethod="unsigned integer"/>
+        <Element Offset="40" Vartype="Pointer" Bytesize="8" OffsetHex="00000028" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer">
+          <Structure Name="Autocreated from 24416980000" AutoFill="0" AutoCreate="1" DefaultHex="0" AutoDestroy="0" DoNotSaveLocal="0" RLECompression="1" AutoCreateStructsize="4096">
+            <Elements>
+              <Element Offset="0" Vartype="Pointer" Bytesize="8" OffsetHex="00000000" DisplayMethod="unsigned integer"/>
+              <Element Offset="8" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000008" DisplayMethod="unsigned integer"/>
+              <Element Offset="16" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000010" DisplayMethod="hexadecimal"/>
+              <Element Offset="20" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000014" DisplayMethod="unsigned integer"/>
+              <Element Offset="48" Vartype="Pointer" Bytesize="8" OffsetHex="00000030" DisplayMethod="unsigned integer"/>
+              <Element Offset="56" Vartype="Pointer" Bytesize="8" OffsetHex="00000038" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="64" Vartype="Pointer" Bytesize="8" OffsetHex="00000040" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="72" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000048" DisplayMethod="unsigned integer"/>
+              <Element Offset="76" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000004C" DisplayMethod="hexadecimal"/>
+              <Element Offset="80" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="00000050" DisplayMethod="unsigned integer"/>
+              <Element Offset="100" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000064" DisplayMethod="hexadecimal"/>
+              <Element Offset="104" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000068" DisplayMethod="unsigned integer"/>
+              <Element Offset="120" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000078" DisplayMethod="hexadecimal"/>
+              <Element Offset="124" Vartype="String" Bytesize="5" OffsetHex="0000007C" DisplayMethod="unsigned integer"/>
+              <Element Offset="129" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000081" DisplayMethod="unsigned integer"/>
+              <Element Offset="132" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000084" DisplayMethod="hexadecimal"/>
+              <Element Offset="136" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000088" DisplayMethod="unsigned integer"/>
+              <Element Offset="144" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000090" DisplayMethod="hexadecimal"/>
+              <Element Offset="148" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000094" DisplayMethod="unsigned integer"/>
+              <Element Offset="176" Vartype="Pointer" Bytesize="8" OffsetHex="000000B0" DisplayMethod="unsigned integer"/>
+              <Element Offset="184" Vartype="Pointer" Bytesize="8" OffsetHex="000000B8" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="192" Vartype="Pointer" Bytesize="8" OffsetHex="000000C0" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="200" Vartype="4 Bytes" Bytesize="4" OffsetHex="000000C8" DisplayMethod="unsigned integer"/>
+              <Element Offset="204" Vartype="4 Bytes" Bytesize="4" OffsetHex="000000CC" DisplayMethod="hexadecimal"/>
+              <Element Offset="208" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="000000D0" DisplayMethod="unsigned integer"/>
+              <Element Offset="228" Vartype="4 Bytes" Bytesize="4" OffsetHex="000000E4" DisplayMethod="hexadecimal"/>
+              <Element Offset="232" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000000E8" DisplayMethod="unsigned integer"/>
+              <Element Offset="248" Vartype="4 Bytes" Bytesize="4" OffsetHex="000000F8" DisplayMethod="hexadecimal"/>
+              <Element Offset="252" Vartype="String" Bytesize="5" OffsetHex="000000FC" DisplayMethod="unsigned integer"/>
+              <Element Offset="257" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000101" DisplayMethod="unsigned integer"/>
+              <Element Offset="260" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000104" DisplayMethod="hexadecimal"/>
+              <Element Offset="264" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000108" DisplayMethod="unsigned integer"/>
+              <Element Offset="272" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000110" DisplayMethod="hexadecimal"/>
+              <Element Offset="276" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000114" DisplayMethod="unsigned integer"/>
+              <Element Offset="304" Vartype="Pointer" Bytesize="8" OffsetHex="00000130" DisplayMethod="unsigned integer"/>
+              <Element Offset="312" Vartype="Pointer" Bytesize="8" OffsetHex="00000138" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="320" Vartype="Pointer" Bytesize="8" OffsetHex="00000140" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="328" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000148" DisplayMethod="unsigned integer"/>
+              <Element Offset="332" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000014C" DisplayMethod="hexadecimal"/>
+              <Element Offset="336" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="00000150" DisplayMethod="unsigned integer"/>
+              <Element Offset="356" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000164" DisplayMethod="hexadecimal"/>
+              <Element Offset="360" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000168" DisplayMethod="unsigned integer"/>
+              <Element Offset="376" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000178" DisplayMethod="hexadecimal"/>
+              <Element Offset="380" Vartype="String" Bytesize="5" OffsetHex="0000017C" DisplayMethod="unsigned integer"/>
+              <Element Offset="385" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000181" DisplayMethod="unsigned integer"/>
+              <Element Offset="388" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000184" DisplayMethod="hexadecimal"/>
+              <Element Offset="392" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000188" DisplayMethod="unsigned integer"/>
+              <Element Offset="400" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000190" DisplayMethod="hexadecimal"/>
+              <Element Offset="404" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000194" DisplayMethod="unsigned integer"/>
+              <Element Offset="432" Vartype="Pointer" Bytesize="8" OffsetHex="000001B0" DisplayMethod="unsigned integer"/>
+              <Element Offset="440" Vartype="Pointer" Bytesize="8" OffsetHex="000001B8" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="448" Vartype="Pointer" Bytesize="8" OffsetHex="000001C0" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="456" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001C8" DisplayMethod="unsigned integer"/>
+              <Element Offset="460" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001CC" DisplayMethod="hexadecimal"/>
+              <Element Offset="464" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="000001D0" DisplayMethod="unsigned integer"/>
+              <Element Offset="484" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001E4" DisplayMethod="hexadecimal"/>
+              <Element Offset="488" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000001E8" DisplayMethod="unsigned integer"/>
+              <Element Offset="504" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001F8" DisplayMethod="hexadecimal"/>
+              <Element Offset="508" Vartype="Byte" Bytesize="1" OffsetHex="000001FC" DisplayMethod="unsigned integer"/>
+              <Element Offset="509" Vartype="String" Bytesize="4" OffsetHex="000001FD" DisplayMethod="unsigned integer"/>
+              <Element Offset="513" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000201" DisplayMethod="unsigned integer"/>
+              <Element Offset="516" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000204" DisplayMethod="hexadecimal"/>
+              <Element Offset="520" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000208" DisplayMethod="unsigned integer"/>
+              <Element Offset="528" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000210" DisplayMethod="hexadecimal"/>
+              <Element Offset="532" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000214" DisplayMethod="unsigned integer"/>
+              <Element Offset="560" Vartype="Pointer" Bytesize="8" OffsetHex="00000230" DisplayMethod="unsigned integer"/>
+              <Element Offset="568" Vartype="Pointer" Bytesize="8" OffsetHex="00000238" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="576" Vartype="Pointer" Bytesize="8" OffsetHex="00000240" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="584" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000248" DisplayMethod="unsigned integer"/>
+              <Element Offset="588" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000024C" DisplayMethod="hexadecimal"/>
+              <Element Offset="592" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="00000250" DisplayMethod="unsigned integer"/>
+              <Element Offset="612" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000264" DisplayMethod="hexadecimal"/>
+              <Element Offset="616" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000268" DisplayMethod="unsigned integer"/>
+              <Element Offset="632" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000278" DisplayMethod="hexadecimal"/>
+              <Element Offset="636" Vartype="String" Bytesize="5" OffsetHex="0000027C" DisplayMethod="unsigned integer"/>
+              <Element Offset="641" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000281" DisplayMethod="unsigned integer"/>
+              <Element Offset="644" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000284" DisplayMethod="hexadecimal"/>
+              <Element Offset="648" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000288" DisplayMethod="unsigned integer"/>
+              <Element Offset="656" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000290" DisplayMethod="hexadecimal"/>
+              <Element Offset="660" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000294" DisplayMethod="unsigned integer"/>
+              <Element Offset="688" Vartype="Pointer" Bytesize="8" OffsetHex="000002B0" DisplayMethod="unsigned integer"/>
+              <Element Offset="696" Vartype="Pointer" Bytesize="8" OffsetHex="000002B8" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="704" Vartype="Pointer" Bytesize="8" OffsetHex="000002C0" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="712" Vartype="4 Bytes" Bytesize="4" OffsetHex="000002C8" DisplayMethod="unsigned integer"/>
+              <Element Offset="716" Vartype="4 Bytes" Bytesize="4" OffsetHex="000002CC" DisplayMethod="hexadecimal"/>
+              <Element Offset="720" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000002D0" DisplayMethod="unsigned integer"/>
+              <Element Offset="736" Vartype="Double" Bytesize="8" OffsetHex="000002E0" DisplayMethod="unsigned integer"/>
+              <Element Offset="744" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000002E8" DisplayMethod="unsigned integer"/>
+              <Element Offset="760" Vartype="4 Bytes" Bytesize="4" OffsetHex="000002F8" DisplayMethod="hexadecimal"/>
+              <Element Offset="764" Vartype="String" Bytesize="5" OffsetHex="000002FC" DisplayMethod="unsigned integer"/>
+              <Element Offset="769" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000301" DisplayMethod="unsigned integer"/>
+              <Element Offset="772" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000304" DisplayMethod="hexadecimal"/>
+              <Element Offset="776" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000308" DisplayMethod="unsigned integer"/>
+              <Element Offset="784" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000310" DisplayMethod="hexadecimal"/>
+              <Element Offset="788" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000314" DisplayMethod="unsigned integer"/>
+              <Element Offset="816" Vartype="Pointer" Bytesize="8" OffsetHex="00000330" DisplayMethod="unsigned integer"/>
+              <Element Offset="824" Vartype="Pointer" Bytesize="8" OffsetHex="00000338" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="832" Vartype="Pointer" Bytesize="8" OffsetHex="00000340" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="840" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000348" DisplayMethod="unsigned integer"/>
+              <Element Offset="844" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000034C" DisplayMethod="hexadecimal"/>
+              <Element Offset="848" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="00000350" DisplayMethod="unsigned integer"/>
+              <Element Offset="868" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000364" DisplayMethod="hexadecimal"/>
+              <Element Offset="872" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000368" DisplayMethod="unsigned integer"/>
+              <Element Offset="888" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000378" DisplayMethod="hexadecimal"/>
+              <Element Offset="892" Vartype="String" Bytesize="5" OffsetHex="0000037C" DisplayMethod="unsigned integer"/>
+              <Element Offset="897" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000381" DisplayMethod="unsigned integer"/>
+              <Element Offset="900" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000384" DisplayMethod="hexadecimal"/>
+              <Element Offset="904" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000388" DisplayMethod="unsigned integer"/>
+              <Element Offset="912" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000390" DisplayMethod="hexadecimal"/>
+              <Element Offset="916" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000394" DisplayMethod="unsigned integer"/>
+              <Element Offset="944" Vartype="Pointer" Bytesize="8" OffsetHex="000003B0" DisplayMethod="unsigned integer"/>
+              <Element Offset="952" Vartype="Pointer" Bytesize="8" OffsetHex="000003B8" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="960" Vartype="Pointer" Bytesize="8" OffsetHex="000003C0" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="968" Vartype="4 Bytes" Bytesize="4" OffsetHex="000003C8" DisplayMethod="unsigned integer"/>
+              <Element Offset="972" Vartype="4 Bytes" Bytesize="4" OffsetHex="000003CC" DisplayMethod="hexadecimal"/>
+              <Element Offset="976" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="000003D0" DisplayMethod="unsigned integer"/>
+              <Element Offset="996" Vartype="4 Bytes" Bytesize="4" OffsetHex="000003E4" DisplayMethod="hexadecimal"/>
+              <Element Offset="1000" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000003E8" DisplayMethod="unsigned integer"/>
+              <Element Offset="1016" Vartype="4 Bytes" Bytesize="4" OffsetHex="000003F8" DisplayMethod="hexadecimal"/>
+              <Element Offset="1020" Vartype="String" Bytesize="5" OffsetHex="000003FC" DisplayMethod="unsigned integer"/>
+              <Element Offset="1025" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000401" DisplayMethod="unsigned integer"/>
+              <Element Offset="1028" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000404" DisplayMethod="hexadecimal"/>
+              <Element Offset="1032" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000408" DisplayMethod="unsigned integer"/>
+              <Element Offset="1040" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000410" DisplayMethod="hexadecimal"/>
+              <Element Offset="1044" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000414" DisplayMethod="unsigned integer"/>
+              <Element Offset="1072" Vartype="Pointer" Bytesize="8" OffsetHex="00000430" DisplayMethod="unsigned integer"/>
+              <Element Offset="1080" Vartype="Pointer" Bytesize="8" OffsetHex="00000438" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="1088" Vartype="Pointer" Bytesize="8" OffsetHex="00000440" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="1096" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000448" DisplayMethod="unsigned integer"/>
+              <Element Offset="1100" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000044C" DisplayMethod="hexadecimal"/>
+              <Element Offset="1104" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="00000450" DisplayMethod="unsigned integer"/>
+              <Element Offset="1124" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000464" DisplayMethod="hexadecimal"/>
+              <Element Offset="1128" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000468" DisplayMethod="unsigned integer"/>
+              <Element Offset="1144" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000478" DisplayMethod="hexadecimal"/>
+              <Element Offset="1148" Vartype="String" Bytesize="5" OffsetHex="0000047C" DisplayMethod="unsigned integer"/>
+              <Element Offset="1153" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000481" DisplayMethod="unsigned integer"/>
+              <Element Offset="1156" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000484" DisplayMethod="hexadecimal"/>
+              <Element Offset="1160" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000488" DisplayMethod="unsigned integer"/>
+              <Element Offset="1168" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000490" DisplayMethod="hexadecimal"/>
+              <Element Offset="1172" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000494" DisplayMethod="unsigned integer"/>
+              <Element Offset="1200" Vartype="Pointer" Bytesize="8" OffsetHex="000004B0" DisplayMethod="unsigned integer"/>
+              <Element Offset="1208" Vartype="Pointer" Bytesize="8" OffsetHex="000004B8" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="1216" Vartype="Pointer" Bytesize="8" OffsetHex="000004C0" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="1224" Vartype="4 Bytes" Bytesize="4" OffsetHex="000004C8" DisplayMethod="unsigned integer"/>
+              <Element Offset="1228" Vartype="4 Bytes" Bytesize="4" OffsetHex="000004CC" DisplayMethod="hexadecimal"/>
+              <Element Offset="1232" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="000004D0" DisplayMethod="unsigned integer"/>
+              <Element Offset="1252" Vartype="4 Bytes" Bytesize="4" OffsetHex="000004E4" DisplayMethod="hexadecimal"/>
+              <Element Offset="1256" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000004E8" DisplayMethod="unsigned integer"/>
+              <Element Offset="1272" Vartype="4 Bytes" Bytesize="4" OffsetHex="000004F8" DisplayMethod="hexadecimal"/>
+              <Element Offset="1276" Vartype="String" Bytesize="5" OffsetHex="000004FC" DisplayMethod="unsigned integer"/>
+              <Element Offset="1281" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000501" DisplayMethod="unsigned integer"/>
+              <Element Offset="1284" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000504" DisplayMethod="hexadecimal"/>
+              <Element Offset="1288" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000508" DisplayMethod="unsigned integer"/>
+              <Element Offset="1296" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000510" DisplayMethod="hexadecimal"/>
+              <Element Offset="1300" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000514" DisplayMethod="unsigned integer"/>
+              <Element Offset="1328" Vartype="Pointer" Bytesize="8" OffsetHex="00000530" DisplayMethod="unsigned integer"/>
+              <Element Offset="1336" Vartype="Pointer" Bytesize="8" OffsetHex="00000538" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="1344" Vartype="Pointer" Bytesize="8" OffsetHex="00000540" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="1352" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000548" DisplayMethod="unsigned integer"/>
+              <Element Offset="1356" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000054C" DisplayMethod="hexadecimal"/>
+              <Element Offset="1360" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="00000550" DisplayMethod="unsigned integer"/>
+              <Element Offset="1380" Vartype="Float" Bytesize="4" OffsetHex="00000564" DisplayMethod="unsigned integer"/>
+              <Element Offset="1384" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000568" DisplayMethod="unsigned integer"/>
+              <Element Offset="1400" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000578" DisplayMethod="hexadecimal"/>
+              <Element Offset="1404" Vartype="String" Bytesize="5" OffsetHex="0000057C" DisplayMethod="unsigned integer"/>
+              <Element Offset="1409" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000581" DisplayMethod="unsigned integer"/>
+              <Element Offset="1412" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000584" DisplayMethod="hexadecimal"/>
+              <Element Offset="1416" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000588" DisplayMethod="unsigned integer"/>
+              <Element Offset="1424" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000590" DisplayMethod="hexadecimal"/>
+              <Element Offset="1428" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000594" DisplayMethod="unsigned integer"/>
+              <Element Offset="1456" Vartype="Pointer" Bytesize="8" OffsetHex="000005B0" DisplayMethod="unsigned integer"/>
+              <Element Offset="1464" Vartype="Pointer" Bytesize="8" OffsetHex="000005B8" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="1472" Vartype="Pointer" Bytesize="8" OffsetHex="000005C0" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="1480" Vartype="4 Bytes" Bytesize="4" OffsetHex="000005C8" DisplayMethod="unsigned integer"/>
+              <Element Offset="1484" Vartype="4 Bytes" Bytesize="4" OffsetHex="000005CC" DisplayMethod="hexadecimal"/>
+              <Element Offset="1488" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="000005D0" DisplayMethod="unsigned integer"/>
+              <Element Offset="1508" Vartype="4 Bytes" Bytesize="4" OffsetHex="000005E4" DisplayMethod="hexadecimal"/>
+              <Element Offset="1512" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000005E8" DisplayMethod="unsigned integer"/>
+              <Element Offset="1528" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="000005F8" DisplayMethod="hexadecimal"/>
+              <Element Offset="1536" Vartype="Pointer" Bytesize="8" OffsetHex="00000600" DisplayMethod="unsigned integer"/>
+              <Element Offset="1544" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000608" DisplayMethod="unsigned integer"/>
+              <Element Offset="1552" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000610" DisplayMethod="hexadecimal"/>
+              <Element Offset="1556" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000614" DisplayMethod="unsigned integer"/>
+              <Element Offset="1584" Vartype="Pointer" Bytesize="8" OffsetHex="00000630" DisplayMethod="unsigned integer"/>
+              <Element Offset="1592" Vartype="Pointer" Bytesize="8" OffsetHex="00000638" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="1600" Vartype="Pointer" Bytesize="8" OffsetHex="00000640" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="1608" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000648" DisplayMethod="unsigned integer"/>
+              <Element Offset="1612" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000064C" DisplayMethod="hexadecimal"/>
+              <Element Offset="1616" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="00000650" DisplayMethod="unsigned integer"/>
+              <Element Offset="1636" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000664" DisplayMethod="hexadecimal"/>
+              <Element Offset="1640" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000668" DisplayMethod="unsigned integer"/>
+              <Element Offset="1656" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000678" DisplayMethod="hexadecimal"/>
+              <Element Offset="1660" Vartype="String" Bytesize="5" OffsetHex="0000067C" DisplayMethod="unsigned integer"/>
+              <Element Offset="1665" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000681" DisplayMethod="unsigned integer"/>
+              <Element Offset="1668" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000684" DisplayMethod="hexadecimal"/>
+              <Element Offset="1672" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000688" DisplayMethod="unsigned integer"/>
+              <Element Offset="1680" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000690" DisplayMethod="hexadecimal"/>
+              <Element Offset="1684" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000694" DisplayMethod="unsigned integer"/>
+              <Element Offset="1712" Vartype="Pointer" Bytesize="8" OffsetHex="000006B0" DisplayMethod="unsigned integer"/>
+              <Element Offset="1720" Vartype="Pointer" Bytesize="8" OffsetHex="000006B8" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="1728" Vartype="Pointer" Bytesize="8" OffsetHex="000006C0" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="1736" Vartype="4 Bytes" Bytesize="4" OffsetHex="000006C8" DisplayMethod="unsigned integer"/>
+              <Element Offset="1740" Vartype="4 Bytes" Bytesize="4" OffsetHex="000006CC" DisplayMethod="hexadecimal"/>
+              <Element Offset="1744" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="000006D0" DisplayMethod="unsigned integer"/>
+              <Element Offset="1764" Vartype="4 Bytes" Bytesize="4" OffsetHex="000006E4" DisplayMethod="hexadecimal"/>
+              <Element Offset="1768" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000006E8" DisplayMethod="unsigned integer"/>
+              <Element Offset="1784" Vartype="4 Bytes" Bytesize="4" OffsetHex="000006F8" DisplayMethod="hexadecimal"/>
+              <Element Offset="1788" Vartype="String" Bytesize="5" OffsetHex="000006FC" DisplayMethod="unsigned integer"/>
+              <Element Offset="1793" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000701" DisplayMethod="unsigned integer"/>
+              <Element Offset="1796" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000704" DisplayMethod="hexadecimal"/>
+              <Element Offset="1800" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000708" DisplayMethod="unsigned integer"/>
+              <Element Offset="1808" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000710" DisplayMethod="hexadecimal"/>
+              <Element Offset="1812" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000714" DisplayMethod="unsigned integer"/>
+              <Element Offset="1840" Vartype="Pointer" Bytesize="8" OffsetHex="00000730" DisplayMethod="unsigned integer"/>
+              <Element Offset="1848" Vartype="Pointer" Bytesize="8" OffsetHex="00000738" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="1856" Vartype="Pointer" Bytesize="8" OffsetHex="00000740" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="1864" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000748" DisplayMethod="unsigned integer"/>
+              <Element Offset="1868" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000074C" DisplayMethod="hexadecimal"/>
+              <Element Offset="1872" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="00000750" DisplayMethod="unsigned integer"/>
+              <Element Offset="1892" Vartype="Float" Bytesize="4" OffsetHex="00000764" DisplayMethod="unsigned integer"/>
+              <Element Offset="1896" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000768" DisplayMethod="unsigned integer"/>
+              <Element Offset="1912" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000778" DisplayMethod="hexadecimal"/>
+              <Element Offset="1916" Vartype="String" Bytesize="4" OffsetHex="0000077C" DisplayMethod="unsigned integer"/>
+              <Element Offset="1920" Vartype="Pointer" Bytesize="8" RLECount="16" OffsetHex="00000780" Description="Pointer to instance of CNavArea" DisplayMethod="unsigned integer"/>
+              <Element Offset="2048" Vartype="Pointer" Bytesize="8" OffsetHex="00000800" DisplayMethod="unsigned integer"/>
+              <Element Offset="2056" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000808" DisplayMethod="unsigned integer"/>
+              <Element Offset="2064" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000810" DisplayMethod="hexadecimal"/>
+              <Element Offset="2068" Vartype="4 Bytes" Bytesize="4" RLECount="7" OffsetHex="00000814" DisplayMethod="unsigned integer"/>
+              <Element Offset="2096" Vartype="Pointer" Bytesize="8" OffsetHex="00000830" DisplayMethod="unsigned integer"/>
+              <Element Offset="2104" Vartype="Pointer" Bytesize="8" OffsetHex="00000838" Description="Pointer to instance of CInButtonStatePB" DisplayMethod="unsigned integer"/>
+              <Element Offset="2112" Vartype="Pointer" Bytesize="8" OffsetHex="00000840" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+              <Element Offset="2120" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000848" DisplayMethod="unsigned integer"/>
+              <Element Offset="2124" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000084C" DisplayMethod="hexadecimal"/>
+              <Element Offset="2128" Vartype="4 Bytes" Bytesize="4" RLECount="5" OffsetHex="00000850" DisplayMethod="unsigned integer"/>
+              <Element Offset="2148" Vartype="Float" Bytesize="4" OffsetHex="00000864" DisplayMethod="unsigned integer"/>
+              <Element Offset="2152" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000868" DisplayMethod="unsigned integer"/>
+              <Element Offset="2168" Vartype="Pointer" Bytesize="8" OffsetHex="00000878" DisplayMethod="unsigned integer"/>
+              <Element Offset="2176" Vartype="Pointer" Bytesize="8" RLECount="2" OffsetHex="00000880" Description="Pointer to instance of CParticleCollectionFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2192" Vartype="Pointer" Bytesize="8" RLECount="7" OffsetHex="00000890" Description="Pointer to instance of CPerParticleFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2248" Vartype="Pointer" Bytesize="8" OffsetHex="000008C8" Description="Pointer to instance of CParticleTransformInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2256" Vartype="Pointer" Bytesize="8" RLECount="6" OffsetHex="000008D0" Description="Pointer to instance of CParticleCollectionRendererFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2304" Vartype="Pointer" Bytesize="8" RLECount="11" OffsetHex="00000900" DisplayMethod="unsigned integer"/>
+              <Element Offset="2392" Vartype="Byte" Bytesize="1" OffsetHex="00000958" DisplayMethod="unsigned integer"/>
+              <Element Offset="2393" Vartype="String" Bytesize="39" OffsetHex="00000959" DisplayMethod="unsigned integer"/>
+              <Element Offset="2432" Vartype="Pointer" Bytesize="8" OffsetHex="00000980" Description="Pointer to instance of CParticleCollectionFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2440" Vartype="Pointer" Bytesize="8" RLECount="4" OffsetHex="00000988" Description="Pointer to instance of CPerParticleFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2472" Vartype="Pointer" Bytesize="8" RLECount="3" OffsetHex="000009A8" Description="Pointer to instance of CPerParticleVecInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2496" Vartype="Pointer" Bytesize="8" OffsetHex="000009C0" Description="Pointer to instance of CParticleTransformInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2504" Vartype="Pointer" Bytesize="8" RLECount="7" OffsetHex="000009C8" Description="Pointer to instance of CParticleCollectionRendererFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2560" Vartype="Pointer" Bytesize="8" RLECount="2" OffsetHex="00000A00" Description="Pointer to instance of CParticleCollectionFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2576" Vartype="Pointer" Bytesize="8" RLECount="7" OffsetHex="00000A10" Description="Pointer to instance of CPerParticleFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2632" Vartype="Pointer" Bytesize="8" OffsetHex="00000A48" Description="Pointer to instance of CParticleTransformInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2640" Vartype="String" Bytesize="17" OffsetHex="00000A50" DisplayMethod="unsigned integer"/>
+              <Element Offset="2657" Vartype="String" Bytesize="32" OffsetHex="00000A61" DisplayMethod="unsigned integer"/>
+              <Element Offset="2689" Vartype="Byte" Bytesize="1" RLECount="3" OffsetHex="00000A81" DisplayMethod="unsigned integer"/>
+              <Element Offset="2692" Vartype="4 Bytes" Bytesize="4" RLECount="3" OffsetHex="00000A84" DisplayMethod="unsigned integer"/>
+              <Element Offset="2704" Vartype="Pointer" Bytesize="8" OffsetHex="00000A90" DisplayMethod="unsigned integer"/>
+              <Element Offset="2712" Vartype="Pointer" Bytesize="8" OffsetHex="00000A98" Description="Pointer to instance of CParticleCollectionRendererFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2720" Vartype="Pointer" Bytesize="8" OffsetHex="00000AA0" DisplayMethod="unsigned integer"/>
+              <Element Offset="2728" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000AA8" DisplayMethod="unsigned integer"/>
+              <Element Offset="2736" Vartype="Pointer" Bytesize="8" OffsetHex="00000AB0" DisplayMethod="unsigned integer"/>
+              <Element Offset="2744" Vartype="Pointer" Bytesize="8" OffsetHex="00000AB8" Description="Pointer to instance of CParticleCollectionRendererFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2752" Vartype="Pointer" Bytesize="8" OffsetHex="00000AC0" DisplayMethod="unsigned integer"/>
+              <Element Offset="2760" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000AC8" DisplayMethod="unsigned integer"/>
+              <Element Offset="2768" Vartype="Pointer" Bytesize="8" OffsetHex="00000AD0" DisplayMethod="unsigned integer"/>
+              <Element Offset="2776" Vartype="Pointer" Bytesize="8" OffsetHex="00000AD8" Description="Pointer to instance of CParticleCollectionRendererFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2784" Vartype="Pointer" Bytesize="8" OffsetHex="00000AE0" DisplayMethod="unsigned integer"/>
+              <Element Offset="2792" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000AE8" DisplayMethod="unsigned integer"/>
+              <Element Offset="2800" Vartype="Pointer" Bytesize="8" OffsetHex="00000AF0" DisplayMethod="unsigned integer"/>
+              <Element Offset="2808" Vartype="Pointer" Bytesize="8" OffsetHex="00000AF8" Description="Pointer to instance of CParticleCollectionRendererFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2816" Vartype="Pointer" Bytesize="8" RLECount="16" OffsetHex="00000B00" Description="Pointer to instance of CNavArea" DisplayMethod="unsigned integer"/>
+              <Element Offset="2944" Vartype="Pointer" Bytesize="8" OffsetHex="00000B80" Description="Pointer to instance of CParticleCollectionFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2952" Vartype="Pointer" Bytesize="8" RLECount="4" OffsetHex="00000B88" Description="Pointer to instance of CPerParticleFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="2984" Vartype="Pointer" Bytesize="8" RLECount="3" OffsetHex="00000BA8" Description="Pointer to instance of CPerParticleVecInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="3008" Vartype="Pointer" Bytesize="8" OffsetHex="00000BC0" Description="Pointer to instance of CParticleTransformInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="3016" Vartype="Pointer" Bytesize="8" RLECount="3" OffsetHex="00000BC8" DisplayMethod="unsigned integer"/>
+              <Element Offset="3040" Vartype="Pointer" Bytesize="8" OffsetHex="00000BE0" Description="Pointer to instance of std::_Ref_count_obj2&lt;CParticleNamedValueStorageLayout&gt;" DisplayMethod="unsigned integer"/>
+              <Element Offset="3048" Vartype="Pointer" Bytesize="8" RLECount="2" OffsetHex="00000BE8" DisplayMethod="unsigned integer"/>
+              <Element Offset="3064" Vartype="Pointer" Bytesize="8" OffsetHex="00000BF8" Description="Pointer to instance of std::_Ref_count_obj2&lt;CParticleNamedValueStorageLayout&gt;" DisplayMethod="unsigned integer"/>
+              <Element Offset="3072" Vartype="Pointer" Bytesize="8" RLECount="12" OffsetHex="00000C00" Description="Pointer to instance of CNavArea" DisplayMethod="unsigned integer"/>
+              <Element Offset="3168" Vartype="Pointer" Bytesize="8" RLECount="4" OffsetHex="00000C60" Description="Pointer to instance of CParticleCollectionRendererFloatInput" DisplayMethod="unsigned integer"/>
+              <Element Offset="3200" Vartype="Pointer" Bytesize="8" OffsetHex="00000C80" DisplayMethod="unsigned integer"/>
+              <Element Offset="3208" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000C88" DisplayMethod="hexadecimal"/>
+              <Element Offset="3216" Vartype="4 Bytes" Bytesize="4" RLECount="8" OffsetHex="00000C90" DisplayMethod="unsigned integer"/>
+              <Element Offset="3248" Vartype="Pointer" Bytesize="8" RLECount="2" OffsetHex="00000CB0" Description="Pointer to instance of CIndexBufferDx11" DisplayMethod="unsigned integer"/>
+              <Element Offset="3264" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000CC0" DisplayMethod="unsigned integer"/>
+              <Element Offset="3272" Vartype="Pointer" Bytesize="8" RLECount="3" OffsetHex="00000CC8" DisplayMethod="unsigned integer"/>
+              <Element Offset="3296" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000CE0" DisplayMethod="unsigned integer"/>
+              <Element Offset="3320" Vartype="Pointer" Bytesize="8" OffsetHex="00000CF8" Description="Pointer to instance of panorama::CPanel2D" DisplayMethod="unsigned integer"/>
+              <Element Offset="3328" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D00" DisplayMethod="unsigned integer"/>
+              <Element Offset="3332" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D04" DisplayMethod="hexadecimal"/>
+              <Element Offset="3336" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000D08" DisplayMethod="unsigned integer"/>
+              <Element Offset="3344" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D10" DisplayMethod="hexadecimal"/>
+              <Element Offset="3348" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000D14" DisplayMethod="unsigned integer"/>
+              <Element Offset="3356" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D1C" DisplayMethod="hexadecimal"/>
+              <Element Offset="3360" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000D20" DisplayMethod="unsigned integer"/>
+              <Element Offset="3368" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D28" DisplayMethod="hexadecimal"/>
+              <Element Offset="3372" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000D2C" DisplayMethod="unsigned integer"/>
+              <Element Offset="3380" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D34" DisplayMethod="hexadecimal"/>
+              <Element Offset="3384" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000D38" DisplayMethod="unsigned integer"/>
+              <Element Offset="3392" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D40" DisplayMethod="hexadecimal"/>
+              <Element Offset="3396" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000D44" DisplayMethod="unsigned integer"/>
+              <Element Offset="3404" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D4C" DisplayMethod="hexadecimal"/>
+              <Element Offset="3408" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000D50" DisplayMethod="unsigned integer"/>
+              <Element Offset="3416" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D58" DisplayMethod="hexadecimal"/>
+              <Element Offset="3420" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000D5C" DisplayMethod="unsigned integer"/>
+              <Element Offset="3428" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D64" DisplayMethod="hexadecimal"/>
+              <Element Offset="3432" Vartype="4 Bytes" Bytesize="4" RLECount="2" OffsetHex="00000D68" DisplayMethod="unsigned integer"/>
+              <Element Offset="3440" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D70" DisplayMethod="hexadecimal"/>
+              <Element Offset="3444" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D74" DisplayMethod="unsigned integer"/>
+              <Element Offset="3448" Vartype="Byte" Bytesize="1" OffsetHex="00000D78" DisplayMethod="unsigned integer"/>
+              <Element Offset="3449" Vartype="String" Bytesize="7" OffsetHex="00000D79" DisplayMethod="unsigned integer"/>
+              <Element Offset="3456" Vartype="4 Bytes" Bytesize="4" RLECount="32" OffsetHex="00000D80" DisplayMethod="unsigned integer"/>
+              <Element Offset="3584" Vartype="Pointer" Bytesize="8" RLECount="47" OffsetHex="00000E00" Description="Pointer to instance of CNavArea" DisplayMethod="unsigned integer"/>
+              <Element Offset="3960" Vartype="Pointer" Bytesize="8" OffsetHex="00000F78" DisplayMethod="unsigned integer"/>
+              <Element Offset="3968" Vartype="Pointer" Bytesize="8" RLECount="15" OffsetHex="00000F80" Description="Pointer to instance of CNavArea" DisplayMethod="unsigned integer"/>
+              <Element Offset="4088" Vartype="Pointer" Bytesize="8" OffsetHex="00000FF8" DisplayMethod="unsigned integer"/>
+            </Elements>
+          </Structure>
+        </Element>
+        <Element Offset="48" Vartype="Pointer" Bytesize="8" OffsetHex="00000030" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="56" Vartype="Pointer" Bytesize="8" OffsetHex="00000038" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="64" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000040" DisplayMethod="unsigned integer"/>
+        <Element Offset="80" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000050" DisplayMethod="unsigned integer"/>
+        <Element Offset="84" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000054" DisplayMethod="hexadecimal"/>
+        <Element Offset="88" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000058" DisplayMethod="unsigned integer"/>
+        <Element Offset="112" Vartype="Double" Bytesize="8" OffsetHex="00000070" DisplayMethod="unsigned integer"/>
+        <Element Offset="120" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000078" DisplayMethod="unsigned integer"/>
+        <Element Offset="136" Vartype="Pointer" Bytesize="8" OffsetHex="00000088" DisplayMethod="unsigned integer"/>
+        <Element Offset="144" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000090" DisplayMethod="hexadecimal"/>
+        <Element Offset="148" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000094" DisplayMethod="unsigned integer"/>
+        <Element Offset="152" Vartype="Pointer" Bytesize="8" OffsetHex="00000098" DisplayMethod="unsigned integer"/>
+        <Element Offset="160" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000000A0" DisplayMethod="unsigned integer"/>
+        <Element Offset="176" Vartype="Pointer" Bytesize="8" OffsetHex="000000B0" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="184" Vartype="Pointer" Bytesize="8" OffsetHex="000000B8" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="192" Vartype="Pointer" Bytesize="8" OffsetHex="000000C0" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="200" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000000C8" DisplayMethod="unsigned integer"/>
+        <Element Offset="216" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="000000D8" DisplayMethod="unsigned integer"/>
+        <Element Offset="220" Vartype="4 Bytes" Bytesize="4" OffsetHex="000000DC" DisplayMethod="hexadecimal"/>
+        <Element Offset="224" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="000000E0" DisplayMethod="unsigned integer"/>
+        <Element Offset="248" Vartype="Double" Bytesize="8" OffsetHex="000000F8" DisplayMethod="unsigned integer"/>
+        <Element Offset="256" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000100" DisplayMethod="unsigned integer"/>
+        <Element Offset="272" Vartype="Pointer" Bytesize="8" OffsetHex="00000110" DisplayMethod="unsigned integer"/>
+        <Element Offset="280" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000118" DisplayMethod="hexadecimal"/>
+        <Element Offset="284" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000011C" DisplayMethod="unsigned integer"/>
+        <Element Offset="288" Vartype="Pointer" Bytesize="8" OffsetHex="00000120" DisplayMethod="unsigned integer"/>
+        <Element Offset="296" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000128" DisplayMethod="unsigned integer"/>
+        <Element Offset="312" Vartype="Pointer" Bytesize="8" OffsetHex="00000138" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="320" Vartype="Pointer" Bytesize="8" OffsetHex="00000140" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="328" Vartype="Pointer" Bytesize="8" OffsetHex="00000148" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="336" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000150" DisplayMethod="unsigned integer"/>
+        <Element Offset="352" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000160" DisplayMethod="unsigned integer"/>
+        <Element Offset="356" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000164" DisplayMethod="hexadecimal"/>
+        <Element Offset="360" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000168" DisplayMethod="unsigned integer"/>
+        <Element Offset="384" Vartype="Double" Bytesize="8" OffsetHex="00000180" DisplayMethod="unsigned integer"/>
+        <Element Offset="392" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000188" DisplayMethod="unsigned integer"/>
+        <Element Offset="408" Vartype="Pointer" Bytesize="8" OffsetHex="00000198" DisplayMethod="unsigned integer"/>
+        <Element Offset="416" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001A0" DisplayMethod="hexadecimal"/>
+        <Element Offset="420" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001A4" DisplayMethod="unsigned integer"/>
+        <Element Offset="424" Vartype="Pointer" Bytesize="8" OffsetHex="000001A8" DisplayMethod="unsigned integer"/>
+        <Element Offset="432" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000001B0" DisplayMethod="unsigned integer"/>
+        <Element Offset="448" Vartype="Pointer" Bytesize="8" OffsetHex="000001C0" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="456" Vartype="Pointer" Bytesize="8" OffsetHex="000001C8" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="464" Vartype="Pointer" Bytesize="8" OffsetHex="000001D0" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="472" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000001D8" DisplayMethod="unsigned integer"/>
+        <Element Offset="488" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="000001E8" DisplayMethod="unsigned integer"/>
+        <Element Offset="492" Vartype="4 Bytes" Bytesize="4" OffsetHex="000001EC" DisplayMethod="hexadecimal"/>
+        <Element Offset="496" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="000001F0" DisplayMethod="unsigned integer"/>
+        <Element Offset="520" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000208" DisplayMethod="unsigned integer"/>
+        <Element Offset="524" Vartype="Float" Bytesize="4" OffsetHex="0000020C" DisplayMethod="unsigned integer"/>
+        <Element Offset="528" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000210" DisplayMethod="unsigned integer"/>
+        <Element Offset="544" Vartype="Pointer" Bytesize="8" OffsetHex="00000220" DisplayMethod="unsigned integer"/>
+        <Element Offset="552" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000228" DisplayMethod="hexadecimal"/>
+        <Element Offset="556" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000022C" DisplayMethod="unsigned integer"/>
+        <Element Offset="560" Vartype="Pointer" Bytesize="8" OffsetHex="00000230" DisplayMethod="unsigned integer"/>
+        <Element Offset="568" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000238" DisplayMethod="unsigned integer"/>
+        <Element Offset="584" Vartype="Pointer" Bytesize="8" OffsetHex="00000248" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="592" Vartype="Pointer" Bytesize="8" OffsetHex="00000250" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="600" Vartype="Pointer" Bytesize="8" OffsetHex="00000258" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="608" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000260" DisplayMethod="unsigned integer"/>
+        <Element Offset="624" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000270" DisplayMethod="unsigned integer"/>
+        <Element Offset="628" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000274" DisplayMethod="hexadecimal"/>
+        <Element Offset="632" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000278" DisplayMethod="unsigned integer"/>
+        <Element Offset="656" Vartype="Double" Bytesize="8" OffsetHex="00000290" DisplayMethod="unsigned integer"/>
+        <Element Offset="664" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000298" DisplayMethod="unsigned integer"/>
+        <Element Offset="680" Vartype="Pointer" Bytesize="8" OffsetHex="000002A8" DisplayMethod="unsigned integer"/>
+        <Element Offset="688" Vartype="4 Bytes" Bytesize="4" OffsetHex="000002B0" DisplayMethod="hexadecimal"/>
+        <Element Offset="692" Vartype="4 Bytes" Bytesize="4" OffsetHex="000002B4" DisplayMethod="unsigned integer"/>
+        <Element Offset="696" Vartype="Pointer" Bytesize="8" OffsetHex="000002B8" DisplayMethod="unsigned integer"/>
+        <Element Offset="704" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000002C0" DisplayMethod="unsigned integer"/>
+        <Element Offset="720" Vartype="Pointer" Bytesize="8" OffsetHex="000002D0" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="728" Vartype="Pointer" Bytesize="8" OffsetHex="000002D8" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="736" Vartype="Pointer" Bytesize="8" OffsetHex="000002E0" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="744" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000002E8" DisplayMethod="unsigned integer"/>
+        <Element Offset="760" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="000002F8" DisplayMethod="unsigned integer"/>
+        <Element Offset="764" Vartype="4 Bytes" Bytesize="4" OffsetHex="000002FC" DisplayMethod="hexadecimal"/>
+        <Element Offset="768" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000300" DisplayMethod="unsigned integer"/>
+        <Element Offset="792" Vartype="Double" Bytesize="8" OffsetHex="00000318" DisplayMethod="unsigned integer"/>
+        <Element Offset="800" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000320" DisplayMethod="unsigned integer"/>
+        <Element Offset="816" Vartype="Pointer" Bytesize="8" OffsetHex="00000330" DisplayMethod="unsigned integer"/>
+        <Element Offset="824" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000338" DisplayMethod="hexadecimal"/>
+        <Element Offset="828" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000033C" DisplayMethod="unsigned integer"/>
+        <Element Offset="832" Vartype="Pointer" Bytesize="8" OffsetHex="00000340" DisplayMethod="unsigned integer"/>
+        <Element Offset="840" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000348" DisplayMethod="unsigned integer"/>
+        <Element Offset="856" Vartype="Pointer" Bytesize="8" OffsetHex="00000358" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="864" Vartype="Pointer" Bytesize="8" OffsetHex="00000360" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="872" Vartype="Pointer" Bytesize="8" OffsetHex="00000368" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="880" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000370" DisplayMethod="unsigned integer"/>
+        <Element Offset="896" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000380" DisplayMethod="unsigned integer"/>
+        <Element Offset="900" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000384" DisplayMethod="hexadecimal"/>
+        <Element Offset="904" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000388" DisplayMethod="unsigned integer"/>
+        <Element Offset="928" Vartype="Double" Bytesize="8" OffsetHex="000003A0" DisplayMethod="unsigned integer"/>
+        <Element Offset="936" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000003A8" DisplayMethod="unsigned integer"/>
+        <Element Offset="952" Vartype="Pointer" Bytesize="8" OffsetHex="000003B8" DisplayMethod="unsigned integer"/>
+        <Element Offset="960" Vartype="4 Bytes" Bytesize="4" OffsetHex="000003C0" DisplayMethod="hexadecimal"/>
+        <Element Offset="964" Vartype="4 Bytes" Bytesize="4" OffsetHex="000003C4" DisplayMethod="unsigned integer"/>
+        <Element Offset="968" Vartype="Pointer" Bytesize="8" OffsetHex="000003C8" DisplayMethod="unsigned integer"/>
+        <Element Offset="976" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000003D0" DisplayMethod="unsigned integer"/>
+        <Element Offset="992" Vartype="Pointer" Bytesize="8" OffsetHex="000003E0" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="1000" Vartype="Pointer" Bytesize="8" OffsetHex="000003E8" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="1008" Vartype="Pointer" Bytesize="8" OffsetHex="000003F0" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="1016" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000003F8" DisplayMethod="unsigned integer"/>
+        <Element Offset="1032" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000408" DisplayMethod="unsigned integer"/>
+        <Element Offset="1036" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000040C" DisplayMethod="hexadecimal"/>
+        <Element Offset="1040" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000410" DisplayMethod="unsigned integer"/>
+        <Element Offset="1064" Vartype="String" Bytesize="4" OffsetHex="00000428" DisplayMethod="unsigned integer"/>
+        <Element Offset="1068" Vartype="Float" Bytesize="4" OffsetHex="0000042C" DisplayMethod="unsigned integer"/>
+        <Element Offset="1072" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000430" DisplayMethod="unsigned integer"/>
+        <Element Offset="1088" Vartype="Pointer" Bytesize="8" OffsetHex="00000440" DisplayMethod="unsigned integer"/>
+        <Element Offset="1096" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000448" DisplayMethod="hexadecimal"/>
+        <Element Offset="1100" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000044C" DisplayMethod="unsigned integer"/>
+        <Element Offset="1104" Vartype="Pointer" Bytesize="8" OffsetHex="00000450" DisplayMethod="unsigned integer"/>
+        <Element Offset="1112" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000458" DisplayMethod="unsigned integer"/>
+        <Element Offset="1128" Vartype="Pointer" Bytesize="8" OffsetHex="00000468" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="1136" Vartype="Pointer" Bytesize="8" OffsetHex="00000470" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="1144" Vartype="Pointer" Bytesize="8" OffsetHex="00000478" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="1152" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000480" DisplayMethod="unsigned integer"/>
+        <Element Offset="1168" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000490" DisplayMethod="unsigned integer"/>
+        <Element Offset="1172" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000494" DisplayMethod="hexadecimal"/>
+        <Element Offset="1176" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000498" DisplayMethod="unsigned integer"/>
+        <Element Offset="1200" Vartype="Double" Bytesize="8" OffsetHex="000004B0" DisplayMethod="unsigned integer"/>
+        <Element Offset="1208" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000004B8" DisplayMethod="unsigned integer"/>
+        <Element Offset="1224" Vartype="Pointer" Bytesize="8" OffsetHex="000004C8" DisplayMethod="unsigned integer"/>
+        <Element Offset="1232" Vartype="4 Bytes" Bytesize="4" OffsetHex="000004D0" DisplayMethod="hexadecimal"/>
+        <Element Offset="1236" Vartype="4 Bytes" Bytesize="4" OffsetHex="000004D4" DisplayMethod="unsigned integer"/>
+        <Element Offset="1240" Vartype="Pointer" Bytesize="8" OffsetHex="000004D8" DisplayMethod="unsigned integer"/>
+        <Element Offset="1248" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000004E0" DisplayMethod="unsigned integer"/>
+        <Element Offset="1264" Vartype="Pointer" Bytesize="8" OffsetHex="000004F0" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="1272" Vartype="Pointer" Bytesize="8" OffsetHex="000004F8" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="1280" Vartype="Pointer" Bytesize="8" OffsetHex="00000500" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="1288" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000508" DisplayMethod="unsigned integer"/>
+        <Element Offset="1304" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000518" DisplayMethod="unsigned integer"/>
+        <Element Offset="1308" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000051C" DisplayMethod="hexadecimal"/>
+        <Element Offset="1312" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000520" DisplayMethod="unsigned integer"/>
+        <Element Offset="1336" Vartype="Double" Bytesize="8" OffsetHex="00000538" DisplayMethod="unsigned integer"/>
+        <Element Offset="1344" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000540" DisplayMethod="unsigned integer"/>
+        <Element Offset="1360" Vartype="Pointer" Bytesize="8" OffsetHex="00000550" DisplayMethod="unsigned integer"/>
+        <Element Offset="1368" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000558" DisplayMethod="hexadecimal"/>
+        <Element Offset="1372" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000055C" DisplayMethod="unsigned integer"/>
+        <Element Offset="1376" Vartype="Pointer" Bytesize="8" OffsetHex="00000560" DisplayMethod="unsigned integer"/>
+        <Element Offset="1384" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000568" DisplayMethod="unsigned integer"/>
+        <Element Offset="1400" Vartype="Pointer" Bytesize="8" OffsetHex="00000578" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="1408" Vartype="Pointer" Bytesize="8" OffsetHex="00000580" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="1416" Vartype="Pointer" Bytesize="8" OffsetHex="00000588" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="1424" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000590" DisplayMethod="unsigned integer"/>
+        <Element Offset="1440" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="000005A0" DisplayMethod="unsigned integer"/>
+        <Element Offset="1444" Vartype="4 Bytes" Bytesize="4" OffsetHex="000005A4" DisplayMethod="hexadecimal"/>
+        <Element Offset="1448" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="000005A8" DisplayMethod="unsigned integer"/>
+        <Element Offset="1472" Vartype="Float" Bytesize="4" RLECount="2" OffsetHex="000005C0" DisplayMethod="unsigned integer"/>
+        <Element Offset="1480" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000005C8" DisplayMethod="unsigned integer"/>
+        <Element Offset="1496" Vartype="Pointer" Bytesize="8" OffsetHex="000005D8" DisplayMethod="unsigned integer"/>
+        <Element Offset="1504" Vartype="4 Bytes" Bytesize="4" OffsetHex="000005E0" DisplayMethod="hexadecimal"/>
+        <Element Offset="1508" Vartype="4 Bytes" Bytesize="4" OffsetHex="000005E4" DisplayMethod="unsigned integer"/>
+        <Element Offset="1512" Vartype="Pointer" Bytesize="8" OffsetHex="000005E8" DisplayMethod="unsigned integer"/>
+        <Element Offset="1520" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000005F0" DisplayMethod="unsigned integer"/>
+        <Element Offset="1536" Vartype="Pointer" Bytesize="8" OffsetHex="00000600" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="1544" Vartype="Pointer" Bytesize="8" OffsetHex="00000608" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="1552" Vartype="Pointer" Bytesize="8" OffsetHex="00000610" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="1560" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000618" DisplayMethod="unsigned integer"/>
+        <Element Offset="1576" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000628" DisplayMethod="unsigned integer"/>
+        <Element Offset="1580" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000062C" DisplayMethod="hexadecimal"/>
+        <Element Offset="1584" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000630" DisplayMethod="unsigned integer"/>
+        <Element Offset="1608" Vartype="Double" Bytesize="8" OffsetHex="00000648" DisplayMethod="unsigned integer"/>
+        <Element Offset="1616" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000650" DisplayMethod="unsigned integer"/>
+        <Element Offset="1632" Vartype="Pointer" Bytesize="8" OffsetHex="00000660" DisplayMethod="unsigned integer"/>
+        <Element Offset="1640" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000668" DisplayMethod="hexadecimal"/>
+        <Element Offset="1644" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000066C" DisplayMethod="unsigned integer"/>
+        <Element Offset="1648" Vartype="Pointer" Bytesize="8" OffsetHex="00000670" DisplayMethod="unsigned integer"/>
+        <Element Offset="1656" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000678" DisplayMethod="unsigned integer"/>
+        <Element Offset="1672" Vartype="Pointer" Bytesize="8" OffsetHex="00000688" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="1680" Vartype="Pointer" Bytesize="8" OffsetHex="00000690" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="1688" Vartype="Pointer" Bytesize="8" OffsetHex="00000698" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="1696" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000006A0" DisplayMethod="unsigned integer"/>
+        <Element Offset="1712" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="000006B0" DisplayMethod="unsigned integer"/>
+        <Element Offset="1716" Vartype="4 Bytes" Bytesize="4" OffsetHex="000006B4" DisplayMethod="hexadecimal"/>
+        <Element Offset="1720" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="000006B8" DisplayMethod="unsigned integer"/>
+        <Element Offset="1744" Vartype="Double" Bytesize="8" OffsetHex="000006D0" DisplayMethod="unsigned integer"/>
+        <Element Offset="1752" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000006D8" DisplayMethod="unsigned integer"/>
+        <Element Offset="1768" Vartype="Pointer" Bytesize="8" OffsetHex="000006E8" DisplayMethod="unsigned integer"/>
+        <Element Offset="1776" Vartype="4 Bytes" Bytesize="4" OffsetHex="000006F0" DisplayMethod="hexadecimal"/>
+        <Element Offset="1780" Vartype="4 Bytes" Bytesize="4" OffsetHex="000006F4" DisplayMethod="unsigned integer"/>
+        <Element Offset="1784" Vartype="Pointer" Bytesize="8" OffsetHex="000006F8" DisplayMethod="unsigned integer"/>
+        <Element Offset="1792" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000700" DisplayMethod="unsigned integer"/>
+        <Element Offset="1808" Vartype="Pointer" Bytesize="8" OffsetHex="00000710" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="1816" Vartype="Pointer" Bytesize="8" OffsetHex="00000718" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="1824" Vartype="Pointer" Bytesize="8" OffsetHex="00000720" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="1832" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000728" DisplayMethod="unsigned integer"/>
+        <Element Offset="1848" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000738" DisplayMethod="unsigned integer"/>
+        <Element Offset="1852" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000073C" DisplayMethod="hexadecimal"/>
+        <Element Offset="1856" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000740" DisplayMethod="unsigned integer"/>
+        <Element Offset="1880" Vartype="Double" Bytesize="8" OffsetHex="00000758" DisplayMethod="unsigned integer"/>
+        <Element Offset="1888" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000760" DisplayMethod="unsigned integer"/>
+        <Element Offset="1904" Vartype="Pointer" Bytesize="8" OffsetHex="00000770" DisplayMethod="unsigned integer"/>
+        <Element Offset="1912" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000778" DisplayMethod="hexadecimal"/>
+        <Element Offset="1916" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000077C" DisplayMethod="unsigned integer"/>
+        <Element Offset="1920" Vartype="Pointer" Bytesize="8" OffsetHex="00000780" DisplayMethod="unsigned integer"/>
+        <Element Offset="1928" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000788" DisplayMethod="unsigned integer"/>
+        <Element Offset="1944" Vartype="Pointer" Bytesize="8" OffsetHex="00000798" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="1952" Vartype="Pointer" Bytesize="8" OffsetHex="000007A0" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="1960" Vartype="Pointer" Bytesize="8" OffsetHex="000007A8" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="1968" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000007B0" DisplayMethod="unsigned integer"/>
+        <Element Offset="1984" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="000007C0" DisplayMethod="unsigned integer"/>
+        <Element Offset="1988" Vartype="4 Bytes" Bytesize="4" OffsetHex="000007C4" DisplayMethod="hexadecimal"/>
+        <Element Offset="1992" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="000007C8" DisplayMethod="unsigned integer"/>
+        <Element Offset="2016" Vartype="Double" Bytesize="8" OffsetHex="000007E0" DisplayMethod="unsigned integer"/>
+        <Element Offset="2024" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000007E8" DisplayMethod="unsigned integer"/>
+        <Element Offset="2040" Vartype="Pointer" Bytesize="8" OffsetHex="000007F8" DisplayMethod="unsigned integer"/>
+        <Element Offset="2048" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000800" DisplayMethod="hexadecimal"/>
+        <Element Offset="2052" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000804" DisplayMethod="unsigned integer"/>
+        <Element Offset="2056" Vartype="Pointer" Bytesize="8" OffsetHex="00000808" DisplayMethod="unsigned integer"/>
+        <Element Offset="2064" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000810" DisplayMethod="unsigned integer"/>
+        <Element Offset="2080" Vartype="Pointer" Bytesize="8" OffsetHex="00000820" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="2088" Vartype="Pointer" Bytesize="8" OffsetHex="00000828" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="2096" Vartype="Pointer" Bytesize="8" OffsetHex="00000830" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="2104" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000838" DisplayMethod="unsigned integer"/>
+        <Element Offset="2120" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000848" DisplayMethod="unsigned integer"/>
+        <Element Offset="2124" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000084C" DisplayMethod="hexadecimal"/>
+        <Element Offset="2128" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000850" DisplayMethod="unsigned integer"/>
+        <Element Offset="2152" Vartype="Double" Bytesize="8" OffsetHex="00000868" DisplayMethod="unsigned integer"/>
+        <Element Offset="2160" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000870" DisplayMethod="unsigned integer"/>
+        <Element Offset="2176" Vartype="Pointer" Bytesize="8" OffsetHex="00000880" DisplayMethod="unsigned integer"/>
+        <Element Offset="2184" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000888" DisplayMethod="hexadecimal"/>
+        <Element Offset="2188" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000088C" DisplayMethod="unsigned integer"/>
+        <Element Offset="2192" Vartype="Pointer" Bytesize="8" OffsetHex="00000890" DisplayMethod="unsigned integer"/>
+        <Element Offset="2200" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000898" DisplayMethod="unsigned integer"/>
+        <Element Offset="2216" Vartype="Pointer" Bytesize="8" OffsetHex="000008A8" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="2224" Vartype="Pointer" Bytesize="8" OffsetHex="000008B0" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="2232" Vartype="Pointer" Bytesize="8" OffsetHex="000008B8" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="2240" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000008C0" DisplayMethod="unsigned integer"/>
+        <Element Offset="2256" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="000008D0" DisplayMethod="unsigned integer"/>
+        <Element Offset="2260" Vartype="4 Bytes" Bytesize="4" OffsetHex="000008D4" DisplayMethod="hexadecimal"/>
+        <Element Offset="2264" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="000008D8" DisplayMethod="unsigned integer"/>
+        <Element Offset="2288" Vartype="Double" Bytesize="8" OffsetHex="000008F0" DisplayMethod="unsigned integer"/>
+        <Element Offset="2296" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000008F8" DisplayMethod="unsigned integer"/>
+        <Element Offset="2312" Vartype="Pointer" Bytesize="8" OffsetHex="00000908" DisplayMethod="unsigned integer"/>
+        <Element Offset="2320" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000910" DisplayMethod="hexadecimal"/>
+        <Element Offset="2324" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000914" DisplayMethod="unsigned integer"/>
+        <Element Offset="2328" Vartype="Pointer" Bytesize="8" OffsetHex="00000918" DisplayMethod="unsigned integer"/>
+        <Element Offset="2336" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000920" DisplayMethod="unsigned integer"/>
+        <Element Offset="2352" Vartype="Pointer" Bytesize="8" OffsetHex="00000930" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="2360" Vartype="Pointer" Bytesize="8" OffsetHex="00000938" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="2368" Vartype="Pointer" Bytesize="8" OffsetHex="00000940" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="2376" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000948" DisplayMethod="unsigned integer"/>
+        <Element Offset="2392" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000958" DisplayMethod="unsigned integer"/>
+        <Element Offset="2396" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000095C" DisplayMethod="hexadecimal"/>
+        <Element Offset="2400" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000960" DisplayMethod="unsigned integer"/>
+        <Element Offset="2424" Vartype="Double" Bytesize="8" OffsetHex="00000978" DisplayMethod="unsigned integer"/>
+        <Element Offset="2432" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000980" DisplayMethod="unsigned integer"/>
+        <Element Offset="2448" Vartype="Pointer" Bytesize="8" OffsetHex="00000990" DisplayMethod="unsigned integer"/>
+        <Element Offset="2456" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000998" DisplayMethod="hexadecimal"/>
+        <Element Offset="2460" Vartype="4 Bytes" Bytesize="4" OffsetHex="0000099C" DisplayMethod="unsigned integer"/>
+        <Element Offset="2464" Vartype="Pointer" Bytesize="8" OffsetHex="000009A0" DisplayMethod="unsigned integer"/>
+        <Element Offset="2472" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000009A8" DisplayMethod="unsigned integer"/>
+        <Element Offset="2488" Vartype="Pointer" Bytesize="8" OffsetHex="000009B8" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="2496" Vartype="Pointer" Bytesize="8" OffsetHex="000009C0" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="2504" Vartype="Pointer" Bytesize="8" OffsetHex="000009C8" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="2512" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="000009D0" DisplayMethod="unsigned integer"/>
+        <Element Offset="2528" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="000009E0" DisplayMethod="unsigned integer"/>
+        <Element Offset="2532" Vartype="4 Bytes" Bytesize="4" OffsetHex="000009E4" DisplayMethod="hexadecimal"/>
+        <Element Offset="2536" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="000009E8" DisplayMethod="unsigned integer"/>
+        <Element Offset="2560" Vartype="Double" Bytesize="8" OffsetHex="00000A00" DisplayMethod="unsigned integer"/>
+        <Element Offset="2568" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000A08" DisplayMethod="unsigned integer"/>
+        <Element Offset="2584" Vartype="Pointer" Bytesize="8" OffsetHex="00000A18" DisplayMethod="unsigned integer"/>
+        <Element Offset="2592" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000A20" DisplayMethod="hexadecimal"/>
+        <Element Offset="2596" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000A24" DisplayMethod="unsigned integer"/>
+        <Element Offset="2600" Vartype="Pointer" Bytesize="8" OffsetHex="00000A28" DisplayMethod="unsigned integer"/>
+        <Element Offset="2608" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000A30" DisplayMethod="unsigned integer"/>
+        <Element Offset="2624" Vartype="Pointer" Bytesize="8" OffsetHex="00000A40" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="2632" Vartype="Pointer" Bytesize="8" OffsetHex="00000A48" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="2640" Vartype="Pointer" Bytesize="8" OffsetHex="00000A50" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="2648" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000A58" DisplayMethod="unsigned integer"/>
+        <Element Offset="2664" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000A68" DisplayMethod="unsigned integer"/>
+        <Element Offset="2668" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000A6C" DisplayMethod="hexadecimal"/>
+        <Element Offset="2672" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000A70" DisplayMethod="unsigned integer"/>
+        <Element Offset="2696" Vartype="Double" Bytesize="8" OffsetHex="00000A88" DisplayMethod="unsigned integer"/>
+        <Element Offset="2704" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000A90" DisplayMethod="unsigned integer"/>
+        <Element Offset="2720" Vartype="Pointer" Bytesize="8" OffsetHex="00000AA0" DisplayMethod="unsigned integer"/>
+        <Element Offset="2728" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000AA8" DisplayMethod="hexadecimal"/>
+        <Element Offset="2732" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000AAC" DisplayMethod="unsigned integer"/>
+        <Element Offset="2736" Vartype="Pointer" Bytesize="8" OffsetHex="00000AB0" DisplayMethod="unsigned integer"/>
+        <Element Offset="2744" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000AB8" DisplayMethod="unsigned integer"/>
+        <Element Offset="2760" Vartype="Pointer" Bytesize="8" OffsetHex="00000AC8" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="2768" Vartype="Pointer" Bytesize="8" OffsetHex="00000AD0" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="2776" Vartype="Pointer" Bytesize="8" OffsetHex="00000AD8" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="2784" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000AE0" DisplayMethod="unsigned integer"/>
+        <Element Offset="2800" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000AF0" DisplayMethod="unsigned integer"/>
+        <Element Offset="2804" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000AF4" DisplayMethod="hexadecimal"/>
+        <Element Offset="2808" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000AF8" DisplayMethod="unsigned integer"/>
+        <Element Offset="2832" Vartype="Double" Bytesize="8" OffsetHex="00000B10" DisplayMethod="unsigned integer"/>
+        <Element Offset="2840" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000B18" DisplayMethod="unsigned integer"/>
+        <Element Offset="2856" Vartype="Pointer" Bytesize="8" OffsetHex="00000B28" DisplayMethod="unsigned integer"/>
+        <Element Offset="2864" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000B30" DisplayMethod="hexadecimal"/>
+        <Element Offset="2868" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000B34" DisplayMethod="unsigned integer"/>
+        <Element Offset="2872" Vartype="Pointer" Bytesize="8" OffsetHex="00000B38" DisplayMethod="unsigned integer"/>
+        <Element Offset="2880" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000B40" DisplayMethod="unsigned integer"/>
+        <Element Offset="2896" Vartype="Pointer" Bytesize="8" OffsetHex="00000B50" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="2904" Vartype="Pointer" Bytesize="8" OffsetHex="00000B58" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="2912" Vartype="Pointer" Bytesize="8" OffsetHex="00000B60" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="2920" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000B68" DisplayMethod="unsigned integer"/>
+        <Element Offset="2936" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000B78" DisplayMethod="unsigned integer"/>
+        <Element Offset="2940" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000B7C" DisplayMethod="hexadecimal"/>
+        <Element Offset="2944" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000B80" DisplayMethod="unsigned integer"/>
+        <Element Offset="2968" Vartype="Double" Bytesize="8" OffsetHex="00000B98" DisplayMethod="unsigned integer"/>
+        <Element Offset="2976" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000BA0" DisplayMethod="unsigned integer"/>
+        <Element Offset="2992" Vartype="Pointer" Bytesize="8" OffsetHex="00000BB0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3000" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000BB8" DisplayMethod="hexadecimal"/>
+        <Element Offset="3004" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000BBC" DisplayMethod="unsigned integer"/>
+        <Element Offset="3008" Vartype="Pointer" Bytesize="8" OffsetHex="00000BC0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3016" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000BC8" DisplayMethod="unsigned integer"/>
+        <Element Offset="3032" Vartype="Pointer" Bytesize="8" OffsetHex="00000BD8" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="3040" Vartype="Pointer" Bytesize="8" OffsetHex="00000BE0" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="3048" Vartype="Pointer" Bytesize="8" OffsetHex="00000BE8" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="3056" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000BF0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3072" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000C00" DisplayMethod="unsigned integer"/>
+        <Element Offset="3076" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000C04" DisplayMethod="hexadecimal"/>
+        <Element Offset="3080" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000C08" DisplayMethod="unsigned integer"/>
+        <Element Offset="3104" Vartype="Double" Bytesize="8" OffsetHex="00000C20" DisplayMethod="unsigned integer"/>
+        <Element Offset="3112" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000C28" DisplayMethod="unsigned integer"/>
+        <Element Offset="3128" Vartype="Pointer" Bytesize="8" OffsetHex="00000C38" DisplayMethod="unsigned integer"/>
+        <Element Offset="3136" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000C40" DisplayMethod="hexadecimal"/>
+        <Element Offset="3140" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000C44" DisplayMethod="unsigned integer"/>
+        <Element Offset="3144" Vartype="Pointer" Bytesize="8" OffsetHex="00000C48" DisplayMethod="unsigned integer"/>
+        <Element Offset="3152" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000C50" DisplayMethod="unsigned integer"/>
+        <Element Offset="3168" Vartype="Pointer" Bytesize="8" OffsetHex="00000C60" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="3176" Vartype="Pointer" Bytesize="8" OffsetHex="00000C68" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="3184" Vartype="Pointer" Bytesize="8" OffsetHex="00000C70" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="3192" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000C78" DisplayMethod="unsigned integer"/>
+        <Element Offset="3208" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000C88" DisplayMethod="unsigned integer"/>
+        <Element Offset="3212" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000C8C" DisplayMethod="hexadecimal"/>
+        <Element Offset="3216" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000C90" DisplayMethod="unsigned integer"/>
+        <Element Offset="3240" Vartype="Double" Bytesize="8" OffsetHex="00000CA8" DisplayMethod="unsigned integer"/>
+        <Element Offset="3248" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000CB0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3264" Vartype="Pointer" Bytesize="8" OffsetHex="00000CC0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3272" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000CC8" DisplayMethod="hexadecimal"/>
+        <Element Offset="3276" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000CCC" DisplayMethod="unsigned integer"/>
+        <Element Offset="3280" Vartype="Pointer" Bytesize="8" OffsetHex="00000CD0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3288" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000CD8" DisplayMethod="unsigned integer"/>
+        <Element Offset="3304" Vartype="Pointer" Bytesize="8" OffsetHex="00000CE8" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="3312" Vartype="Pointer" Bytesize="8" OffsetHex="00000CF0" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="3320" Vartype="Pointer" Bytesize="8" OffsetHex="00000CF8" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="3328" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000D00" DisplayMethod="unsigned integer"/>
+        <Element Offset="3344" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000D10" DisplayMethod="unsigned integer"/>
+        <Element Offset="3348" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D14" DisplayMethod="hexadecimal"/>
+        <Element Offset="3352" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000D18" DisplayMethod="unsigned integer"/>
+        <Element Offset="3376" Vartype="Float" Bytesize="4" RLECount="2" OffsetHex="00000D30" DisplayMethod="unsigned integer"/>
+        <Element Offset="3384" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000D38" DisplayMethod="unsigned integer"/>
+        <Element Offset="3400" Vartype="Pointer" Bytesize="8" OffsetHex="00000D48" DisplayMethod="unsigned integer"/>
+        <Element Offset="3408" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D50" DisplayMethod="hexadecimal"/>
+        <Element Offset="3412" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D54" DisplayMethod="unsigned integer"/>
+        <Element Offset="3416" Vartype="Pointer" Bytesize="8" OffsetHex="00000D58" DisplayMethod="unsigned integer"/>
+        <Element Offset="3424" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000D60" DisplayMethod="unsigned integer"/>
+        <Element Offset="3440" Vartype="Pointer" Bytesize="8" OffsetHex="00000D70" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="3448" Vartype="Pointer" Bytesize="8" OffsetHex="00000D78" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="3456" Vartype="Pointer" Bytesize="8" OffsetHex="00000D80" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="3464" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000D88" DisplayMethod="unsigned integer"/>
+        <Element Offset="3480" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000D98" DisplayMethod="unsigned integer"/>
+        <Element Offset="3484" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000D9C" DisplayMethod="hexadecimal"/>
+        <Element Offset="3488" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000DA0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3512" Vartype="Float" Bytesize="4" RLECount="2" OffsetHex="00000DB8" DisplayMethod="unsigned integer"/>
+        <Element Offset="3520" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000DC0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3536" Vartype="Pointer" Bytesize="8" OffsetHex="00000DD0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3544" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000DD8" DisplayMethod="hexadecimal"/>
+        <Element Offset="3548" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000DDC" DisplayMethod="unsigned integer"/>
+        <Element Offset="3552" Vartype="Pointer" Bytesize="8" OffsetHex="00000DE0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3560" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000DE8" DisplayMethod="unsigned integer"/>
+        <Element Offset="3576" Vartype="Pointer" Bytesize="8" OffsetHex="00000DF8" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="3584" Vartype="Pointer" Bytesize="8" OffsetHex="00000E00" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="3592" Vartype="Pointer" Bytesize="8" OffsetHex="00000E08" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="3600" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000E10" DisplayMethod="unsigned integer"/>
+        <Element Offset="3616" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000E20" DisplayMethod="unsigned integer"/>
+        <Element Offset="3620" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000E24" DisplayMethod="hexadecimal"/>
+        <Element Offset="3624" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000E28" DisplayMethod="unsigned integer"/>
+        <Element Offset="3648" Vartype="Double" Bytesize="8" OffsetHex="00000E40" DisplayMethod="unsigned integer"/>
+        <Element Offset="3656" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000E48" DisplayMethod="unsigned integer"/>
+        <Element Offset="3672" Vartype="Pointer" Bytesize="8" OffsetHex="00000E58" DisplayMethod="unsigned integer"/>
+        <Element Offset="3680" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000E60" DisplayMethod="hexadecimal"/>
+        <Element Offset="3684" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000E64" DisplayMethod="unsigned integer"/>
+        <Element Offset="3688" Vartype="Pointer" Bytesize="8" OffsetHex="00000E68" DisplayMethod="unsigned integer"/>
+        <Element Offset="3696" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000E70" DisplayMethod="unsigned integer"/>
+        <Element Offset="3712" Vartype="Pointer" Bytesize="8" OffsetHex="00000E80" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="3720" Vartype="Pointer" Bytesize="8" OffsetHex="00000E88" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="3728" Vartype="Pointer" Bytesize="8" OffsetHex="00000E90" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="3736" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000E98" DisplayMethod="unsigned integer"/>
+        <Element Offset="3752" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000EA8" DisplayMethod="unsigned integer"/>
+        <Element Offset="3756" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000EAC" DisplayMethod="hexadecimal"/>
+        <Element Offset="3760" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000EB0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3784" Vartype="Double" Bytesize="8" OffsetHex="00000EC8" DisplayMethod="unsigned integer"/>
+        <Element Offset="3792" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000ED0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3808" Vartype="Pointer" Bytesize="8" OffsetHex="00000EE0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3816" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000EE8" DisplayMethod="hexadecimal"/>
+        <Element Offset="3820" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000EEC" DisplayMethod="unsigned integer"/>
+        <Element Offset="3824" Vartype="Pointer" Bytesize="8" OffsetHex="00000EF0" DisplayMethod="unsigned integer"/>
+        <Element Offset="3832" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000EF8" DisplayMethod="unsigned integer"/>
+        <Element Offset="3848" Vartype="Pointer" Bytesize="8" OffsetHex="00000F08" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="3856" Vartype="Pointer" Bytesize="8" OffsetHex="00000F10" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="3864" Vartype="Pointer" Bytesize="8" OffsetHex="00000F18" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="3872" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000F20" DisplayMethod="unsigned integer"/>
+        <Element Offset="3888" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000F30" DisplayMethod="unsigned integer"/>
+        <Element Offset="3892" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000F34" DisplayMethod="hexadecimal"/>
+        <Element Offset="3896" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000F38" DisplayMethod="unsigned integer"/>
+        <Element Offset="3920" Vartype="Double" Bytesize="8" OffsetHex="00000F50" DisplayMethod="unsigned integer"/>
+        <Element Offset="3928" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000F58" DisplayMethod="unsigned integer"/>
+        <Element Offset="3944" Vartype="Pointer" Bytesize="8" OffsetHex="00000F68" DisplayMethod="unsigned integer"/>
+        <Element Offset="3952" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000F70" DisplayMethod="hexadecimal"/>
+        <Element Offset="3956" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000F74" DisplayMethod="unsigned integer"/>
+        <Element Offset="3960" Vartype="Pointer" Bytesize="8" OffsetHex="00000F78" DisplayMethod="unsigned integer"/>
+        <Element Offset="3968" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000F80" DisplayMethod="unsigned integer"/>
+        <Element Offset="3984" Vartype="Pointer" Bytesize="8" OffsetHex="00000F90" Description="Pointer to instance of CBaseUserCmdPB" DisplayMethod="unsigned integer"/>
+        <Element Offset="3992" Vartype="Pointer" Bytesize="8" OffsetHex="00000F98" Description="Pointer to instance of CMsgVector" DisplayMethod="unsigned integer"/>
+        <Element Offset="4000" Vartype="Pointer" Bytesize="8" OffsetHex="00000FA0" Description="Pointer to instance of CMsgQAngle" DisplayMethod="unsigned integer"/>
+        <Element Offset="4008" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000FA8" DisplayMethod="unsigned integer"/>
+        <Element Offset="4024" Vartype="Byte" Bytesize="1" RLECount="4" OffsetHex="00000FB8" DisplayMethod="unsigned integer"/>
+        <Element Offset="4028" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000FBC" DisplayMethod="hexadecimal"/>
+        <Element Offset="4032" Vartype="4 Bytes" Bytesize="4" RLECount="6" OffsetHex="00000FC0" DisplayMethod="unsigned integer"/>
+        <Element Offset="4056" Vartype="Float" Bytesize="4" RLECount="2" OffsetHex="00000FD8" DisplayMethod="unsigned integer"/>
+        <Element Offset="4064" Vartype="4 Bytes" Bytesize="4" RLECount="4" OffsetHex="00000FE0" DisplayMethod="unsigned integer"/>
+        <Element Offset="4080" Vartype="Pointer" Bytesize="8" OffsetHex="00000FF0" DisplayMethod="unsigned integer"/>
+        <Element Offset="4088" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000FF8" DisplayMethod="hexadecimal"/>
+        <Element Offset="4092" Vartype="4 Bytes" Bytesize="4" OffsetHex="00000FFC" DisplayMethod="unsigned integer"/>
+      </Elements>
+    </Structure>
+  </Structures>
   <LuaScript>--[[
 dr NHA's Source 2 Dumper And Reversal Project!
 Feel Free To Contribute!
@@ -6566,6 +7484,27 @@ FNR("CreatePath");
 
 _CLArg=function(Type,Value);return {type = Type, value = Value};end;
 FNR("_CLArg");
+
+
+WS_EX={
+TRANSPARENT = 0x00000020,
+LAYERED = 0x00080000,
+NOACTIVATE = 0x08000000,
+COMPOSITED = 0x02000000,
+TOPMOST = 0x00000008,
+}
+FFNR("WS_EX",{"TRANSPARENT","LAYERED","NOACTIVATE","COMPOSITED","TOPMOST"});
+
+GWL={
+EXSTYLE = -20,
+HINSTANCE = -6,
+ID = -12,
+STYLE = -16,
+USERDATA = -21,
+WNDPROC = -4,
+};
+FFNR("GWL",{"EXSTYLE","HINSTANCE","ID","STYLE","USERDATA","WNDPROC"});
+
 
 NHA_CE.IsWindowVisible=function(FormHandle);return
 executeCodeLocalEx(getAddressSafe("IsWindowVisible",true),_CLArg(0,FormHandle));end;
