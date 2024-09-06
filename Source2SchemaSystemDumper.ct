@@ -67,6 +67,15 @@ local Width=0;
 local Height=0;
 local LastDist=1333337;
 local SelfTeam=0;
+  local dx = 0;
+  local dy =0;
+  local Dist=0;
+local CamThirdPerson=0;
+local CamPosA=0;
+local camPos=0;
+local COL=0;
+local D=0;
+local Silent=0;
 while AIMBOT_ENALBED do;
 _ViewMatrix=getAddressSafe("ViewMatrix");
 CacheMatrix(_ViewMatrix);
@@ -97,9 +106,9 @@ local COL=readPointer(Pawn0+PCollision);
 L2D = WorldtoScreen(readFloat(Pawn0+Origin),readFloat(Pawn0+Origin+0x4),readFloat(Pawn0+Origin+0x8)+readFloat(COL+0x54)+ExtraHeight);
 
 if L2D.X~=0 and L2D.X~=0 then;
-  local dx = L2D.X - Width
-  local dy = L2D.Y - Height
-  local Dist=math.sqrt ( dx * dx + dy * dy )
+dx = L2D.X - Width
+dy = L2D.Y - Height
+Dist=math.sqrt ( dx * dx + dy * dy )
 
 if Dist&lt;LastDist then
 LastDist=Dist;
@@ -117,15 +126,15 @@ end;
 
 if LADDRESS~=0 then;
 CADDRESS=LADDRESS;
-local CamThirdPerson=getAddress("[CameraManager+0x28]");
-local CamPosA=CamThirdPerson+0x38;
-local camPos={X=readFloat(CamPosA),Y=readFloat(CamPosA+0x4),Z=readFloat(CamPosA+0x8)};
-local COL=readPointer(CADDRESS+PCollision);
-local D=CalculateNewAngles(
+CamThirdPerson=getAddress("[CameraManager+0x28]");
+CamPosA=CamThirdPerson+0x38;
+camPos={X=readFloat(CamPosA),Y=readFloat(CamPosA+0x4),Z=readFloat(CamPosA+0x8)};
+COL=readPointer(CADDRESS+PCollision);
+D=CalculateNewAngles(
 camPos,
 {X=readFloat(CADDRESS+Origin),Y=readFloat(CADDRESS+Origin+0x4),Z=readFloat(CADDRESS+Origin+0x8)+readFloat(COL+0x54)+ExtraHeight}
 );
-local Silent=getAddressSafe("PSilentAngsRefE");
+Silent=getAddressSafe("PSilentAngsRefE");
 if Silent and readByte(Silent)==1 or false then;--I know Its Backwards Its Source2
 Silent=getAddressSafe("PSilentAngsRefX");
 writeFloat(Silent+0x4,D.X);
@@ -831,14 +840,14 @@ writeByte("SilentAngsRefE",0);
           <ID>1449</ID>
           <Description>"Deadlock"</Description>
           <Options moHideChildren="1"/>
-          <LastState Value="" RealAddress="00000000"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
               <ID>1473</ID>
               <Description>"Lock Rotations"</Description>
               <Options moHideChildren="1"/>
-              <LastState/>
+              <LastState Activated="1"/>
               <VariableType>Auto Assembler Script</VariableType>
               <AssemblerScript>{$lua}
 local Name="DeadLockInputUpdateInstructionHook";
@@ -996,6 +1005,7 @@ end;
                 <CheatEntry>
                   <ID>1474</ID>
                   <Description>"PSilentAngsRefE"</Description>
+                  <LastState Value="1" RealAddress="7FFB4DDC0500"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>PSilentAngsRefE</Address>
@@ -1003,6 +1013,7 @@ end;
                 <CheatEntry>
                   <ID>1546</ID>
                   <Description>"PSilentAngsRefX"</Description>
+                  <LastState Value="1.846261621" RealAddress="7FFB4DDC0508"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>PSilentAngsRefX</Address>
@@ -1010,6 +1021,7 @@ end;
                 <CheatEntry>
                   <ID>1547</ID>
                   <Description>"PSilentAngsRefY"</Description>
+                  <LastState Value="-96.13050842" RealAddress="7FFB4DDC050C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>PSilentAngsRefX+4</Address>
@@ -1017,6 +1029,7 @@ end;
                 <CheatEntry>
                   <ID>1831</ID>
                   <Description>"PSilentAngsRefY2"</Description>
+                  <LastState Value="0" RealAddress="7FFB4DDC0518"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>PSilentAngsRefY2</Address>
@@ -2415,7 +2428,7 @@ end);
                 <CheatEntry>
                   <ID>2</ID>
                   <Description>"0"</Description>
-                  <LastState Value="0.9705115557" RealAddress="7FFB502FF680"/>
+                  <LastState Value="-0.9751983285" RealAddress="7FFB502FF680"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -2423,7 +2436,7 @@ end);
                 <CheatEntry>
                   <ID>3</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.1052169949" RealAddress="7FFB502FF684"/>
+                  <LastState Value="0.04417693987" RealAddress="7FFB502FF684"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -2431,7 +2444,7 @@ end);
                 <CheatEntry>
                   <ID>4</ID>
                   <Description>"2"</Description>
-                  <LastState Value="-1.629135021E-10" RealAddress="7FFB502FF688"/>
+                  <LastState Value="9.689568259E-9" RealAddress="7FFB502FF688"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -2439,7 +2452,7 @@ end);
                 <CheatEntry>
                   <ID>5</ID>
                   <Description>"3"</Description>
-                  <LastState Value="-1947.922729" RealAddress="7FFB502FF68C"/>
+                  <LastState Value="2126.830078" RealAddress="7FFB502FF68C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -2458,7 +2471,7 @@ end);
                 <CheatEntry>
                   <ID>18</ID>
                   <Description>"0"</Description>
-                  <LastState Value="0.0007150484016" RealAddress="7FFB502FF690"/>
+                  <LastState Value="-0.01785611175" RealAddress="7FFB502FF690"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -2466,7 +2479,7 @@ end);
                 <CheatEntry>
                   <ID>19</ID>
                   <Description>"1"</Description>
-                  <LastState Value="-0.006595535669" RealAddress="7FFB502FF694"/>
+                  <LastState Value="-0.3941709399" RealAddress="7FFB502FF694"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -2474,7 +2487,7 @@ end);
                 <CheatEntry>
                   <ID>20</ID>
                   <Description>"2"</Description>
-                  <LastState Value="1.737620592" RealAddress="7FFB502FF698"/>
+                  <LastState Value="1.692240953" RealAddress="7FFB502FF698"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -2482,7 +2495,7 @@ end);
                 <CheatEntry>
                   <ID>21</ID>
                   <Description>"3"</Description>
-                  <LastState Value="-144.312439" RealAddress="7FFB502FF69C"/>
+                  <LastState Value="-246.4788055" RealAddress="7FFB502FF69C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -2501,7 +2514,7 @@ end);
                 <CheatEntry>
                   <ID>13</ID>
                   <Description>"0"</Description>
-                  <LastState Value="-0.107810922" RealAddress="7FFB502FF6A0"/>
+                  <LastState Value="-0.0440838784" RealAddress="7FFB502FF6A0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -2509,7 +2522,7 @@ end);
                 <CheatEntry>
                   <ID>14</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.9944376945" RealAddress="7FFB502FF6A4"/>
+                  <LastState Value="-0.9731438756" RealAddress="7FFB502FF6A4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -2517,7 +2530,7 @@ end);
                 <CheatEntry>
                   <ID>15</ID>
                   <Description>"2"</Description>
-                  <LastState Value="0.003818980884" RealAddress="7FFB502FF6A8"/>
+                  <LastState Value="-0.2271379977" RealAddress="7FFB502FF6A8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -2525,7 +2538,7 @@ end);
                 <CheatEntry>
                   <ID>16</ID>
                   <Description>"3"</Description>
-                  <LastState Value="1922.058228" RealAddress="7FFB502FF6AC"/>
+                  <LastState Value="-184.2402954" RealAddress="7FFB502FF6AC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -2544,7 +2557,7 @@ end);
                 <CheatEntry>
                   <ID>8</ID>
                   <Description>"0"</Description>
-                  <LastState Value="-0.1077816039" RealAddress="7FFB502FF6B0"/>
+                  <LastState Value="-0.04407189041" RealAddress="7FFB502FF6B0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -2552,7 +2565,7 @@ end);
                 <CheatEntry>
                   <ID>9</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.9941672683" RealAddress="7FFB502FF6B4"/>
+                  <LastState Value="-0.972879231" RealAddress="7FFB502FF6B4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -2560,7 +2573,7 @@ end);
                 <CheatEntry>
                   <ID>10</ID>
                   <Description>"2"</Description>
-                  <LastState Value="0.003817942226" RealAddress="7FFB502FF6B8"/>
+                  <LastState Value="-0.2270762175" RealAddress="7FFB502FF6B8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -2568,7 +2581,7 @@ end);
                 <CheatEntry>
                   <ID>11</ID>
                   <Description>"3"</Description>
-                  <LastState Value="1928.535522" RealAddress="7FFB502FF6BC"/>
+                  <LastState Value="-177.1901855" RealAddress="7FFB502FF6BC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -2594,7 +2607,7 @@ end);
                     <CheatEntry>
                       <ID>191</ID>
                       <Description>"0"</Description>
-                      <LastState Value="0.4991740882" RealAddress="7FFB502FFC88"/>
+                      <LastState Value="0.2886559367" RealAddress="7FFB502FFC88"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -2602,7 +2615,7 @@ end);
                     <CheatEntry>
                       <ID>192</ID>
                       <Description>"1"</Description>
-                      <LastState Value="0.4925944805" RealAddress="7FFB502FFC8C"/>
+                      <LastState Value="0.6818760037" RealAddress="7FFB502FFC8C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -2610,7 +2623,7 @@ end);
                     <CheatEntry>
                       <ID>193</ID>
                       <Description>"2"</Description>
-                      <LastState Value="0.00273197866" RealAddress="7FFB502FFC90"/>
+                      <LastState Value="0.1624892503" RealAddress="7FFB502FFC90"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
@@ -2638,7 +2651,7 @@ end);
                     <CheatEntry>
                       <ID>1836</ID>
                       <Description>"0"</Description>
-                      <LastState Value="2191.6875" RealAddress="7FFB502FFDE0"/>
+                      <LastState Value="2167.1875" RealAddress="7FFB502FFDE0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -2646,7 +2659,7 @@ end);
                     <CheatEntry>
                       <ID>1837</ID>
                       <Description>"1"</Description>
-                      <LastState Value="-1702.53125" RealAddress="7FFB502FFDE4"/>
+                      <LastState Value="-303.15625" RealAddress="7FFB502FFDE4"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -2654,7 +2667,7 @@ end);
                     <CheatEntry>
                       <ID>1838</ID>
                       <Description>"2"</Description>
-                      <LastState Value="75.6875" RealAddress="7FFB502FFDE8"/>
+                      <LastState Value="97.90625" RealAddress="7FFB502FFDE8"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
@@ -3485,7 +3498,7 @@ end);
           <ID>199</ID>
           <Description>"PlayerPawns"</Description>
           <Options moHideChildren="1"/>
-          <LastState Value="" RealAddress="00000000"/>
+          <LastState Value="" Activated="1" RealAddress="00000000"/>
           <GroupHeader>1</GroupHeader>
           <CheatEntries>
             <CheatEntry>
@@ -3544,7 +3557,7 @@ end);
                         <CheatEntry>
                           <ID>1655</ID>
                           <Description>"m_flLatchValue"</Description>
-                          <LastState Value="2" RealAddress="24420032488"/>
+                          <LastState Value="1.703369141" RealAddress="24420032488"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flLatchValue</Address>
@@ -3788,7 +3801,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>663</ID>
                               <Description>"Yaw"</Description>
-                              <LastState Value="93.46875" RealAddress="24420050130"/>
+                              <LastState Value="-92.28125" RealAddress="24420050130"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+4</Address>
@@ -3798,7 +3811,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>659</ID>
                           <Description>"vecOrigin.X"</Description>
-                          <LastState Value="2151.5" RealAddress="244200500D8"/>
+                          <LastState Value="2192.9375" RealAddress="244200500D8"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.CGameSceneNode.m_vecOrigin</Address>
@@ -3806,7 +3819,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>660</ID>
                               <Description>"vecOrigin.Y"</Description>
-                              <LastState Value="-1610.15625" RealAddress="244200500DC"/>
+                              <LastState Value="-398.0625" RealAddress="244200500DC"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+4</Address>
@@ -3832,7 +3845,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>658</ID>
                               <Description>"Yaw"</Description>
-                              <LastState Value="93.46875" RealAddress="24420050114"/>
+                              <LastState Value="-92.28125" RealAddress="24420050114"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+4</Address>
@@ -3889,7 +3902,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>256</ID>
                   <Description>"m_iHealth"</Description>
-                  <LastState Value="650" RealAddress="2442003174C"/>
+                  <LastState Value="691" RealAddress="2442003174C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>+client.C_BaseEntity.m_iHealth</Address>
@@ -3941,7 +3954,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>367</ID>
                       <Description>"0"</Description>
-                      <LastState Value="2151.53125" RealAddress="2442003222C"/>
+                      <LastState Value="2192.9375" RealAddress="2442003222C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -3949,7 +3962,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>368</ID>
                       <Description>"1"</Description>
-                      <LastState Value="-1610.125" RealAddress="24420032230"/>
+                      <LastState Value="-398.0625" RealAddress="24420032230"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -4377,7 +4390,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>475</ID>
                       <Description>"m_flGlowStartTime"</Description>
-                      <LastState Value="2120.483398" RealAddress="24420031B6C"/>
+                      <LastState Value="3355.400146" RealAddress="24420031B6C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CGlowProperty.m_flGlowStartTime</Address>
@@ -4636,7 +4649,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1673</ID>
                           <Description>"GetEnt"</Description>
-                          <LastState Value="" RealAddress="1328E982400"/>
+                          <LastState Value="" RealAddress="00000000"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <GroupHeader>1</GroupHeader>
                           <Address>GetEntityByIndex:0x149</Address>
@@ -5253,7 +5266,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1620</ID>
                       <Description>"m_flGlowStartTime"</Description>
-                      <LastState Value="2120.483398" RealAddress="2442003076C"/>
+                      <LastState Value="3355.400146" RealAddress="2442003076C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CGlowProperty.m_flGlowStartTime</Address>
@@ -5512,7 +5525,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1720</ID>
                           <Description>"GetEnt"</Description>
-                          <LastState Value="" RealAddress="1328E982400"/>
+                          <LastState Value="" RealAddress="00000000"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <GroupHeader>1</GroupHeader>
                           <Address>GetEntityByIndex:0x149</Address>
@@ -5762,7 +5775,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>1747</ID>
                   <Description>"m_iHealth"</Description>
-                  <LastState Value="191" RealAddress="243C6332B4C"/>
+                  <LastState Value="625" RealAddress="243C6332B4C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>+client.C_BaseEntity.m_iHealth</Address>
@@ -6129,7 +6142,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1789</ID>
                       <Description>"m_flGlowStartTime"</Description>
-                      <LastState Value="2120.483398" RealAddress="243C6332F6C"/>
+                      <LastState Value="3355.433594" RealAddress="243C6332F6C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CGlowProperty.m_flGlowStartTime</Address>
@@ -6301,6 +6314,10 @@ end;
 return string.format('%X',NHA_DB);
 end
 FNR("NHA_CE.GetHexAddress");
+
+function IsNumber(value);return tonumber(value) and true or false;end;FNR("IsNumber");
+function IsString(value);return type(value) == "string";end;FNR("IsString");
+
 
 --Scan A Module For A Signature/Aob
 NHA_CE.UniqueScanModule=function(Signature,ModuleName)
