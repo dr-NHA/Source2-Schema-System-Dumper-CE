@@ -4,8 +4,7 @@
     <CheatEntry>
       <ID>0</ID>
       <Description>"Attach"</Description>
-      <Options moHideChildren="1"/>
-      <LastState Activated="1"/>
+      <LastState/>
       <VariableType>Auto Assembler Script</VariableType>
       <AssemblerScript>{$lua}
 [ENABLE]
@@ -50,12 +49,14 @@ createThread(function();
 print("Aimbot Enabled!");
 local INDEX=0;
 local ExtraHeight=15;
+local VecViewOffset=getAddressSafe("client.C_BaseModelEntity.m_vecViewOffset");
 local Origin=getAddressSafe("client.C_BasePlayerPawn.m_vOldOrigin");
 local m_hController=getAddressSafe("client.C_BasePlayerPawn.m_hController");
 local m_iszPlayerName=getAddressSafe("client.CBasePlayerController.m_iszPlayerName");
 local bLocal=getAddressSafe("client.CBasePlayerController.m_bIsLocalPlayerController");
 local PCollision=getAddressSafe("client.C_BaseEntity.m_pCollision");
-local iTeamNum=getAddressSafe("C_BaseEntity.m_iTeamNum");
+local iTeamNum=getAddressSafe("client.C_BaseEntity.m_iTeamNum");
+local iHealth=getAddressSafe("client.C_BaseEntity.m_iHealth");
 if Origin==nil or m_hController==nil or m_iszPlayerName==nil or bLocal==nil or PCollision==nil or iTeamNum==nil then;print("Aimbot Disabled! Offsets Were Invalid!");return;end;
 local Pawn0=nil;
 local CNT=0;
@@ -78,6 +79,7 @@ local COL=0;
 local D=0;
 local Silent=0;
 local Pass=0;
+local Aiming=0;
 while AIMBOT_ENALBED do;
 if Pass==0 then
 _ViewMatrix=getAddressSafe("ViewMatrix");
@@ -105,9 +107,8 @@ if CNT~=nil then;
 if readByte(CNT+bLocal)==1 then
 LPAddress=Pawn0;
 SelfTeam=readByte(LPAddress+iTeamNum);
-elseif readByte(Pawn0+iTeamNum)~=SelfTeam then;
-local COL=readPointer(Pawn0+PCollision);
-L2D = WorldtoScreen(readFloat(Pawn0+Origin),readFloat(Pawn0+Origin+0x4),readFloat(Pawn0+Origin+0x8)+readFloat(COL+0x54)+ExtraHeight);
+elseif readByte(Pawn0+iTeamNum)~=SelfTeam and readInteger(Pawn0+ iHealth)&gt;0 then;
+L2D = WorldtoScreen(readFloat(Pawn0+Origin),readFloat(Pawn0+Origin+0x4),readFloat(Pawn0+Origin+0x8)+readFloat(Pawn0+ VecViewOffset+0x8));
 
 if L2D.X~=0 and L2D.X~=0 then;
 dx = L2D.X - Width
@@ -133,21 +134,18 @@ end
 
 if LADDRESS~=0 and isKeyPressed(VK_LBUTTON) then;
 CADDRESS=LADDRESS;
-CamThirdPerson=getAddress("[CameraManager+0x28]");
+CamThirdPerson=getAddressSafe("[CameraManager+0x28]");
+if CamThirdPerson~=nil then;--Deadloack
 CamPosA=CamThirdPerson+0x38;
+else--CS2
+CamPosA=getAddressSafe("ViewMatrix+0x608");
+end
 camPos={X=readFloat(CamPosA),Y=readFloat(CamPosA+0x4),Z=readFloat(CamPosA+0x8)};
-COL=readPointer(CADDRESS+PCollision);
-
 Silent=getAddressSafe("PSilentAngsRefE");
 if Silent then;--I know Its Backwards Its Source2
---[[COL=readPointer(LPAddress+PCollision);
-local Z2=readFloat(LPAddress+Origin+0x8)+readFloat(COL+0x54);
-camPos={X=readFloat(LPAddress+Origin),Y=readFloat(LPAddress+Origin+0x4),Z=Z2};
-COL=readPointer(CADDRESS+PCollision);
-]]
 D=CalculateNewAngles(
 camPos,
-{X=readFloat(CADDRESS+Origin),Y=readFloat(CADDRESS+Origin+0x4),Z=(readFloat(CADDRESS+Origin+0x8)+readFloat(COL+0x54)+ExtraHeight)}
+{X=readFloat(CADDRESS+Origin),Y=readFloat(CADDRESS+Origin+0x4),Z=(readFloat(CADDRESS+Origin+0x8)+readFloat(CADDRESS+ VecViewOffset+0x8))}
 );
 
 writeByte(Silent,1);
@@ -165,10 +163,19 @@ D=CalculateNewAngles(
 camPos,
 {X=readFloat(CADDRESS+Origin),Y=readFloat(CADDRESS+Origin+0x4),Z=readFloat(CADDRESS+Origin+0x8)+(readFloat(COL+0x54)/2)}
 );
+if CamThirdPerson~=nil then
 writeFloat(CamThirdPerson+0x48,D.X);
 writeFloat(CamThirdPerson+0x44,D.Y);
+else
+local _InputAngles=GetAddress("[CInput]+0x5D80");
+writeFloat(_InputAngles+0x4,D.X);
+writeFloat(_InputAngles,D.Y);
+end
 end
 --print("Aimbot: "..NHA_CE.ReadString( CNT+m_iszPlayerName).." Targetted! "..D.X.."/"..D.Y.."   "..Heighter);
+Aiming=30;
+elseif Aiming&gt;1 then
+Aiming=Aiming-1;
 else
 Silent=getAddressSafe("PSilentAngsRefE");
 if Silent then
@@ -268,7 +275,7 @@ AIMBOT_ENALBED=false;
                 <CheatEntry>
                   <ID>510</ID>
                   <Description>"sv_showplayerhitboxes"</Description>
-                  <LastState Value="0" RealAddress="27FD2841F90"/>
+                  <LastState Value="0" RealAddress="205F0121EF0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.sv_showplayerhitboxes</Address>
@@ -763,14 +770,14 @@ end);
                   <AssemblerScript>{$lua}
 local Name="CsgoInputUpdateInstructionHook";
 [ENABLE]
-local CsgoInputUpdateInstruction=NHA_CE.UniqueScanModule("?? ?? ?? ?? ?? 8B 08 FF C9 41 89 4C 24 54","client.dll");
+local CsgoInputUpdateInstruction=NHA_CE.UniqueScanModule("?? ?? ?? ?? ?? ?? FF C9 41 89 4C 24 54","client.dll");
 RegisterAndPrint("CsgoInputUpdateInstruction",CsgoInputUpdateInstruction);
 CsgoInputUpdateInstructionHook=allocateMemory(0x1000,getAddress("CsgoInputUpdateInstruction"));
 RegisterSymbol(Name,CsgoInputUpdateInstructionHook);
 local LVars=CsgoInputUpdateInstructionHook+0x4F8;
-RegisterSymbol("SilentAngsRefE",LVars+(0x8*1));
-RegisterSymbol("SilentAngsRefX",LVars+(0x8*2));
-RegisterSymbol("SilentAngsRefY",LVars+(0x8*3));
+RegisterSymbol("PSilentAngsRefE",LVars+(0x8*1));
+RegisterSymbol("PSilentAngsRefX",LVars+(0x8*2));
+RegisterSymbol("PSilentAngsRefY",LVars+(0x8*3));
 RegisterSymbol("RapidFireE",LVars+(0x8*4));
 local Script=[[
 label(return OriginalCode AimbotCode RapidFireCode)
@@ -779,10 +786,10 @@ cmp r15,0
 je OriginalCode
 
 AimbotCode:
-cmp [SilentAngsRefE],0
+cmp [PSilentAngsRefE],0
 je RapidFireCode
 mov r13,[r15+18]
-movsd xmm0,[SilentAngsRefX]
+movsd xmm0,[PSilentAngsRefX]
 movsd [r13+18],xmm0
 xor r13,r13
 
@@ -793,10 +800,13 @@ mov [r15+60],0
 mov [r15+68],1
 
 OriginalCode:
-mov rax,[rsp+78]
+mov rax,[rbp-80]
+mov ecx,[rax]
+
 jmp return
 CsgoInputUpdateInstruction:
 jmp CsgoInputUpdateInstructionHook
+nop
 return:
 ]];
 local E,M=autoAssembleCheck(Script);
@@ -810,7 +820,8 @@ local Address=getAddressSafe("CsgoInputUpdateInstructionHook");
 if Address~=nil and Address~=0 then
 autoAssemble([[
 CsgoInputUpdateInstruction:
-mov rax,[rsp+78]
+mov rax,[rbp-80]
+mov ecx,[rax]
 ]]);
 deAlloc(Address);
 end;
@@ -824,10 +835,10 @@ end;
                       <VariableType>Auto Assembler Script</VariableType>
                       <AssemblerScript>{$lua}
 [ENABLE]
-writeByte("SilentAngsRefE",1);
-local SilentAngsRefX,SilentAngsRefY=getAddress("SilentAngsRefX"),getAddress("SilentAngsRefY");
+writeByte("PSilentAngsRefE",1);
+local SilentAngsRefX,SilentAngsRefY=getAddress("PSilentAngsRefX"),getAddress("PSilentAngsRefY");
 [DISABLE]
-writeByte("SilentAngsRefE",0);
+writeByte("PSilentAngsRefE",0);
 </AssemblerScript>
                       <CheatEntries>
                         <CheatEntry>
@@ -999,18 +1010,28 @@ RegisterSymbol("AimPosRefE",LVars+(0x8*5));
 RegisterSymbol("AimPosRefX",LVars+(0x8*6));
 RegisterSymbol("AimPosRefY",LVars+(0x8*7));
 RegisterSymbol("AimPosRefZ",LVars+(0x8*8));
+RegisterSymbol("ForceCrouch",LVars+(0x8*10));
 
 local Script=[[
-label(return OriginalCode AimCode Lastly)
+label(return OriginalCode AimCode Lastly Nextly)
 DeadLockInputUpdateInstructionHook:
 lea r9,[rsp+30]
+
+cmp r10,0
+jne OriginalCode
+
+cmp [ForceCrouch],0
+je Nextly
+mov r10,[rax+58]
+or r10,4
+mov [rax+58],r10
+xor r10,r10
+Nextly:
 
 cmp [PSilentAngsRefE],0
 je OriginalCode
 
 AimCode:
-cmp r10,0
-jne OriginalCode
 movsd xmm0,[PSilentAngsRefX]
 mov r10,[rax+38]
 movsd [r10+18],xmm0
@@ -1088,6 +1109,13 @@ end;
                   <Address>PSilentAngsRefY2</Address>
                 </CheatEntry>
                 <CheatEntry>
+                  <ID>1999</ID>
+                  <Description>"ForceCrouch"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>ForceCrouch</Address>
+                </CheatEntry>
+                <CheatEntry>
                   <ID>1841</ID>
                   <Description>"AimPosRefE"</Description>
                   <ShowAsSigned>0</ShowAsSigned>
@@ -1103,6 +1131,541 @@ end;
                 </CheatEntry>
                 <CheatEntry>
                   <ID>1825</ID>
+                  <Description>"DeLock Rotations"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+local Name="DeadLockDEInputUpdateInstructionHook";
+[ENABLE]
+local Caller=NHA_CE.CBUFF( NHA_CE.UniqueScanModule("48 0F 45 D0 E8 ?? ?? ?? ?? 40 F6 C7 08 74 06 8B 46 30 89 43 30 40 F6 C7 10","client.dll")+0x4,1);
+local Ins=NHA_CE.UniqueScanRegion("?? ?? ?? ?? ?? ?? 41 F6 C0 04",Caller,Caller+0x100);
+RegisterSymbol("DeadLockDEInputUpdateInstruction",Ins);
+local MEM=allocateMemory(0x1000,getAddress("DeadLockDEInputUpdateInstruction"));
+RegisterSymbol(Name,MEM);
+local Script=[[
+label(return OriginalCode)
+DeadLockDEInputUpdateInstructionHook:
+
+cmp [PSilentAngsRefE],0
+je OriginalCode
+mov eax,[PSilentAngsRefY2]
+mov [rdx+1C],eax
+mov [rcx+1C],eax
+jmp return
+
+OriginalCode:
+mov eax,[rdx+1C]
+mov [rcx+1C],eax
+jmp return
+
+DeadLockDEInputUpdateInstruction:
+jmp DeadLockDEInputUpdateInstructionHook
+nop
+return:
+]];
+local E,M=autoAssembleCheck(Script);
+if E then
+autoAssemble(Script);
+else
+print(M);
+end
+[DISABLE]
+local Address=getAddressSafe("DeadLockDEInputUpdateInstructionHook");
+if Address~=nil and Address~=0 then
+autoAssemble([[
+DeadLockDEInputUpdateInstruction:
+mov eax,[rdx+1C]
+mov [rcx+1C],eax
+]]);
+deAlloc(Address);
+end;
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2023</ID>
+              <Description>"Lock Rotations Spot2"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$lua}
+local Name="DeadLockInputUpdateInstructionHook";
+[ENABLE]
+--[[
+DeadLockInputUpdateInstruction - F3 0F11 49 1C         - movss [rcx+1C],xmm1
+client.dll+2B2E70              - F3 0F10 43 08         - movss xmm0,[rbx+08]
+client.dll+2B2E75              - 89 41 10              - mov [rcx+10],eax
+client.dll+2B2E78              - F3 0F11 41 20         - movss [rcx+20],xmm0
+client.dll+2B2E7D              - 49 8B CE              - mov rcx,r14
+client.dll+2B2E80              - 49 8B 06              - mov rax,[r14]
+F3 0F 11 49 1C F3 0F 10 43 08 89 41 10 F3 0F 11 41 20 49 8B CE 49 8B 06
+]]
+RegisterSymbol("DeadLockInputUpdateInstruction",NHA_CE.UniqueScanModule("F3 0F 11 49 1C F3 0F 10 43 08 89 41 10 F3 0F 11 41 20 49 8B CE 49 8B 06","client.dll"));
+CsgoPreInputUpdateInstructionHook=allocateMemory(0x1000,getAddress("client.dll"));
+RegisterSymbol(Name,CsgoPreInputUpdateInstructionHook);
+local LVars=CsgoPreInputUpdateInstructionHook+0x4F8;
+RegisterSymbol("PSilentAngsRefE",LVars+(0x8*1));
+RegisterSymbol("PSilentAngsRefX",LVars+(0x8*2));
+RegisterSymbol("PSilentAngsRefY",LVars+(0x8*3));
+RegisterSymbol("PSilentAngsRefY2",LVars+(0x8*4));
+RegisterSymbol("PSilentAngsRefZ",LVars+(0x8*9));
+
+local Script=[[
+label(return OriginalCode)
+DeadLockInputUpdateInstructionHook:
+
+cmp [PSilentAngsRefE],0
+je OriginalCode
+movsd xmm0,[PSilentAngsRefX]
+movsd [rcx+18],xmm0
+movss xmm0,[PSilentAngsRefZ]
+movss [rcx+1C],xmm0
+jmp return
+
+OriginalCode:
+movss [rcx+1C],xmm1
+jmp return
+
+DeadLockInputUpdateInstruction:
+jmp DeadLockInputUpdateInstructionHook
+return:
+]];
+local E,M=autoAssembleCheck(Script);
+if E then
+autoAssemble(Script);
+else
+print(M);
+end
+[DISABLE]
+local Address=getAddressSafe("DeadLockInputUpdateInstructionHook");
+if Address~=nil and Address~=0 then
+autoAssemble([[
+DeadLockInputUpdateInstruction:
+movss [rcx+1C],xmm1
+]]);
+deAlloc(Address);
+end;
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2024</ID>
+                  <Description>"PSilentAngsRefE"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PSilentAngsRefE</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2025</ID>
+                  <Description>"PSilentAngsRefX"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>PSilentAngsRefX</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2026</ID>
+                  <Description>"PSilentAngsRefY"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>PSilentAngsRefY</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2027</ID>
+                  <Description>"PSilentAngsRefZ"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>PSilentAngsRefZ</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2028</ID>
+                  <Description>"PSilentAngsRefY2"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>PSilentAngsRefY2</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2029</ID>
+                  <Description>"ForceCrouch"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>ForceCrouch</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2030</ID>
+                  <Description>"AimPosRefE"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>AimPosRefE</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2031</ID>
+                  <Description>"AimPosRefZ"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>AimPosRefZ</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2032</ID>
+                  <Description>"DeLock Rotations"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+local Name="DeadLockDEInputUpdateInstructionHook";
+[ENABLE]
+local Caller=NHA_CE.CBUFF( NHA_CE.UniqueScanModule("48 0F 45 D0 E8 ?? ?? ?? ?? 40 F6 C7 08 74 06 8B 46 30 89 43 30 40 F6 C7 10","client.dll")+0x4,1);
+local Ins=NHA_CE.UniqueScanRegion("?? ?? ?? ?? ?? ?? 41 F6 C0 04",Caller,Caller+0x100);
+RegisterSymbol("DeadLockDEInputUpdateInstruction",Ins);
+local MEM=allocateMemory(0x1000,getAddress("DeadLockDEInputUpdateInstruction"));
+RegisterSymbol(Name,MEM);
+local Script=[[
+label(return OriginalCode)
+DeadLockDEInputUpdateInstructionHook:
+
+cmp [PSilentAngsRefE],0
+je OriginalCode
+mov eax,[PSilentAngsRefY2]
+mov [rdx+1C],eax
+mov [rcx+1C],eax
+jmp return
+
+OriginalCode:
+mov eax,[rdx+1C]
+mov [rcx+1C],eax
+jmp return
+
+DeadLockDEInputUpdateInstruction:
+jmp DeadLockDEInputUpdateInstructionHook
+nop
+return:
+]];
+local E,M=autoAssembleCheck(Script);
+if E then
+autoAssemble(Script);
+else
+print(M);
+end
+[DISABLE]
+local Address=getAddressSafe("DeadLockDEInputUpdateInstructionHook");
+if Address~=nil and Address~=0 then
+autoAssemble([[
+DeadLockDEInputUpdateInstruction:
+mov eax,[rdx+1C]
+mov [rcx+1C],eax
+]]);
+deAlloc(Address);
+end;
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2038</ID>
+              <Description>"Lock Rotations Spot3"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$lua}
+local Name="DeadLockInputUpdateInstructionHook";
+[ENABLE]
+--[[
+client.dll+C915C7 - 83 67 10 FD           - and dword ptr [rdi+10],-03 { 253 }
+DeadLockInputUpdateInstruction- 48 8B 06              - mov rax,[rsi]
+client.dll+C915CE - 48 8B CE              - mov rcx,rsi
+client.dll+C915D1 - FF 50 30              - call qword ptr [rax+30]
+client.dll+C915D4 - 48 8B 4D 97           - mov rcx,[rbp-69]
+client.dll+C915D8 - 4C 8B BC 24 D8000000  - mov r15,[rsp+000000D8]
+?? ?? ?? ?? ?? ?? FF 50 30 48 8B 4D 97 4C 8B BC 24 D8 00 00 00
+]]
+RegisterSymbol("DeadLockInputUpdateInstruction",NHA_CE.UniqueScanModule("?? ?? ?? ?? ?? ?? FF 50 30 48 8B 4D 97 4C 8B BC 24 D8 00 00 00","client.dll"));
+CsgoPreInputUpdateInstructionHook=allocateMemory(0x1000,getAddress("client.dll"));
+RegisterSymbol(Name,CsgoPreInputUpdateInstructionHook);
+local LVars=CsgoPreInputUpdateInstructionHook+0x4F8;
+RegisterSymbol("PSilentAngsRefE",LVars+(0x8*1));
+RegisterSymbol("PSilentAngsRefX",LVars+(0x8*2));
+RegisterSymbol("PSilentAngsRefY",LVars+(0x8*3));
+RegisterSymbol("PSilentAngsRefY2",LVars+(0x8*4));
+RegisterSymbol("PSilentAngsRefZ",LVars+(0x8*9));
+
+local Script=[[
+label(return OriginalCode)
+DeadLockInputUpdateInstructionHook:
+
+cmp [PSilentAngsRefE],0
+je OriginalCode
+movsd xmm0,[PSilentAngsRefX]
+mov rcx,[rsi+38]
+movsd [rcx+18],xmm0
+movss xmm0,[PSilentAngsRefZ]
+movss [rcx+1C],xmm0
+
+OriginalCode:
+mov rax,[rsi]
+mov rcx,rsi
+jmp return
+
+DeadLockInputUpdateInstruction:
+jmp DeadLockInputUpdateInstructionHook
+nop
+return:
+]];
+local E,M=autoAssembleCheck(Script);
+if E then
+autoAssemble(Script);
+else
+print(M);
+end
+[DISABLE]
+local Address=getAddressSafe("DeadLockInputUpdateInstructionHook");
+if Address~=nil and Address~=0 then
+autoAssemble([[
+DeadLockInputUpdateInstruction:
+mov rax,[rsi]
+mov rcx,rsi
+]]);
+deAlloc(Address);
+end;
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2039</ID>
+                  <Description>"PSilentAngsRefE"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PSilentAngsRefE</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2040</ID>
+                  <Description>"PSilentAngsRefX"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>PSilentAngsRefX</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2041</ID>
+                  <Description>"PSilentAngsRefY"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>PSilentAngsRefY</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2042</ID>
+                  <Description>"PSilentAngsRefZ"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>PSilentAngsRefZ</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2043</ID>
+                  <Description>"PSilentAngsRefY2"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>PSilentAngsRefY2</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2044</ID>
+                  <Description>"ForceCrouch"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>ForceCrouch</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2045</ID>
+                  <Description>"AimPosRefE"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>AimPosRefE</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2046</ID>
+                  <Description>"AimPosRefZ"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>AimPosRefZ</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2047</ID>
+                  <Description>"DeLock Rotations"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState/>
+                  <VariableType>Auto Assembler Script</VariableType>
+                  <AssemblerScript>{$lua}
+local Name="DeadLockDEInputUpdateInstructionHook";
+[ENABLE]
+local Caller=NHA_CE.CBUFF( NHA_CE.UniqueScanModule("48 0F 45 D0 E8 ?? ?? ?? ?? 40 F6 C7 08 74 06 8B 46 30 89 43 30 40 F6 C7 10","client.dll")+0x4,1);
+local Ins=NHA_CE.UniqueScanRegion("?? ?? ?? ?? ?? ?? 41 F6 C0 04",Caller,Caller+0x100);
+RegisterSymbol("DeadLockDEInputUpdateInstruction",Ins);
+local MEM=allocateMemory(0x1000,getAddress("DeadLockDEInputUpdateInstruction"));
+RegisterSymbol(Name,MEM);
+local Script=[[
+label(return OriginalCode)
+DeadLockDEInputUpdateInstructionHook:
+
+cmp [PSilentAngsRefE],0
+je OriginalCode
+mov eax,[PSilentAngsRefY2]
+mov [rdx+1C],eax
+mov [rcx+1C],eax
+jmp return
+
+OriginalCode:
+mov eax,[rdx+1C]
+mov [rcx+1C],eax
+jmp return
+
+DeadLockDEInputUpdateInstruction:
+jmp DeadLockDEInputUpdateInstructionHook
+nop
+return:
+]];
+local E,M=autoAssembleCheck(Script);
+if E then
+autoAssemble(Script);
+else
+print(M);
+end
+[DISABLE]
+local Address=getAddressSafe("DeadLockDEInputUpdateInstructionHook");
+if Address~=nil and Address~=0 then
+autoAssemble([[
+DeadLockDEInputUpdateInstruction:
+mov eax,[rdx+1C]
+mov [rcx+1C],eax
+]]);
+deAlloc(Address);
+end;
+</AssemblerScript>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
+            <CheatEntry>
+              <ID>2048</ID>
+              <Description>"Lock Rotations Spot4"</Description>
+              <Options moHideChildren="1"/>
+              <LastState/>
+              <VariableType>Auto Assembler Script</VariableType>
+              <AssemblerScript>{$lua}
+local Name="DeadLockInputUpdateInstructionHook";
+[ENABLE]
+--[[
+client.dll+C91614 - E8 471F7600           - call client.dll+13F3560
+DeadLockInputUpdateInstruction - 4C 8B A4 24 F0000000  - mov r12,[rsp+000000F0]
+client.dll+C91621              - 48 85 C0              - test rax,rax
+client.dll+C91624              - 75 0B                 - jne client.dll+C91631
+client.dll+C91626              - 48 8B 05 DBA24401     - mov rax,[client.dll+20DB908] { (205F0291CD0) }
+client.dll+C9162D              - 48 8B 40 08           - mov rax,[rax+08]
+client.dll+C91631              - 0FB6 00               - movzx eax,byte ptr [rax]
+client.dll+C91634              - 84 C0                 - test al,al
+client.dll+C91636              - 0F84 CB010000         - je client.dll+C91807
+E8 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 48 85 C0 75 0B 48 8B 05 ?? ?? ?? ?? 48 8B 40 08 0F B6 00 84 C0 0F 84
+]]
+RegisterSymbol("DeadLockInputUpdateInstruction",NHA_CE.UniqueScanModule("E8 ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? ?? 48 85 C0 75 0B 48 8B 05 ?? ?? ?? ?? 48 8B 40 08 0F B6 00 84 C0 0F 84","client.dll")+0x5);
+CsgoPreInputUpdateInstructionHook=allocateMemory(0x1000,getAddress("client.dll"));
+RegisterSymbol(Name,CsgoPreInputUpdateInstructionHook);
+local LVars=CsgoPreInputUpdateInstructionHook+0x4F8;
+RegisterSymbol("PSilentAngsRefE",LVars+(0x8*1));
+RegisterSymbol("PSilentAngsRefX",LVars+(0x8*2));
+RegisterSymbol("PSilentAngsRefY",LVars+(0x8*3));
+RegisterSymbol("PSilentAngsRefY2",LVars+(0x8*4));
+RegisterSymbol("PSilentAngsRefZ",LVars+(0x8*9));
+
+local Script=[[
+label(return OriginalCode)
+DeadLockInputUpdateInstructionHook:
+
+cmp [PSilentAngsRefE],0
+je OriginalCode
+movsd xmm0,[PSilentAngsRefX]
+mov r12,[rsi+38]
+movsd [r12+18],xmm0
+movss xmm0,[PSilentAngsRefZ]
+movss [r12+1C],xmm0
+
+OriginalCode:
+mov r12,[rsp+000000F0]
+jmp return
+
+DeadLockInputUpdateInstruction:
+jmp DeadLockInputUpdateInstructionHook
+nop 3
+return:
+]];
+local E,M=autoAssembleCheck(Script);
+if E then
+autoAssemble(Script);
+else
+print(M);
+end
+[DISABLE]
+local Address=getAddressSafe("DeadLockInputUpdateInstructionHook");
+if Address~=nil and Address~=0 then
+autoAssemble([[
+DeadLockInputUpdateInstruction:
+mov r12,[rsp+000000F0]
+]]);
+deAlloc(Address);
+end;
+</AssemblerScript>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>2049</ID>
+                  <Description>"PSilentAngsRefE"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>PSilentAngsRefE</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2050</ID>
+                  <Description>"PSilentAngsRefX"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>PSilentAngsRefX</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2051</ID>
+                  <Description>"PSilentAngsRefY"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>PSilentAngsRefY</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2052</ID>
+                  <Description>"PSilentAngsRefZ"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>PSilentAngsRefZ</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2053</ID>
+                  <Description>"PSilentAngsRefY2"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>PSilentAngsRefY2</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2054</ID>
+                  <Description>"ForceCrouch"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>ForceCrouch</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2055</ID>
+                  <Description>"AimPosRefE"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>AimPosRefE</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2056</ID>
+                  <Description>"AimPosRefZ"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Float</VariableType>
+                  <Address>AimPosRefZ</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>2057</ID>
                   <Description>"DeLock Rotations"</Description>
                   <Options moHideChildren="1"/>
                   <LastState/>
@@ -1419,7 +1982,7 @@ end
                 <CheatEntry>
                   <ID>430</ID>
                   <Description>"CVar.name (Dont Modify Without Spoofing)"</Description>
-                  <LastState RealAddress="27FAF190420"/>
+                  <LastState RealAddress="205C2B40420"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>String</VariableType>
                   <Length>22</Length>
@@ -1434,7 +1997,7 @@ end
                 <CheatEntry>
                   <ID>674</ID>
                   <Description>"namePtr"</Description>
-                  <LastState Value="0000027FAF190420" RealAddress="27FAF8E14D8"/>
+                  <LastState Value="00000205C2B40420" RealAddress="205C3291488"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>8 Bytes</VariableType>
@@ -1443,7 +2006,7 @@ end
                 <CheatEntry>
                   <ID>503</ID>
                   <Description>"mat_luxels"</Description>
-                  <LastState Value="0" RealAddress="27FAF8A1B80"/>
+                  <LastState Value="0" RealAddress="205C3251AE0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.mat_luxels</Address>
@@ -1451,7 +2014,7 @@ end
                 <CheatEntry>
                   <ID>418</ID>
                   <Description>"sv_cheats"</Description>
-                  <LastState Value="1" RealAddress="27FAF8F1678"/>
+                  <LastState Value="1" RealAddress="205C32A1628"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>CVar.sv_cheats</Address>
@@ -1459,7 +2022,7 @@ end
                 <CheatEntry>
                   <ID>420</ID>
                   <Description>"sv_infinite_ammo"</Description>
-                  <LastState Value="0" RealAddress="27FD2821D60"/>
+                  <LastState Value="0" RealAddress="205F0101CB0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>CVar.sv_infinite_ammo</Address>
@@ -1467,7 +2030,7 @@ end
                 <CheatEntry>
                   <ID>422</ID>
                   <Description>"cl_language"</Description>
-                  <LastState RealAddress="27FAF190490"/>
+                  <LastState RealAddress="205C2B40490"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>String</VariableType>
                   <Length>300</Length>
@@ -1482,7 +2045,7 @@ end
                 <CheatEntry>
                   <ID>423</ID>
                   <Description>"engine_cpu_info_extended"</Description>
-                  <LastState RealAddress="27FC39100E0"/>
+                  <LastState RealAddress="205D6EC0000"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>String</VariableType>
                   <Length>300</Length>
@@ -1497,7 +2060,7 @@ end
                 <CheatEntry>
                   <ID>502</ID>
                   <Description>"r_rendersun"</Description>
-                  <LastState Value="1" RealAddress="27FAF8A1540"/>
+                  <LastState Value="1" RealAddress="205C32514A0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.r_rendersun</Address>
@@ -1505,7 +2068,7 @@ end
                 <CheatEntry>
                   <ID>501</ID>
                   <Description>"vis_sunlight_enable"</Description>
-                  <LastState Value="1" RealAddress="27FAF8A1450"/>
+                  <LastState Value="1" RealAddress="205C32513B0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.vis_sunlight_enable</Address>
@@ -1513,7 +2076,7 @@ end
                 <CheatEntry>
                   <ID>500</ID>
                   <Description>"vis_enable"</Description>
-                  <LastState Value="1" RealAddress="27FAF8A14A0"/>
+                  <LastState Value="1" RealAddress="205C3251400"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.vis_enable</Address>
@@ -1521,7 +2084,7 @@ end
                 <CheatEntry>
                   <ID>481</ID>
                   <Description>"mat_fullbright"</Description>
-                  <LastState Value="0" RealAddress="27FAF8A1AE0"/>
+                  <LastState Value="0" RealAddress="205C3251A40"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.mat_fullbright</Address>
@@ -1529,7 +2092,7 @@ end
                 <CheatEntry>
                   <ID>482</ID>
                   <Description>"mat_wireframe"</Description>
-                  <LastState Value="0" RealAddress="27FAF8A1A90"/>
+                  <LastState Value="0" RealAddress="205C32519F0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.mat_wireframe</Address>
@@ -1537,7 +2100,7 @@ end
                     <CheatEntry>
                       <ID>499</ID>
                       <Description>"mat_wireframe"</Description>
-                      <LastState Value="0" RealAddress="27FAF8A1A98"/>
+                      <LastState Value="0" RealAddress="205C32519F8"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+8</Address>
@@ -1547,7 +2110,7 @@ end
                 <CheatEntry>
                   <ID>483</ID>
                   <Description>"r_drawskybox"</Description>
-                  <LastState Value="0" RealAddress="27FAF8A1C70"/>
+                  <LastState Value="0" RealAddress="205C3251BD0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.r_drawskybox</Address>
@@ -1555,7 +2118,7 @@ end
                 <CheatEntry>
                   <ID>504</ID>
                   <Description>"fog_override_enable"</Description>
-                  <LastState Value="0" RealAddress="27FAF8A1E50"/>
+                  <LastState Value="0" RealAddress="205C3251DB0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.fog_override_enable</Address>
@@ -1563,7 +2126,7 @@ end
                 <CheatEntry>
                   <ID>505</ID>
                   <Description>"fog_override_start"</Description>
-                  <LastState Value="1000" RealAddress="27FAF8A1EA0"/>
+                  <LastState Value="1000" RealAddress="205C3251E00"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>CVar.fog_override_start</Address>
@@ -1571,7 +2134,7 @@ end
                 <CheatEntry>
                   <ID>506</ID>
                   <Description>"fog_override_end"</Description>
-                  <LastState Value="3500" RealAddress="27FAF8A1EF0"/>
+                  <LastState Value="3500" RealAddress="205C3251E50"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>CVar.fog_override_end</Address>
@@ -1579,7 +2142,7 @@ end
                 <CheatEntry>
                   <ID>507</ID>
                   <Description>"fog_override_max_density"</Description>
-                  <LastState Value="0.400000006" RealAddress="27FAF8A1F40"/>
+                  <LastState Value="0.400000006" RealAddress="205C3251EA0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>CVar.fog_override_max_density</Address>
@@ -1587,7 +2150,7 @@ end
                 <CheatEntry>
                   <ID>508</ID>
                   <Description>"No description"</Description>
-                  <LastState Value="2" RealAddress="27FAF8A1F90"/>
+                  <LastState Value="2" RealAddress="205C3251EF0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>CVar.fog_override_exponent</Address>
@@ -1595,7 +2158,7 @@ end
                 <CheatEntry>
                   <ID>509</ID>
                   <Description>"sv_ent_showonlyhitbox"</Description>
-                  <LastState Value="4294967295" RealAddress="27FD2821FE8"/>
+                  <LastState Value="4294967295" RealAddress="205F0101F38"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.sv_ent_showonlyhitbox</Address>
@@ -1603,7 +2166,7 @@ end
                 <CheatEntry>
                   <ID>511</ID>
                   <Description>"sv_hitbox_debug"</Description>
-                  <LastState Value="0" RealAddress="27FD28305E0"/>
+                  <LastState Value="0" RealAddress="205F0110540"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.sv_hitbox_debug</Address>
@@ -1611,7 +2174,7 @@ end
                 <CheatEntry>
                   <ID>512</ID>
                   <Description>"cl_hitbox_debug (Shows All Hitboxes)"</Description>
-                  <LastState Value="0" RealAddress="27FDF500BD0"/>
+                  <LastState Value="0" RealAddress="205F0DD0B80"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.cl_hitbox_debug</Address>
@@ -1619,7 +2182,7 @@ end
                 <CheatEntry>
                   <ID>513</ID>
                   <Description>"cl_phys_enabled"</Description>
-                  <LastState Value="1" RealAddress="27FDF500540"/>
+                  <LastState Value="1" RealAddress="205F0DD04F0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>CVar.cl_phys_enabled</Address>
@@ -1627,7 +2190,7 @@ end
                 <CheatEntry>
                   <ID>1293</ID>
                   <Description>"CVar.cmd"</Description>
-                  <LastState Value="4C004497B90D8B48" RealAddress="7FFCF95DFB50"/>
+                  <LastState Value="4C003DD0D90D8B48" RealAddress="7FFFECA88210"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>8 Bytes</VariableType>
@@ -1857,7 +2420,7 @@ end);
                   <ID>615</ID>
                   <Description>"GlowManager"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="28089622970"/>
+                  <LastState Value="" RealAddress="20753442C70"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>CSystem:GlowManager</Address>
@@ -1865,7 +2428,7 @@ end);
                     <CheatEntry>
                       <ID>613</ID>
                       <Description>"Count"</Description>
-                      <LastState Value="1" RealAddress="28089622988"/>
+                      <LastState Value="1" RealAddress="20753442C88"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+18</Address>
@@ -1873,7 +2436,7 @@ end);
                     <CheatEntry>
                       <ID>612</ID>
                       <Description>"Ptr"</Description>
-                      <LastState Value="000002807F8606A0" RealAddress="28089622990"/>
+                      <LastState Value="00000207F9B30740" RealAddress="20753442C90"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>8 Bytes</VariableType>
@@ -1882,7 +2445,7 @@ end);
                     <CheatEntry>
                       <ID>616</ID>
                       <Description>"Cap"</Description>
-                      <LastState Value="4" RealAddress="28089622998"/>
+                      <LastState Value="4" RealAddress="20753442C98"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+28</Address>
@@ -1893,7 +2456,7 @@ end);
                   <ID>611</ID>
                   <Description>"ScrubEntityGameSystem"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCBFFF0D0"/>
+                  <LastState Value="" RealAddress="7FFF9764C460"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>CSystem:ScrubEntityGameSystem</Address>
@@ -1901,7 +2464,7 @@ end);
                     <CheatEntry>
                       <ID>610</ID>
                       <Description>"CSource2EntitySystem.EntityList Offset:"</Description>
-                      <LastState Value="4000" RealAddress="7FFCCBFFF108"/>
+                      <LastState Value="4000" RealAddress="7FFF9764C498"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+38</Address>
@@ -1911,7 +2474,7 @@ end);
                 <CheatEntry>
                   <ID>592</ID>
                   <Description>"Source2EntitySystem"</Description>
-                  <LastState Value="" RealAddress="2804BA50000"/>
+                  <LastState Value="" RealAddress="20866070C20"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>CSystem:Source2EntitySystem</Address>
@@ -2187,7 +2750,7 @@ end;
           <ID>359</ID>
           <Description>"Input"</Description>
           <Options moHideChildren="1"/>
-          <LastState Value="" RealAddress="7FFCCC227AD0"/>
+          <LastState Value="" RealAddress="7FFF978752A0"/>
           <ShowAsSigned>0</ShowAsSigned>
           <GroupHeader>1</GroupHeader>
           <Address>CInput</Address>
@@ -2206,7 +2769,7 @@ end;
                   <ID>374</ID>
                   <Description>"attack"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC0A7EA0"/>
+                  <LastState Value="" RealAddress="7FFF976F51E0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+CInput.attack</Address>
@@ -2217,7 +2780,7 @@ end;
                     <CheatEntry>
                       <ID>376</ID>
                       <Description>"State"</Description>
-                      <LastState Value="16777472" RealAddress="7FFCCC0A7ED0"/>
+                      <LastState Value="16777472" RealAddress="7FFF976F5210"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -2228,7 +2791,7 @@ end;
                   <ID>377</ID>
                   <Description>"jump"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC0A83B0"/>
+                  <LastState Value="" RealAddress="7FFF976F56F0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+CInput.jump</Address>
@@ -2239,7 +2802,7 @@ end;
                     <CheatEntry>
                       <ID>378</ID>
                       <Description>"State"</Description>
-                      <LastState Value="0" RealAddress="7FFCCC0A83E0"/>
+                      <LastState Value="0" RealAddress="7FFF976F5720"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -2250,7 +2813,7 @@ end;
                   <ID>379</ID>
                   <Description>"duck"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC0A8440"/>
+                  <LastState Value="" RealAddress="7FFF976F5780"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+CInput.duck</Address>
@@ -2261,7 +2824,7 @@ end;
                     <CheatEntry>
                       <ID>380</ID>
                       <Description>"State"</Description>
-                      <LastState Value="16777472" RealAddress="7FFCCC0A8470"/>
+                      <LastState Value="16777472" RealAddress="7FFF976F57B0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -2272,7 +2835,7 @@ end;
                   <ID>381</ID>
                   <Description>"forward"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC0A80E0"/>
+                  <LastState Value="" RealAddress="7FFF976F5420"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+CInput.forward</Address>
@@ -2283,7 +2846,7 @@ end;
                     <CheatEntry>
                       <ID>382</ID>
                       <Description>"State"</Description>
-                      <LastState Value="16777472" RealAddress="7FFCCC0A8110"/>
+                      <LastState Value="16777472" RealAddress="7FFF976F5450"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -2294,7 +2857,7 @@ end;
                   <ID>383</ID>
                   <Description>"back"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC0A8170"/>
+                  <LastState Value="" RealAddress="7FFF976F54B0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+CInput.back</Address>
@@ -2305,7 +2868,7 @@ end;
                     <CheatEntry>
                       <ID>384</ID>
                       <Description>"State"</Description>
-                      <LastState Value="16777472" RealAddress="7FFCCC0A81A0"/>
+                      <LastState Value="16777472" RealAddress="7FFF976F54E0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -2316,7 +2879,7 @@ end;
                   <ID>385</ID>
                   <Description>"use"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC0A8320"/>
+                  <LastState Value="" RealAddress="7FFF976F5660"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+CInput.use</Address>
@@ -2327,7 +2890,7 @@ end;
                     <CheatEntry>
                       <ID>386</ID>
                       <Description>"State"</Description>
-                      <LastState Value="0" RealAddress="7FFCCC0A8350"/>
+                      <LastState Value="0" RealAddress="7FFF976F5690"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -2338,7 +2901,7 @@ end;
                   <ID>390</ID>
                   <Description>"turnleft"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC0A7FC0"/>
+                  <LastState Value="" RealAddress="7FFF976F5300"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+CInput.turnleft</Address>
@@ -2349,7 +2912,7 @@ end;
                     <CheatEntry>
                       <ID>391</ID>
                       <Description>"State"</Description>
-                      <LastState Value="0" RealAddress="7FFCCC0A7FF0"/>
+                      <LastState Value="0" RealAddress="7FFF976F5330"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -2360,7 +2923,7 @@ end;
                   <ID>392</ID>
                   <Description>"turnright"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC0A8050"/>
+                  <LastState Value="" RealAddress="7FFF976F5390"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+CInput.turnright</Address>
@@ -2371,7 +2934,7 @@ end;
                     <CheatEntry>
                       <ID>393</ID>
                       <Description>"State"</Description>
-                      <LastState Value="0" RealAddress="7FFCCC0A8080"/>
+                      <LastState Value="0" RealAddress="7FFF976F53C0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -2382,7 +2945,7 @@ end;
                   <ID>394</ID>
                   <Description>"left"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC0A8200"/>
+                  <LastState Value="" RealAddress="7FFF976F5540"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+CInput.left</Address>
@@ -2393,7 +2956,7 @@ end;
                     <CheatEntry>
                       <ID>395</ID>
                       <Description>"State"</Description>
-                      <LastState Value="16777472" RealAddress="7FFCCC0A8230"/>
+                      <LastState Value="16777472" RealAddress="7FFF976F5570"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -2404,7 +2967,7 @@ end;
                   <ID>396</ID>
                   <Description>"right"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC0A8290"/>
+                  <LastState Value="" RealAddress="7FFF976F55D0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+CInput.right</Address>
@@ -2415,7 +2978,7 @@ end;
                     <CheatEntry>
                       <ID>397</ID>
                       <Description>"State"</Description>
-                      <LastState Value="16777472" RealAddress="7FFCCC0A82C0"/>
+                      <LastState Value="16777472" RealAddress="7FFF976F5600"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -2426,7 +2989,7 @@ end;
                   <ID>398</ID>
                   <Description>"attack2"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC0A7F30"/>
+                  <LastState Value="" RealAddress="7FFF976F5270"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+CInput.attack2</Address>
@@ -2437,7 +3000,7 @@ end;
                     <CheatEntry>
                       <ID>399</ID>
                       <Description>"State"</Description>
-                      <LastState Value="0" RealAddress="7FFCCC0A7F60"/>
+                      <LastState Value="0" RealAddress="7FFF976F52A0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -2448,7 +3011,7 @@ end;
                   <ID>400</ID>
                   <Description>"reload"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC0A7E10"/>
+                  <LastState Value="" RealAddress="7FFF976F5150"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+CInput.reload</Address>
@@ -2459,7 +3022,7 @@ end;
                     <CheatEntry>
                       <ID>401</ID>
                       <Description>"State"</Description>
-                      <LastState Value="16777472" RealAddress="7FFCCC0A7E40"/>
+                      <LastState Value="0" RealAddress="7FFF976F5180"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -2470,7 +3033,7 @@ end;
                   <ID>402</ID>
                   <Description>"sprint"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC0A7D80"/>
+                  <LastState Value="" RealAddress="7FFF976F50C0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+CInput.sprint</Address>
@@ -2481,7 +3044,7 @@ end;
                     <CheatEntry>
                       <ID>403</ID>
                       <Description>"State"</Description>
-                      <LastState Value="0" RealAddress="7FFCCC0A7DB0"/>
+                      <LastState Value="0" RealAddress="7FFF976F50F0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+30</Address>
@@ -2571,15 +3134,15 @@ end;
                   <ID>676</ID>
                   <Description>"ViewAngles"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC22CEE8"/>
+                  <LastState Value="" RealAddress="7FFF9787B020"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
-                  <Address>+5418</Address>
+                  <Address>+5D80</Address>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>684</ID>
                       <Description>"No description"</Description>
-                      <LastState Value="-1.506476945E19" RealAddress="7FFCCC22CEE8"/>
+                      <LastState Value="0" RealAddress="7FFF9787B020"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -2587,7 +3150,7 @@ end;
                     <CheatEntry>
                       <ID>685</ID>
                       <Description>"No description"</Description>
-                      <LastState Value="8.954297187E-43" RealAddress="7FFCCC22CEEC"/>
+                      <LastState Value="0" RealAddress="7FFF9787B024"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -2602,7 +3165,7 @@ end;
           <ID>1</ID>
           <Description>"ViewMatrix"</Description>
           <Options moHideChildren="1"/>
-          <LastState Value="" RealAddress="7FFCCC3C3E30"/>
+          <LastState Value="" RealAddress="7FFF97878478"/>
           <ShowAsSigned>0</ShowAsSigned>
           <GroupHeader>1</GroupHeader>
           <Address>ViewMatrix</Address>
@@ -2611,7 +3174,7 @@ end;
               <ID>6</ID>
               <Description>"M0"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="7FFCCC3C3E30"/>
+              <LastState Value="" RealAddress="7FFF97878478"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>+0</Address>
@@ -2619,7 +3182,7 @@ end;
                 <CheatEntry>
                   <ID>2</ID>
                   <Description>"0"</Description>
-                  <LastState Value="0.9209991693" RealAddress="7FFCCC3C3E30"/>
+                  <LastState Value="0.8801277876" RealAddress="7FFF97878478"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -2627,7 +3190,7 @@ end;
                 <CheatEntry>
                   <ID>3</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.3272739053" RealAddress="7FFCCC3C3E34"/>
+                  <LastState Value="0.4251151681" RealAddress="7FFF9787847C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -2635,7 +3198,7 @@ end;
                 <CheatEntry>
                   <ID>4</ID>
                   <Description>"2"</Description>
-                  <LastState Value="2.1894766E-9" RealAddress="7FFCCC3C3E38"/>
+                  <LastState Value="0" RealAddress="7FFF97878480"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -2643,7 +3206,7 @@ end;
                 <CheatEntry>
                   <ID>5</ID>
                   <Description>"3"</Description>
-                  <LastState Value="-1858.581665" RealAddress="7FFCCC3C3E3C"/>
+                  <LastState Value="-1166.445801" RealAddress="7FFF97878484"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -2654,7 +3217,7 @@ end;
               <ID>17</ID>
               <Description>"M1"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="7FFCCC3C3E40"/>
+              <LastState Value="" RealAddress="7FFF97878488"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>+10</Address>
@@ -2662,7 +3225,7 @@ end;
                 <CheatEntry>
                   <ID>18</ID>
                   <Description>"0"</Description>
-                  <LastState Value="-0.02981628105" RealAddress="7FFCCC3C3E40"/>
+                  <LastState Value="-0.1478457749" RealAddress="7FFF97878488"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -2670,7 +3233,7 @@ end;
                 <CheatEntry>
                   <ID>19</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.08390760422" RealAddress="7FFCCC3C3E44"/>
+                  <LastState Value="0.3060892224" RealAddress="7FFF9787848C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -2678,7 +3241,7 @@ end;
                 <CheatEntry>
                   <ID>20</ID>
                   <Description>"2"</Description>
-                  <LastState Value="1.73535037" RealAddress="7FFCCC3C3E48"/>
+                  <LastState Value="1.704060435" RealAddress="7FFF97878490"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -2686,7 +3249,7 @@ end;
                 <CheatEntry>
                   <ID>21</ID>
                   <Description>"3"</Description>
-                  <LastState Value="79.75487518" RealAddress="7FFCCC3C3E4C"/>
+                  <LastState Value="597.2838745" RealAddress="7FFF97878494"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -2697,7 +3260,7 @@ end;
               <ID>12</ID>
               <Description>"M2"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="7FFCCC3C3E50"/>
+              <LastState Value="" RealAddress="7FFF97878498"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>+20</Address>
@@ -2705,7 +3268,7 @@ end;
                 <CheatEntry>
                   <ID>13</ID>
                   <Description>"0"</Description>
-                  <LastState Value="-0.3344858289" RealAddress="7FFCCC3C3E50"/>
+                  <LastState Value="-0.4266489446" RealAddress="7FFF97878498"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -2713,7 +3276,7 @@ end;
                 <CheatEntry>
                   <ID>14</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.9412947297" RealAddress="7FFCCC3C3E54"/>
+                  <LastState Value="0.8833031654" RealAddress="7FFF9787849C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -2721,7 +3284,7 @@ end;
                 <CheatEntry>
                   <ID>15</ID>
                   <Description>"2"</Description>
-                  <LastState Value="-0.05126048625" RealAddress="7FFCCC3C3E58"/>
+                  <LastState Value="-0.1956784427" RealAddress="7FFF978784A0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -2729,7 +3292,7 @@ end;
                 <CheatEntry>
                   <ID>16</ID>
                   <Description>"3"</Description>
-                  <LastState Value="2391.875488" RealAddress="7FFCCC3C3E5C"/>
+                  <LastState Value="2189.114258" RealAddress="7FFF978784A4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -2740,7 +3303,7 @@ end;
               <ID>7</ID>
               <Description>"M3"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="7FFCCC3C3E60"/>
+              <LastState Value="" RealAddress="7FFF978784A8"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>+30</Address>
@@ -2748,7 +3311,7 @@ end;
                 <CheatEntry>
                   <ID>8</ID>
                   <Description>"0"</Description>
-                  <LastState Value="-0.3343948722" RealAddress="7FFCCC3C3E60"/>
+                  <LastState Value="-0.4265329242" RealAddress="7FFF978784A8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+0</Address>
@@ -2756,7 +3319,7 @@ end;
                 <CheatEntry>
                   <ID>9</ID>
                   <Description>"1"</Description>
-                  <LastState Value="0.9410387278" RealAddress="7FFCCC3C3E64"/>
+                  <LastState Value="0.8830629587" RealAddress="7FFF978784AC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+4</Address>
@@ -2764,7 +3327,7 @@ end;
                 <CheatEntry>
                   <ID>10</ID>
                   <Description>"2"</Description>
-                  <LastState Value="-0.05124654621" RealAddress="7FFCCC3C3E68"/>
+                  <LastState Value="-0.1956252307" RealAddress="7FFF978784B0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+8</Address>
@@ -2772,7 +3335,7 @@ end;
                 <CheatEntry>
                   <ID>11</ID>
                   <Description>"3"</Description>
-                  <LastState Value="2398.225098" RealAddress="7FFCCC3C3E6C"/>
+                  <LastState Value="2195.519043" RealAddress="7FFF978784B4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Float</VariableType>
                   <Address>+C</Address>
@@ -2790,15 +3353,15 @@ end;
                   <ID>190</ID>
                   <Description>"Position"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC3C4438"/>
+                  <LastState Value="" RealAddress="7FFF97878A80"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
-                  <Address>+0x600+8</Address>
+                  <Address>+0x608</Address>
                   <CheatEntries>
                     <CheatEntry>
                       <ID>191</ID>
                       <Description>"0"</Description>
-                      <LastState Value="0.4275315702" RealAddress="7FFCCC3C4438"/>
+                      <LastState Value="0" RealAddress="7FFF97878A80"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -2806,7 +3369,7 @@ end;
                     <CheatEntry>
                       <ID>192</ID>
                       <Description>"1"</Description>
-                      <LastState Value="0.5112367868" RealAddress="7FFCCC3C443C"/>
+                      <LastState Value="0" RealAddress="7FFF97878A84"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -2814,7 +3377,7 @@ end;
                     <CheatEntry>
                       <ID>193</ID>
                       <Description>"2"</Description>
-                      <LastState Value="0.03664822131" RealAddress="7FFCCC3C4440"/>
+                      <LastState Value="0" RealAddress="7FFF97878A88"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
@@ -2834,7 +3397,7 @@ end;
                   <ID>1835</ID>
                   <Description>"Position"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="7FFCCC3C4590"/>
+                  <LastState Value="" RealAddress="7FFF97878BD8"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+0x760</Address>
@@ -2842,7 +3405,7 @@ end;
                     <CheatEntry>
                       <ID>1836</ID>
                       <Description>"0"</Description>
-                      <LastState Value="77.0625" RealAddress="7FFCCC3C4590"/>
+                      <LastState Value="0" RealAddress="7FFF97878BD8"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -2850,7 +3413,7 @@ end;
                     <CheatEntry>
                       <ID>1837</ID>
                       <Description>"1"</Description>
-                      <LastState Value="0" RealAddress="7FFCCC3C4594"/>
+                      <LastState Value="0" RealAddress="7FFF97878BDC"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -2858,7 +3421,7 @@ end;
                     <CheatEntry>
                       <ID>1838</ID>
                       <Description>"2"</Description>
-                      <LastState Value="2.9375" RealAddress="7FFCCC3C4598"/>
+                      <LastState Value="0" RealAddress="7FFF97878BE0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
@@ -2880,7 +3443,7 @@ end;
               <ID>47</ID>
               <Description>"World"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="28061B33C00"/>
+              <LastState Value="" RealAddress="2071E723200"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>GetEntityByIndex:0</Address>
@@ -2888,7 +3451,7 @@ end;
                 <CheatEntry>
                   <ID>41</ID>
                   <Description>"IsLocalPlayerController"</Description>
-                  <LastState Value="0" RealAddress="28061B342D0"/>
+                  <LastState Value="0" RealAddress="2071E7238D0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>+client.CBasePlayerController.m_bIsLocalPlayerController</Address>
@@ -2896,7 +3459,7 @@ end;
                 <CheatEntry>
                   <ID>42</ID>
                   <Description>"CHandle&lt;C_CSPlayerPawn&gt;"</Description>
-                  <LastState Value="00000000" RealAddress="28061B3420C"/>
+                  <LastState Value="00000000" RealAddress="2071E72380C"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
@@ -2905,7 +3468,7 @@ end;
                 <CheatEntry>
                   <ID>43</ID>
                   <Description>"PlayerName"</Description>
-                  <LastState RealAddress="28061B34240"/>
+                  <LastState RealAddress="2071E723840"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>String</VariableType>
                   <Length>255</Length>
@@ -2917,7 +3480,7 @@ end;
                 <CheatEntry>
                   <ID>258</ID>
                   <Description>"SteamID"</Description>
-                  <LastState Value="010400000100FFFF" RealAddress="28061B342C8"/>
+                  <LastState Value="010400000100FFFF" RealAddress="2071E7238C8"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>8 Bytes</VariableType>
@@ -2929,7 +3492,7 @@ end;
               <ID>1311</ID>
               <Description>"Player1"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="28061B34600"/>
+              <LastState Value="" RealAddress="2071E723C00"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>GetEntityByIndex:1</Address>
@@ -2937,7 +3500,7 @@ end;
                 <CheatEntry>
                   <ID>1312</ID>
                   <Description>"IsLocalPlayerController"</Description>
-                  <LastState Value="1" RealAddress="28061B34CD0"/>
+                  <LastState Value="1" RealAddress="2071E7242D0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>+client.CBasePlayerController.m_bIsLocalPlayerController</Address>
@@ -2945,7 +3508,7 @@ end;
                 <CheatEntry>
                   <ID>1313</ID>
                   <Description>"CHandle&lt;C_CSPlayerPawn&gt;"</Description>
-                  <LastState Value="01EB0096" RealAddress="28061B34C0C"/>
+                  <LastState Value="01D38096" RealAddress="2071E72420C"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
@@ -2954,7 +3517,7 @@ end;
                 <CheatEntry>
                   <ID>1314</ID>
                   <Description>"PlayerName"</Description>
-                  <LastState RealAddress="28061B34C40"/>
+                  <LastState RealAddress="2071E724240"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>String</VariableType>
                   <Length>255</Length>
@@ -2966,7 +3529,7 @@ end;
                 <CheatEntry>
                   <ID>1315</ID>
                   <Description>"SteamID"</Description>
-                  <LastState Value="011000015E3A3851" RealAddress="28061B34CC8"/>
+                  <LastState Value="011000015E3A3851" RealAddress="2071E7242C8"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>8 Bytes</VariableType>
@@ -2975,7 +3538,7 @@ end;
                 <CheatEntry>
                   <ID>1659</ID>
                   <Description>"No description"</Description>
-                  <LastState Value="2" RealAddress="28061B349EF"/>
+                  <LastState Value="2" RealAddress="2071E723FEB"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>+C_BaseEntity.m_iTeamNum</Address>
@@ -3282,7 +3845,7 @@ end;
               <ID>1343</ID>
               <Description>"Player2"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="28062160000"/>
+              <LastState Value="" RealAddress="2071E724600"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>GetEntityByIndex:2</Address>
@@ -3290,7 +3853,7 @@ end;
                 <CheatEntry>
                   <ID>1344</ID>
                   <Description>"IsLocalPlayerController"</Description>
-                  <LastState Value="0" RealAddress="280621606D0"/>
+                  <LastState Value="0" RealAddress="2071E724CD0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>+client.CBasePlayerController.m_bIsLocalPlayerController</Address>
@@ -3298,7 +3861,7 @@ end;
                 <CheatEntry>
                   <ID>1345</ID>
                   <Description>"CHandle&lt;C_CSPlayerPawn&gt;"</Description>
-                  <LastState Value="005C807B" RealAddress="2806216060C"/>
+                  <LastState Value="01EA007B" RealAddress="2071E724C0C"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
@@ -3307,7 +3870,7 @@ end;
                 <CheatEntry>
                   <ID>1346</ID>
                   <Description>"PlayerName"</Description>
-                  <LastState RealAddress="28062160640"/>
+                  <LastState RealAddress="2071E724C40"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>String</VariableType>
                   <Length>255</Length>
@@ -3319,7 +3882,7 @@ end;
                 <CheatEntry>
                   <ID>1347</ID>
                   <Description>"SteamID"</Description>
-                  <LastState Value="0000000000000000" RealAddress="280621606C8"/>
+                  <LastState Value="0000000000000000" RealAddress="2071E724CC8"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>8 Bytes</VariableType>
@@ -3363,7 +3926,7 @@ end;
               <ID>1674</ID>
               <Description>"Player3"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="28062160A00"/>
+              <LastState Value="" RealAddress="2071E8D0000"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>GetEntityByIndex:3</Address>
@@ -3371,7 +3934,7 @@ end;
                 <CheatEntry>
                   <ID>1675</ID>
                   <Description>"IsLocalPlayerController"</Description>
-                  <LastState Value="0" RealAddress="280621610D0"/>
+                  <LastState Value="0" RealAddress="2071E8D06D0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>+client.CBasePlayerController.m_bIsLocalPlayerController</Address>
@@ -3379,7 +3942,7 @@ end;
                 <CheatEntry>
                   <ID>1676</ID>
                   <Description>"CHandle&lt;C_CSPlayerPawn&gt;"</Description>
-                  <LastState Value="01A3807E" RealAddress="2806216100C"/>
+                  <LastState Value="0144007E" RealAddress="2071E8D060C"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
@@ -3388,7 +3951,7 @@ end;
                 <CheatEntry>
                   <ID>1677</ID>
                   <Description>"PlayerName"</Description>
-                  <LastState RealAddress="28062161040"/>
+                  <LastState RealAddress="2071E8D0640"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>String</VariableType>
                   <Length>255</Length>
@@ -3400,7 +3963,7 @@ end;
                 <CheatEntry>
                   <ID>1678</ID>
                   <Description>"SteamID"</Description>
-                  <LastState Value="0000000000000000" RealAddress="280621610C8"/>
+                  <LastState Value="0000000000000000" RealAddress="2071E8D06C8"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>8 Bytes</VariableType>
@@ -3444,7 +4007,7 @@ end;
               <ID>1682</ID>
               <Description>"Player4"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="28062161400"/>
+              <LastState Value="" RealAddress="2071E8D0A00"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>GetEntityByIndex:4</Address>
@@ -3452,7 +4015,7 @@ end;
                 <CheatEntry>
                   <ID>1683</ID>
                   <Description>"IsLocalPlayerController"</Description>
-                  <LastState Value="0" RealAddress="28062161AD0"/>
+                  <LastState Value="0" RealAddress="2071E8D10D0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>+client.CBasePlayerController.m_bIsLocalPlayerController</Address>
@@ -3460,7 +4023,7 @@ end;
                 <CheatEntry>
                   <ID>1684</ID>
                   <Description>"CHandle&lt;C_CSPlayerPawn&gt;"</Description>
-                  <LastState Value="01678081" RealAddress="28062161A0C"/>
+                  <LastState Value="01C00081" RealAddress="2071E8D100C"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
@@ -3469,7 +4032,7 @@ end;
                 <CheatEntry>
                   <ID>1685</ID>
                   <Description>"PlayerName"</Description>
-                  <LastState RealAddress="28062161A40"/>
+                  <LastState RealAddress="2071E8D1040"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>String</VariableType>
                   <Length>255</Length>
@@ -3481,7 +4044,7 @@ end;
                 <CheatEntry>
                   <ID>1686</ID>
                   <Description>"SteamID"</Description>
-                  <LastState Value="0000000000000000" RealAddress="28062161AC8"/>
+                  <LastState Value="0000000000000000" RealAddress="2071E8D10C8"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>8 Bytes</VariableType>
@@ -3525,7 +4088,7 @@ end;
               <ID>1690</ID>
               <Description>"Player5"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="28062161E00"/>
+              <LastState Value="" RealAddress="2071E8D1400"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>GetEntityByIndex:5</Address>
@@ -3533,7 +4096,7 @@ end;
                 <CheatEntry>
                   <ID>1691</ID>
                   <Description>"IsLocalPlayerController"</Description>
-                  <LastState Value="0" RealAddress="280621624D0"/>
+                  <LastState Value="0" RealAddress="2071E8D1AD0"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>+client.CBasePlayerController.m_bIsLocalPlayerController</Address>
@@ -3541,7 +4104,7 @@ end;
                 <CheatEntry>
                   <ID>1692</ID>
                   <Description>"CHandle&lt;C_CSPlayerPawn&gt;"</Description>
-                  <LastState Value="00D60084" RealAddress="2806216240C"/>
+                  <LastState Value="01E98084" RealAddress="2071E8D1A0C"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
@@ -3550,7 +4113,7 @@ end;
                 <CheatEntry>
                   <ID>1693</ID>
                   <Description>"PlayerName"</Description>
-                  <LastState RealAddress="28062162440"/>
+                  <LastState RealAddress="2071E8D1A40"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>String</VariableType>
                   <Length>255</Length>
@@ -3562,7 +4125,7 @@ end;
                 <CheatEntry>
                   <ID>1694</ID>
                   <Description>"SteamID"</Description>
-                  <LastState Value="0000000000000000" RealAddress="280621624C8"/>
+                  <LastState Value="0000000000000000" RealAddress="2071E8D1AC8"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>8 Bytes</VariableType>
@@ -3679,6 +4242,83 @@ end;
                 </CheatEntry>
               </CheatEntries>
             </CheatEntry>
+            <CheatEntry>
+              <ID>1991</ID>
+              <Description>"Player6"</Description>
+              <Options moHideChildren="1"/>
+              <LastState Value="" RealAddress="00000000"/>
+              <ShowAsSigned>0</ShowAsSigned>
+              <GroupHeader>1</GroupHeader>
+              <Address>GetEntityByIndex:6</Address>
+              <CheatEntries>
+                <CheatEntry>
+                  <ID>1992</ID>
+                  <Description>"IsLocalPlayerController"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>Byte</VariableType>
+                  <Address>+client.CBasePlayerController.m_bIsLocalPlayerController</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1993</ID>
+                  <Description>"CHandle&lt;C_CSPlayerPawn&gt;"</Description>
+                  <ShowAsHex>1</ShowAsHex>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>4 Bytes</VariableType>
+                  <Address>+client.CBasePlayerController.m_hPawn</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1994</ID>
+                  <Description>"PlayerName"</Description>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>String</VariableType>
+                  <Length>255</Length>
+                  <Unicode>0</Unicode>
+                  <CodePage>0</CodePage>
+                  <ZeroTerminate>1</ZeroTerminate>
+                  <Address>+client.CBasePlayerController.m_iszPlayerName</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1995</ID>
+                  <Description>"SteamID"</Description>
+                  <ShowAsHex>1</ShowAsHex>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <VariableType>8 Bytes</VariableType>
+                  <Address>+client.CBasePlayerController.m_steamID</Address>
+                </CheatEntry>
+                <CheatEntry>
+                  <ID>1996</ID>
+                  <Description>"DamageServices"</Description>
+                  <Options moHideChildren="1"/>
+                  <LastState Value="" RealAddress="00000000"/>
+                  <ShowAsSigned>0</ShowAsSigned>
+                  <GroupHeader>1</GroupHeader>
+                  <Address>+client.CCSPlayerController.m_pDamageServices</Address>
+                  <Offsets>
+                    <Offset>0</Offset>
+                  </Offsets>
+                  <CheatEntries>
+                    <CheatEntry>
+                      <ID>1997</ID>
+                      <Description>"DamageList"</Description>
+                      <ShowAsHex>1</ShowAsHex>
+                      <ShowAsSigned>0</ShowAsSigned>
+                      <VariableType>8 Bytes</VariableType>
+                      <Address>+Client.CCSPlayerController_DamageServices.m_DamageList</Address>
+                      <CheatEntries>
+                        <CheatEntry>
+                          <ID>1998</ID>
+                          <Description>"DamageList"</Description>
+                          <ShowAsHex>1</ShowAsHex>
+                          <ShowAsSigned>0</ShowAsSigned>
+                          <VariableType>4 Bytes</VariableType>
+                          <Address>+0x28+0x28</Address>
+                        </CheatEntry>
+                      </CheatEntries>
+                    </CheatEntry>
+                  </CheatEntries>
+                </CheatEntry>
+              </CheatEntries>
+            </CheatEntry>
           </CheatEntries>
         </CheatEntry>
         <CheatEntry>
@@ -3692,7 +4332,7 @@ end;
               <ID>207</ID>
               <Description>"Player1"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="28065ED0000"/>
+              <LastState Value="" RealAddress="2073EF00000"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>GetPawnByIndex:1</Address>
@@ -3701,7 +4341,7 @@ end;
                   <ID>1640</ID>
                   <Description>"m_CCitadelAbilityComponent"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="00007FFCCB60F3D0" RealAddress="28065ED1038"/>
+                  <LastState Value="00007FFF96EBC4D0" RealAddress="2073EF01038"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>8 Bytes</VariableType>
@@ -3711,7 +4351,7 @@ end;
                       <ID>1641</ID>
                       <Description>"CCitadelAbilityComponent.m_ResourceStamina"</Description>
                       <Options moManualExpandCollapse="1"/>
-                      <LastState Value="00007FFCCB60F370" RealAddress="28065ED1120"/>
+                      <LastState Value="00007FFF96EBC470" RealAddress="2073EF01120"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>8 Bytes</VariableType>
@@ -3720,7 +4360,7 @@ end;
                         <CheatEntry>
                           <ID>1642</ID>
                           <Description>"m_flCurrentValue"</Description>
-                          <LastState Value="3" RealAddress="28065ED1128"/>
+                          <LastState Value="3" RealAddress="2073EF01128"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flCurrentValue</Address>
@@ -3728,7 +4368,7 @@ end;
                         <CheatEntry>
                           <ID>1643</ID>
                           <Description>"m_flPrevRegenRate"</Description>
-                          <LastState Value="0.200000003" RealAddress="28065ED112C"/>
+                          <LastState Value="0.200000003" RealAddress="2073EF0112C"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flPrevRegenRate</Address>
@@ -3736,7 +4376,7 @@ end;
                         <CheatEntry>
                           <ID>1644</ID>
                           <Description>"m_flMaxValue"</Description>
-                          <LastState Value="3" RealAddress="28065ED1130"/>
+                          <LastState Value="3" RealAddress="2073EF01130"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flMaxValue</Address>
@@ -3744,7 +4384,7 @@ end;
                         <CheatEntry>
                           <ID>1655</ID>
                           <Description>"m_flLatchValue"</Description>
-                          <LastState Value="2" RealAddress="28065ED1138"/>
+                          <LastState Value="1.056664944" RealAddress="2073EF01138"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flLatchValue</Address>
@@ -3755,7 +4395,7 @@ end;
                       <ID>1645</ID>
                       <Description>"CCitadelAbilityComponent.m_ResourceAbility"</Description>
                       <Options moManualExpandCollapse="1"/>
-                      <LastState Value="00007FFCCB60F3A0" RealAddress="28065ED1140"/>
+                      <LastState Value="00007FFF96EBC4A0" RealAddress="2073EF01140"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>8 Bytes</VariableType>
@@ -3764,7 +4404,7 @@ end;
                         <CheatEntry>
                           <ID>1646</ID>
                           <Description>"m_flCurrentValue"</Description>
-                          <LastState Value="0" RealAddress="28065ED1148"/>
+                          <LastState Value="0" RealAddress="2073EF01148"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flCurrentValue</Address>
@@ -3772,7 +4412,7 @@ end;
                         <CheatEntry>
                           <ID>1647</ID>
                           <Description>"m_flPrevRegenRate"</Description>
-                          <LastState Value="0" RealAddress="28065ED114C"/>
+                          <LastState Value="0" RealAddress="2073EF0114C"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flPrevRegenRate</Address>
@@ -3780,7 +4420,7 @@ end;
                         <CheatEntry>
                           <ID>1648</ID>
                           <Description>"m_flMaxValue"</Description>
-                          <LastState Value="0" RealAddress="28065ED1150"/>
+                          <LastState Value="0" RealAddress="2073EF01150"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flMaxValue</Address>
@@ -3788,7 +4428,7 @@ end;
                         <CheatEntry>
                           <ID>1654</ID>
                           <Description>"m_flLatchValue"</Description>
-                          <LastState Value="0" RealAddress="28065ED1158"/>
+                          <LastState Value="0" RealAddress="2073EF01158"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flLatchValue</Address>
@@ -3798,7 +4438,7 @@ end;
                     <CheatEntry>
                       <ID>1650</ID>
                       <Description>"m_hSelectedAbility"</Description>
-                      <LastState Value="00FD" RealAddress="28065ED1108"/>
+                      <LastState Value="80FD" RealAddress="2073EF01108"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>2 Bytes</VariableType>
@@ -3843,7 +4483,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>910</ID>
                   <Description>"hGroundEntity"</Description>
-                  <LastState Value="00008000" RealAddress="28065ED044C"/>
+                  <LastState Value="00008000" RealAddress="2073EF0044C"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
@@ -3852,7 +4492,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>1439</ID>
                   <Description>"m_bTakesDamage"</Description>
-                  <LastState Value="1" RealAddress="28065ED0351"/>
+                  <LastState Value="1" RealAddress="2073EF00351"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>+client.C_BaseEntity.m_bTakesDamage</Address>
@@ -3860,7 +4500,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>1660</ID>
                   <Description>"No description"</Description>
-                  <LastState Value="2" RealAddress="28065ED03EF"/>
+                  <LastState Value="2" RealAddress="2073EF003EB"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>+C_BaseEntity.m_iTeamNum</Address>
@@ -3868,7 +4508,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>1440</ID>
                   <Description>"m_nTakeDamageFlags"</Description>
-                  <LastState Value="0" RealAddress="28065ED0358"/>
+                  <LastState Value="0" RealAddress="2073EF00358"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>+client.C_BaseEntity.m_nTakeDamageFlags</Address>
@@ -3877,7 +4517,7 @@ CSGOSKINx=nil;
                   <ID>449</ID>
                   <Description>"CBodyComponent"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="28065DD0000"/>
+                  <LastState Value="" RealAddress="2073ED90000"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BaseEntity.m_CBodyComponent</Address>
@@ -3889,7 +4529,7 @@ CSGOSKINx=nil;
                       <ID>450</ID>
                       <Description>"m_skeletonInstance"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="28065DD0050"/>
+                      <LastState Value="" RealAddress="2073ED90050"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>+client.CBodyComponentSkeletonInstance.m_skeletonInstance</Address>
@@ -3897,7 +4537,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>665</ID>
                           <Description>"bDormant"</Description>
-                          <LastState Value="0" RealAddress="28065DD013F"/>
+                          <LastState Value="0" RealAddress="2073ED9013F"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Byte</VariableType>
                           <Address>+client.CGameSceneNode.m_bDormant</Address>
@@ -3905,7 +4545,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>666</ID>
                           <Description>"m_nHierarchyType"</Description>
-                          <LastState Value="3.402823466E38" RealAddress="28065DD0194"/>
+                          <LastState Value="3.402823466E38" RealAddress="2073ED90194"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.CGameSceneNode.m_vRenderOrigin</Address>
@@ -3914,7 +4554,7 @@ CSGOSKINx=nil;
                           <ID>454</ID>
                           <Description>"m_modelState"</Description>
                           <Options moHideChildren="1"/>
-                          <LastState Value="" RealAddress="28065DD01C0"/>
+                          <LastState Value="" RealAddress="2073ED901C0"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <GroupHeader>1</GroupHeader>
                           <Address>+client.CSkeletonInstance.m_modelState</Address>
@@ -3922,7 +4562,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>672</ID>
                               <Description>"m_hModel"</Description>
-                              <LastState Value="4B70" RealAddress="28065DD0290"/>
+                              <LastState Value="4180" RealAddress="2073ED90290"/>
                               <ShowAsHex>1</ShowAsHex>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>2 Bytes</VariableType>
@@ -3931,7 +4571,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>455</ID>
                               <Description>"m_ModelName"</Description>
-                              <LastState RealAddress="27FDE0C4C37"/>
+                              <LastState RealAddress="20604524E21"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>String</VariableType>
                               <Length>52</Length>
@@ -3946,7 +4586,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>671</ID>
                               <Description>"m_nClothUpdateFlags"</Description>
-                              <LastState Value="0" RealAddress="28065DD0414"/>
+                              <LastState Value="0" RealAddress="2073ED90414"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Byte</VariableType>
                               <Address>+client.CModelState.m_nClothUpdateFlags</Address>
@@ -3954,7 +4594,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>456</ID>
                               <Description>"m_MeshGroupMask"</Description>
-                              <LastState Value="1363" RealAddress="28065DD0390"/>
+                              <LastState Value="1363" RealAddress="2073ED90390"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>8 Bytes</VariableType>
                               <Address>+client.CModelState.m_MeshGroupMask</Address>
@@ -3962,7 +4602,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>457</ID>
                               <Description>"m_MeshGroupMask"</Description>
-                              <LastState Value="0" RealAddress="28065DD0354"/>
+                              <LastState Value="0" RealAddress="2073ED90354"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>8 Bytes</VariableType>
                               <Address>+194</Address>
@@ -3972,7 +4612,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>664</ID>
                           <Description>"No description"</Description>
-                          <LastState Value="1" RealAddress="28065DD011C"/>
+                          <LastState Value="1" RealAddress="2073ED9011C"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.CGameSceneNode.m_flScale</Address>
@@ -3980,7 +4620,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>662</ID>
                           <Description>"No description"</Description>
-                          <LastState Value="0" RealAddress="28065DD012C"/>
+                          <LastState Value="0" RealAddress="2073ED9012C"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.CGameSceneNode.m_angAbsRotation</Address>
@@ -3988,7 +4628,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>663</ID>
                               <Description>"Yaw"</Description>
-                              <LastState Value="-70.84375" RealAddress="28065DD0130"/>
+                              <LastState Value="87.96875" RealAddress="2073ED90130"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+4</Address>
@@ -3998,7 +4638,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>659</ID>
                           <Description>"vecOrigin.X"</Description>
-                          <LastState Value="2529.625" RealAddress="28065DD00D8"/>
+                          <LastState Value="1967.1875" RealAddress="2073ED900D8"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.CGameSceneNode.m_vecOrigin</Address>
@@ -4006,7 +4646,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>660</ID>
                               <Description>"vecOrigin.Y"</Description>
-                              <LastState Value="-1535.34375" RealAddress="28065DD00DC"/>
+                              <LastState Value="-1402.5" RealAddress="2073ED900DC"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+4</Address>
@@ -4014,7 +4654,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>661</ID>
                               <Description>"vecOrigin.Z"</Description>
-                              <LastState Value="-8.25" RealAddress="28065DD00E0"/>
+                              <LastState Value="-7.9375" RealAddress="2073ED900E0"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+8</Address>
@@ -4024,7 +4664,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>657</ID>
                           <Description>"No description"</Description>
-                          <LastState Value="0" RealAddress="28065DD0110"/>
+                          <LastState Value="0" RealAddress="2073ED90110"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.CGameSceneNode.m_angRotation</Address>
@@ -4032,7 +4672,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>658</ID>
                               <Description>"Yaw"</Description>
-                              <LastState Value="-70.84375" RealAddress="28065DD0114"/>
+                              <LastState Value="87.96875" RealAddress="2073ED90114"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+4</Address>
@@ -4045,7 +4685,7 @@ CSGOSKINx=nil;
                       <ID>452</ID>
                       <Description>"m_animationController"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="28065DD04C0"/>
+                      <LastState Value="" RealAddress="2073ED904C0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>+client.CBodyComponentBaseAnimGraph.m_animationController</Address>
@@ -4053,7 +4693,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>453</ID>
                           <Description>"m_nAnimLoopMode"</Description>
-                          <LastState Value="2" RealAddress="28065DD1980"/>
+                          <LastState Value="2" RealAddress="2073ED91980"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>4 Bytes</VariableType>
                           <Address>+client.CBaseAnimGraphController.m_nAnimLoopMode</Address>
@@ -4065,7 +4705,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>458</ID>
                   <Description>"m_NetworkTransmitComponent"</Description>
-                  <LastState Value="" RealAddress="28065ED0040"/>
+                  <LastState Value="" RealAddress="2073EF00040"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BaseEntity.m_NetworkTransmitComponent</Address>
@@ -4073,7 +4713,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>211</ID>
                   <Description>"Landing"</Description>
-                  <LastState Value="129" RealAddress="28065ED03F8"/>
+                  <LastState Value="129" RealAddress="2073EF003F4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>+client.C_BaseEntity.m_fFlags</Address>
@@ -4081,7 +4721,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>257</ID>
                   <Description>"m_iMaxHealth"</Description>
-                  <LastState Value="550" RealAddress="28065ED0348"/>
+                  <LastState Value="550" RealAddress="2073EF00348"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>+client.C_BaseEntity.m_iMaxHealth</Address>
@@ -4089,7 +4729,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>256</ID>
                   <Description>"m_iHealth"</Description>
-                  <LastState Value="610" RealAddress="28065ED034C"/>
+                  <LastState Value="550" RealAddress="2073EF0034C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>+client.C_BaseEntity.m_iHealth</Address>
@@ -4104,7 +4744,7 @@ CSGOSKINx=nil;
                   <ID>220</ID>
                   <Description>"Velocity"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="28065ED0408"/>
+                  <LastState Value="" RealAddress="2073EF00408"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BaseEntity.m_vecVelocity</Address>
@@ -4112,7 +4752,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>221</ID>
                       <Description>"0"</Description>
-                      <LastState Value="0" RealAddress="28065ED0408"/>
+                      <LastState Value="0" RealAddress="2073EF00408"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -4120,7 +4760,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>222</ID>
                       <Description>"1"</Description>
-                      <LastState Value="0" RealAddress="28065ED040C"/>
+                      <LastState Value="0" RealAddress="2073EF0040C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -4128,7 +4768,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>223</ID>
                       <Description>"2"</Description>
-                      <LastState Value="0" RealAddress="28065ED0410"/>
+                      <LastState Value="0" RealAddress="2073EF00410"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
@@ -4139,7 +4779,7 @@ CSGOSKINx=nil;
                   <ID>366</ID>
                   <Description>"vOldOrigin"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="28065ED0EDC"/>
+                  <LastState Value="" RealAddress="2073EF00EDC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BasePlayerPawn.m_vOldOrigin</Address>
@@ -4147,7 +4787,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>367</ID>
                       <Description>"0"</Description>
-                      <LastState Value="2529.625" RealAddress="28065ED0EDC"/>
+                      <LastState Value="1967.1875" RealAddress="2073EF00EDC"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -4155,7 +4795,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>368</ID>
                       <Description>"1"</Description>
-                      <LastState Value="-1535.34375" RealAddress="28065ED0EE0"/>
+                      <LastState Value="-1402.5" RealAddress="2073EF00EE0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -4163,7 +4803,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>369</ID>
                       <Description>"2"</Description>
-                      <LastState Value="-8.25" RealAddress="28065ED0EE4"/>
+                      <LastState Value="-7.9375" RealAddress="2073EF00EE4"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
@@ -4174,7 +4814,7 @@ CSGOSKINx=nil;
                   <ID>435</ID>
                   <Description>"MovementServices"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="28061F94B00"/>
+                  <LastState Value="" RealAddress="2071E670F00"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BasePlayerPawn.m_pMovementServices</Address>
@@ -4185,7 +4825,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>437</ID>
                       <Description>"m_nImpulse"</Description>
-                      <LastState Value="0" RealAddress="28061F94B40"/>
+                      <LastState Value="0" RealAddress="2071E670F40"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CPlayer_MovementServices.m_nImpulse</Address>
@@ -4194,7 +4834,7 @@ CSGOSKINx=nil;
                       <ID>439</ID>
                       <Description>"m_nButtons"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="28061F94B48"/>
+                      <LastState Value="" RealAddress="2071E670F48"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>++client.CPlayer_MovementServices.m_nButtons</Address>
@@ -4202,7 +4842,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>440</ID>
                           <Description>"VFTable"</Description>
-                          <LastState Value="00007FFCCB795540" RealAddress="28061F94B48"/>
+                          <LastState Value="00007FFF96F90980" RealAddress="2071E670F48"/>
                           <ShowAsHex>1</ShowAsHex>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>8 Bytes</VariableType>
@@ -4211,7 +4851,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>441</ID>
                           <Description>"m_nValue"</Description>
-                          <LastState Value="0000000000000000" RealAddress="28061F94B50"/>
+                          <LastState Value="0000000000000000" RealAddress="2071E670F50"/>
                           <ShowAsHex>1</ShowAsHex>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>8 Bytes</VariableType>
@@ -4220,7 +4860,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>442</ID>
                           <Description>"m_nValueChanged"</Description>
-                          <LastState Value="0000000000000000" RealAddress="28061F94B58"/>
+                          <LastState Value="0000000000000000" RealAddress="2071E670F58"/>
                           <ShowAsHex>1</ShowAsHex>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>8 Bytes</VariableType>
@@ -4229,7 +4869,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>443</ID>
                           <Description>"m_nValueScroll"</Description>
-                          <LastState Value="0000000000000000" RealAddress="28061F94B60"/>
+                          <LastState Value="0000000000000000" RealAddress="2071E670F60"/>
                           <ShowAsHex>1</ShowAsHex>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>8 Bytes</VariableType>
@@ -4241,7 +4881,7 @@ CSGOSKINx=nil;
                       <ID>1879</ID>
                       <Description>"vecOldViewAngles"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="28061F94CC4"/>
+                      <LastState Value="" RealAddress="2071E6710C4"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>+client.CPlayer_MovementServices.m_vecOldViewAngles</Address>
@@ -4249,7 +4889,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1880</ID>
                           <Description>"0"</Description>
-                          <LastState Value="0" RealAddress="28061F94CC4"/>
+                          <LastState Value="0" RealAddress="2071E6710C4"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+0</Address>
@@ -4257,7 +4897,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1881</ID>
                           <Description>"1"</Description>
-                          <LastState Value="90" RealAddress="28061F94CC8"/>
+                          <LastState Value="90" RealAddress="2071E6710C8"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+4</Address>
@@ -4267,7 +4907,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>436</ID>
                       <Description>"m_flForwardMove"</Description>
-                      <LastState Value="0" RealAddress="28061F94CAC"/>
+                      <LastState Value="0" RealAddress="2071E6710AC"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CPlayer_MovementServices.m_flForwardMove</Address>
@@ -4275,7 +4915,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>444</ID>
                       <Description>"m_bInCrouch"</Description>
-                      <LastState Value="0" RealAddress="28061F94CE0"/>
+                      <LastState Value="0" RealAddress="2071E6710E0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CPlayer_MovementServices_Humanoid.m_bInCrouch</Address>
@@ -4283,7 +4923,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>433</ID>
                       <Description>"m_bDucked"</Description>
-                      <LastState Value="0" RealAddress="28061F94CEC"/>
+                      <LastState Value="0" RealAddress="2071E6710EC"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>+client.CPlayer_MovementServices_Humanoid.m_bDucked</Address>
@@ -4291,7 +4931,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>434</ID>
                       <Description>"m_bInDuckJump"</Description>
-                      <LastState Value="0" RealAddress="28061F94CEE"/>
+                      <LastState Value="0" RealAddress="2071E6710EE"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>+client.CPlayer_MovementServices_Humanoid.m_bInDuckJump</Address>
@@ -4299,7 +4939,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>445</ID>
                       <Description>"m_nStepside"</Description>
-                      <LastState Value="0" RealAddress="28061F94D10"/>
+                      <LastState Value="0" RealAddress="2071E671110"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CPlayer_MovementServices_Humanoid.m_nStepside</Address>
@@ -4307,7 +4947,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1339</ID>
                       <Description>"+client.CPlayer_MovementServices.m_vecOldViewAngles"</Description>
-                      <LastState Value="0" RealAddress="28061F94CC4"/>
+                      <LastState Value="0" RealAddress="2071E6710C4"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CPlayer_MovementServices.m_vecOldViewAngles</Address>
@@ -4315,7 +4955,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1340</ID>
                           <Description>"X"</Description>
-                          <LastState Value="90" RealAddress="28061F94CC8"/>
+                          <LastState Value="90" RealAddress="2071E6710C8"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+4</Address>
@@ -4328,7 +4968,7 @@ CSGOSKINx=nil;
                   <ID>1806</ID>
                   <Description>"GameSceneNode"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="28065DD0050"/>
+                  <LastState Value="" RealAddress="2073ED90050"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BaseEntity.m_pGameSceneNode</Address>
@@ -4340,7 +4980,7 @@ CSGOSKINx=nil;
                       <ID>1808</ID>
                       <Description>"ModelState"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="27F9D054B70"/>
+                      <LastState Value="" RealAddress="20669564180"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>+0x210</Address>
@@ -4352,7 +4992,7 @@ CSGOSKINx=nil;
                           <ID>1813</ID>
                           <Description>"Model"</Description>
                           <Options moHideChildren="1"/>
-                          <LastState Value="" RealAddress="28106D03700"/>
+                          <LastState Value="" RealAddress="20786331E00"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <GroupHeader>1</GroupHeader>
                           <Address>+0</Address>
@@ -4363,7 +5003,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>1819</ID>
                               <Description>"names_array"</Description>
-                              <LastState Value="00000280459B04E0" RealAddress="27FE9423200"/>
+                              <LastState Value="00000208568C0F50" RealAddress="2072B720A00"/>
                               <ShowAsHex>1</ShowAsHex>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>8 Bytes</VariableType>
@@ -4375,7 +5015,7 @@ CSGOSKINx=nil;
                                 <CheatEntry>
                                   <ID>1820</ID>
                                   <Description>"Name0"</Description>
-                                  <LastState RealAddress="280459B04E0"/>
+                                  <LastState RealAddress="208568C0F50"/>
                                   <ShowAsSigned>0</ShowAsSigned>
                                   <VariableType>String</VariableType>
                                   <Length>32</Length>
@@ -4390,7 +5030,7 @@ CSGOSKINx=nil;
                                 <CheatEntry>
                                   <ID>1821</ID>
                                   <Description>"Name1"</Description>
-                                  <LastState RealAddress="280459B04F0"/>
+                                  <LastState RealAddress="208568C0F60"/>
                                   <ShowAsSigned>0</ShowAsSigned>
                                   <VariableType>String</VariableType>
                                   <Length>32</Length>
@@ -4405,7 +5045,7 @@ CSGOSKINx=nil;
                                 <CheatEntry>
                                   <ID>1822</ID>
                                   <Description>"Name2"</Description>
-                                  <LastState RealAddress="280459B0500"/>
+                                  <LastState RealAddress="208568C0F70"/>
                                   <ShowAsSigned>0</ShowAsSigned>
                                   <VariableType>String</VariableType>
                                   <Length>32</Length>
@@ -4422,7 +5062,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>1814</ID>
                               <Description>"names_count "</Description>
-                              <LastState Value="275" RealAddress="28106D03878"/>
+                              <LastState Value="275" RealAddress="20786331F78"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>4 Bytes</VariableType>
                               <Address>+178</Address>
@@ -4435,7 +5075,7 @@ CSGOSKINx=nil;
                       <ID>1818</ID>
                       <Description>"bonearray"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="280AE3E0000"/>
+                      <LastState Value="" RealAddress="20725EA2800"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>+1F0</Address>
@@ -4448,7 +5088,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>447</ID>
                   <Description>"m_CHitboxComponent"</Description>
-                  <LastState Value="" RealAddress="28065ED0560"/>
+                  <LastState Value="" RealAddress="2073EF00560"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BaseModelEntity.m_CHitboxComponent</Address>
@@ -4457,7 +5097,7 @@ CSGOSKINx=nil;
                   <ID>459</ID>
                   <Description>"m_Glow"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="28065ED0720"/>
+                  <LastState Value="" RealAddress="2073EF00720"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BaseModelEntity.m_Glow</Address>
@@ -4466,7 +5106,7 @@ CSGOSKINx=nil;
                       <ID>460</ID>
                       <Description>"m_fGlowColor"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="28065ED0728"/>
+                      <LastState Value="" RealAddress="2073EF00728"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>+client.CGlowProperty.m_fGlowColor</Address>
@@ -4474,7 +5114,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>461</ID>
                           <Description>"0"</Description>
-                          <LastState Value="0" RealAddress="28065ED0728"/>
+                          <LastState Value="0" RealAddress="2073EF00728"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+0</Address>
@@ -4482,7 +5122,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>462</ID>
                           <Description>"1"</Description>
-                          <LastState Value="0" RealAddress="28065ED072C"/>
+                          <LastState Value="0" RealAddress="2073EF0072C"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+4</Address>
@@ -4490,7 +5130,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>463</ID>
                           <Description>"2"</Description>
-                          <LastState Value="0" RealAddress="28065ED0730"/>
+                          <LastState Value="0" RealAddress="2073EF00730"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+8</Address>
@@ -4500,7 +5140,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>465</ID>
                       <Description>"m_iGlowType"</Description>
-                      <LastState Value="5" RealAddress="28065ED0750"/>
+                      <LastState Value="5" RealAddress="2073EF00750"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CGlowProperty.m_iGlowType</Address>
@@ -4508,7 +5148,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>466</ID>
                       <Description>"m_iGlowTeam"</Description>
-                      <LastState Value="4294967295" RealAddress="28065ED0754"/>
+                      <LastState Value="4294967295" RealAddress="2073EF00754"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CGlowProperty.m_iGlowTeam</Address>
@@ -4516,7 +5156,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>467</ID>
                       <Description>"m_nGlowRange"</Description>
-                      <LastState Value="0" RealAddress="28065ED0758"/>
+                      <LastState Value="0" RealAddress="2073EF00758"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CGlowProperty.m_nGlowRange</Address>
@@ -4524,7 +5164,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>468</ID>
                       <Description>"m_nGlowRangeMin"</Description>
-                      <LastState Value="0" RealAddress="28065ED075C"/>
+                      <LastState Value="0" RealAddress="2073EF0075C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CGlowProperty.m_nGlowRangeMin</Address>
@@ -4533,7 +5173,7 @@ CSGOSKINx=nil;
                       <ID>469</ID>
                       <Description>"m_glowColorOverride"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="28065ED0760"/>
+                      <LastState Value="" RealAddress="2073EF00760"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>+client.CGlowProperty.m_glowColorOverride</Address>
@@ -4541,7 +5181,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>470</ID>
                           <Description>"0"</Description>
-                          <LastState Value="0" RealAddress="28065ED0760"/>
+                          <LastState Value="0" RealAddress="2073EF00760"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+0</Address>
@@ -4549,7 +5189,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>471</ID>
                           <Description>"1"</Description>
-                          <LastState Value="0" RealAddress="28065ED0764"/>
+                          <LastState Value="0" RealAddress="2073EF00764"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+4</Address>
@@ -4557,7 +5197,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>472</ID>
                           <Description>"2"</Description>
-                          <LastState Value="0" RealAddress="28065ED0768"/>
+                          <LastState Value="0" RealAddress="2073EF00768"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+8</Address>
@@ -4567,7 +5207,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>473</ID>
                       <Description>"m_bFlashing"</Description>
-                      <LastState Value="0" RealAddress="28065ED0764"/>
+                      <LastState Value="0" RealAddress="2073EF00764"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CGlowProperty.m_bFlashing</Address>
@@ -4575,7 +5215,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>474</ID>
                       <Description>"m_flGlowTime"</Description>
-                      <LastState Value="0" RealAddress="28065ED0768"/>
+                      <LastState Value="0" RealAddress="2073EF00768"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CGlowProperty.m_flGlowTime</Address>
@@ -4583,7 +5223,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>475</ID>
                       <Description>"m_flGlowStartTime"</Description>
-                      <LastState Value="2697.500244" RealAddress="28065ED076C"/>
+                      <LastState Value="2057.93335" RealAddress="2073EF0076C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CGlowProperty.m_flGlowStartTime</Address>
@@ -4598,7 +5238,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>477</ID>
                       <Description>"m_bGlowing"</Description>
-                      <LastState Value="1" RealAddress="28065ED0770"/>
+                      <LastState Value="1" RealAddress="2073EF00770"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>+client.CGlowProperty.m_bGlowing</Address>
@@ -4704,7 +5344,7 @@ CSGOSKINx=nil;
               <ID>1550</ID>
               <Description>"Player5"</Description>
               <Options moHideChildren="1"/>
-              <LastState Value="" RealAddress="28065E81800"/>
+              <LastState Value="" RealAddress="2073EED1800"/>
               <ShowAsSigned>0</ShowAsSigned>
               <GroupHeader>1</GroupHeader>
               <Address>GetPawnByIndex:5</Address>
@@ -4736,7 +5376,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>1661</ID>
                   <Description>"m_CCitadelAbilityComponent"</Description>
-                  <LastState Value="FFFFFFFFFFFFFFFF" RealAddress="28065E82768"/>
+                  <LastState Value="FFFFFFFFFFFFFFFF" RealAddress="2073EED2768"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>8 Bytes</VariableType>
@@ -4746,7 +5386,7 @@ CSGOSKINx=nil;
                       <ID>1662</ID>
                       <Description>"CCitadelAbilityComponent.m_ResourceStamina"</Description>
                       <Options moManualExpandCollapse="1"/>
-                      <LastState Value="0000000000000010" RealAddress="28065E82850"/>
+                      <LastState Value="0000000000000010" RealAddress="2073EED2850"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>8 Bytes</VariableType>
@@ -4755,7 +5395,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1663</ID>
                           <Description>"m_flCurrentValue"</Description>
-                          <LastState Value="-9.241339285E-6" RealAddress="28065E82858"/>
+                          <LastState Value="1.504334217E18" RealAddress="2073EED2858"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flCurrentValue</Address>
@@ -4763,7 +5403,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1664</ID>
                           <Description>"m_flPrevRegenRate"</Description>
-                          <LastState Value="8.968310172E-43" RealAddress="28065E8285C"/>
+                          <LastState Value="7.286752014E-43" RealAddress="2073EED285C"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flPrevRegenRate</Address>
@@ -4771,7 +5411,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1665</ID>
                           <Description>"m_flMaxValue"</Description>
-                          <LastState Value="2.242077543E-44" RealAddress="28065E82860"/>
+                          <LastState Value="2.242077543E-44" RealAddress="2073EED2860"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flMaxValue</Address>
@@ -4779,7 +5419,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1666</ID>
                           <Description>"m_flLatchValue"</Description>
-                          <LastState Value="0" RealAddress="28065E82868"/>
+                          <LastState Value="0" RealAddress="2073EED2868"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flLatchValue</Address>
@@ -4790,7 +5430,7 @@ CSGOSKINx=nil;
                       <ID>1667</ID>
                       <Description>"CCitadelAbilityComponent.m_ResourceAbility"</Description>
                       <Options moManualExpandCollapse="1"/>
-                      <LastState Value="0000000000000000" RealAddress="28065E82870"/>
+                      <LastState Value="0000000000000000" RealAddress="2073EED2870"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>8 Bytes</VariableType>
@@ -4799,7 +5439,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1668</ID>
                           <Description>"m_flCurrentValue"</Description>
-                          <LastState Value="0" RealAddress="28065E82878"/>
+                          <LastState Value="0" RealAddress="2073EED2878"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flCurrentValue</Address>
@@ -4807,7 +5447,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1669</ID>
                           <Description>"m_flPrevRegenRate"</Description>
-                          <LastState Value="0" RealAddress="28065E8287C"/>
+                          <LastState Value="0" RealAddress="2073EED287C"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flPrevRegenRate</Address>
@@ -4815,7 +5455,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1670</ID>
                           <Description>"m_flMaxValue"</Description>
-                          <LastState Value="528.4921875" RealAddress="28065E82880"/>
+                          <LastState Value="-2.941068235E33" RealAddress="2073EED2880"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flMaxValue</Address>
@@ -4823,7 +5463,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1671</ID>
                           <Description>"m_flLatchValue"</Description>
-                          <LastState Value="2.242077543E-44" RealAddress="28065E82888"/>
+                          <LastState Value="2.242077543E-44" RealAddress="2073EED2888"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.AbilityResource_t.m_flLatchValue</Address>
@@ -4833,7 +5473,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1672</ID>
                       <Description>"m_hSelectedAbility"</Description>
-                      <LastState Value="F3D0" RealAddress="28065E82838"/>
+                      <LastState Value="C4D0" RealAddress="2073EED2838"/>
                       <ShowAsHex>1</ShowAsHex>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>2 Bytes</VariableType>
@@ -4842,7 +5482,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1673</ID>
                           <Description>"GetEnt"</Description>
-                          <LastState Value="" RealAddress="28060531800"/>
+                          <LastState Value="" RealAddress="206937D0000"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <GroupHeader>1</GroupHeader>
                           <Address>GetEntityByIndex:0x149</Address>
@@ -4854,7 +5494,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>1552</ID>
                   <Description>"hGroundEntity"</Description>
-                  <LastState Value="00008000" RealAddress="28065E81C4C"/>
+                  <LastState Value="00008000" RealAddress="2073EED1C4C"/>
                   <ShowAsHex>1</ShowAsHex>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
@@ -4863,7 +5503,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>1553</ID>
                   <Description>"m_bTakesDamage"</Description>
-                  <LastState Value="1" RealAddress="28065E81B51"/>
+                  <LastState Value="1" RealAddress="2073EED1B51"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>+client.C_BaseEntity.m_bTakesDamage</Address>
@@ -4871,7 +5511,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>1554</ID>
                   <Description>"m_nTakeDamageFlags"</Description>
-                  <LastState Value="0" RealAddress="28065E81B58"/>
+                  <LastState Value="0" RealAddress="2073EED1B58"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>+client.C_BaseEntity.m_nTakeDamageFlags</Address>
@@ -4880,7 +5520,7 @@ CSGOSKINx=nil;
                   <ID>1555</ID>
                   <Description>"CBodyComponent"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="28065DC0000"/>
+                  <LastState Value="" RealAddress="2073ED80000"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BaseEntity.m_CBodyComponent</Address>
@@ -4892,7 +5532,7 @@ CSGOSKINx=nil;
                       <ID>1556</ID>
                       <Description>"m_skeletonInstance"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="28065DC0050"/>
+                      <LastState Value="" RealAddress="2073ED80050"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>+client.CBodyComponentSkeletonInstance.m_skeletonInstance</Address>
@@ -4900,7 +5540,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1557</ID>
                           <Description>"bDormant"</Description>
-                          <LastState Value="0" RealAddress="28065DC013F"/>
+                          <LastState Value="0" RealAddress="2073ED8013F"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Byte</VariableType>
                           <Address>+client.CGameSceneNode.m_bDormant</Address>
@@ -4908,7 +5548,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1558</ID>
                           <Description>"m_nHierarchyType"</Description>
-                          <LastState Value="3.402823466E38" RealAddress="28065DC0194"/>
+                          <LastState Value="3.402823466E38" RealAddress="2073ED80194"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.CGameSceneNode.m_vRenderOrigin</Address>
@@ -4917,7 +5557,7 @@ CSGOSKINx=nil;
                           <ID>1559</ID>
                           <Description>"m_modelState"</Description>
                           <Options moHideChildren="1"/>
-                          <LastState Value="" RealAddress="28065DC01C0"/>
+                          <LastState Value="" RealAddress="2073ED801C0"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <GroupHeader>1</GroupHeader>
                           <Address>+client.CSkeletonInstance.m_modelState</Address>
@@ -4925,7 +5565,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>1560</ID>
                               <Description>"m_hModel"</Description>
-                              <LastState Value="57D0" RealAddress="28065DC0290"/>
+                              <LastState Value="4390" RealAddress="2073ED80290"/>
                               <ShowAsHex>1</ShowAsHex>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>2 Bytes</VariableType>
@@ -4934,7 +5574,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>1561</ID>
                               <Description>"m_ModelName"</Description>
-                              <LastState RealAddress="27FDE0C4BC2"/>
+                              <LastState RealAddress="20604524D82"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>String</VariableType>
                               <Length>52</Length>
@@ -4949,7 +5589,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>1562</ID>
                               <Description>"m_nClothUpdateFlags"</Description>
-                              <LastState Value="0" RealAddress="28065DC0414"/>
+                              <LastState Value="0" RealAddress="2073ED80414"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Byte</VariableType>
                               <Address>+client.CModelState.m_nClothUpdateFlags</Address>
@@ -4957,7 +5597,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>1563</ID>
                               <Description>"m_MeshGroupMask"</Description>
-                              <LastState Value="18446744073709551615" RealAddress="28065DC0390"/>
+                              <LastState Value="18446744073709551615" RealAddress="2073ED80390"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>8 Bytes</VariableType>
                               <Address>+client.CModelState.m_MeshGroupMask</Address>
@@ -4965,7 +5605,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>1564</ID>
                               <Description>"m_MeshGroupMask"</Description>
-                              <LastState Value="0" RealAddress="28065DC0354"/>
+                              <LastState Value="0" RealAddress="2073ED80354"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>8 Bytes</VariableType>
                               <Address>+194</Address>
@@ -4975,7 +5615,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1565</ID>
                           <Description>"No description"</Description>
-                          <LastState Value="1" RealAddress="28065DC011C"/>
+                          <LastState Value="1" RealAddress="2073ED8011C"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.CGameSceneNode.m_flScale</Address>
@@ -4983,7 +5623,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1566</ID>
                           <Description>"No description"</Description>
-                          <LastState Value="0" RealAddress="28065DC012C"/>
+                          <LastState Value="0" RealAddress="2073ED8012C"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.CGameSceneNode.m_angAbsRotation</Address>
@@ -4991,7 +5631,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>1567</ID>
                               <Description>"Yaw"</Description>
-                              <LastState Value="-180" RealAddress="28065DC0130"/>
+                              <LastState Value="-180" RealAddress="2073ED80130"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+4</Address>
@@ -5001,7 +5641,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1568</ID>
                           <Description>"vecOrigin.X"</Description>
-                          <LastState Value="2176" RealAddress="28065DC00D8"/>
+                          <LastState Value="2176" RealAddress="2073ED800D8"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.CGameSceneNode.m_vecOrigin</Address>
@@ -5009,7 +5649,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>1569</ID>
                               <Description>"vecOrigin.Y"</Description>
-                              <LastState Value="-1152" RealAddress="28065DC00DC"/>
+                              <LastState Value="-1152" RealAddress="2073ED800DC"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+4</Address>
@@ -5017,7 +5657,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>1570</ID>
                               <Description>"vecOrigin.Z"</Description>
-                              <LastState Value="-8.1875" RealAddress="28065DC00E0"/>
+                              <LastState Value="-8.1875" RealAddress="2073ED800E0"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+8</Address>
@@ -5027,7 +5667,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1571</ID>
                           <Description>"No description"</Description>
-                          <LastState Value="0" RealAddress="28065DC0110"/>
+                          <LastState Value="0" RealAddress="2073ED80110"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+client.CGameSceneNode.m_angRotation</Address>
@@ -5035,7 +5675,7 @@ CSGOSKINx=nil;
                             <CheatEntry>
                               <ID>1572</ID>
                               <Description>"Yaw"</Description>
-                              <LastState Value="-180" RealAddress="28065DC0114"/>
+                              <LastState Value="-180" RealAddress="2073ED80114"/>
                               <ShowAsSigned>0</ShowAsSigned>
                               <VariableType>Float</VariableType>
                               <Address>+4</Address>
@@ -5048,7 +5688,7 @@ CSGOSKINx=nil;
                       <ID>1573</ID>
                       <Description>"m_animationController"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="28065DC04C0"/>
+                      <LastState Value="" RealAddress="2073ED804C0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>+client.CBodyComponentBaseAnimGraph.m_animationController</Address>
@@ -5056,7 +5696,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1574</ID>
                           <Description>"m_nAnimLoopMode"</Description>
-                          <LastState Value="2" RealAddress="28065DC1980"/>
+                          <LastState Value="2" RealAddress="2073ED81980"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>4 Bytes</VariableType>
                           <Address>+client.CBaseAnimGraphController.m_nAnimLoopMode</Address>
@@ -5068,7 +5708,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>1575</ID>
                   <Description>"m_NetworkTransmitComponent"</Description>
-                  <LastState Value="" RealAddress="28065E81840"/>
+                  <LastState Value="" RealAddress="2073EED1840"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BaseEntity.m_NetworkTransmitComponent</Address>
@@ -5076,7 +5716,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>1576</ID>
                   <Description>"Landing"</Description>
-                  <LastState Value="145" RealAddress="28065E81BF8"/>
+                  <LastState Value="145" RealAddress="2073EED1BF4"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>Byte</VariableType>
                   <Address>+client.C_BaseEntity.m_fFlags</Address>
@@ -5084,7 +5724,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>1577</ID>
                   <Description>"m_iMaxHealth"</Description>
-                  <LastState Value="3000" RealAddress="28065E81B48"/>
+                  <LastState Value="3000" RealAddress="2073EED1B48"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>+client.C_BaseEntity.m_iMaxHealth</Address>
@@ -5092,7 +5732,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>1578</ID>
                   <Description>"m_iHealth"</Description>
-                  <LastState Value="3000" RealAddress="28065E81B4C"/>
+                  <LastState Value="3000" RealAddress="2073EED1B4C"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <VariableType>4 Bytes</VariableType>
                   <Address>+client.C_BaseEntity.m_iHealth</Address>
@@ -5101,7 +5741,7 @@ CSGOSKINx=nil;
                   <ID>1579</ID>
                   <Description>"Velocity"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="28065E81C08"/>
+                  <LastState Value="" RealAddress="2073EED1C08"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BaseEntity.m_vecVelocity</Address>
@@ -5109,7 +5749,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1580</ID>
                       <Description>"0"</Description>
-                      <LastState Value="0" RealAddress="28065E81C08"/>
+                      <LastState Value="0" RealAddress="2073EED1C08"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -5117,7 +5757,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1581</ID>
                       <Description>"1"</Description>
-                      <LastState Value="0" RealAddress="28065E81C0C"/>
+                      <LastState Value="0" RealAddress="2073EED1C0C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -5125,7 +5765,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1582</ID>
                       <Description>"2"</Description>
-                      <LastState Value="0" RealAddress="28065E81C10"/>
+                      <LastState Value="0" RealAddress="2073EED1C10"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
@@ -5136,7 +5776,7 @@ CSGOSKINx=nil;
                   <ID>1583</ID>
                   <Description>"vOldOrigin"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="28065E826DC"/>
+                  <LastState Value="" RealAddress="2073EED26DC"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BasePlayerPawn.m_vOldOrigin</Address>
@@ -5144,7 +5784,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1584</ID>
                       <Description>"0"</Description>
-                      <LastState Value="2176" RealAddress="28065E826DC"/>
+                      <LastState Value="2176" RealAddress="2073EED26DC"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+0</Address>
@@ -5152,7 +5792,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1585</ID>
                       <Description>"1"</Description>
-                      <LastState Value="-1152" RealAddress="28065E826E0"/>
+                      <LastState Value="-1152" RealAddress="2073EED26E0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+4</Address>
@@ -5160,7 +5800,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1586</ID>
                       <Description>"2"</Description>
-                      <LastState Value="-8.1875" RealAddress="28065E826E4"/>
+                      <LastState Value="-8.1875" RealAddress="2073EED26E4"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+8</Address>
@@ -5171,7 +5811,7 @@ CSGOSKINx=nil;
                   <ID>1587</ID>
                   <Description>"MovementServices"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="28061F94600"/>
+                  <LastState Value="" RealAddress="2071E670A00"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BasePlayerPawn.m_pMovementServices</Address>
@@ -5182,7 +5822,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1588</ID>
                       <Description>"m_nImpulse"</Description>
-                      <LastState Value="0" RealAddress="28061F94640"/>
+                      <LastState Value="0" RealAddress="2071E670A40"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CPlayer_MovementServices.m_nImpulse</Address>
@@ -5191,7 +5831,7 @@ CSGOSKINx=nil;
                       <ID>1589</ID>
                       <Description>"m_nButtons"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="28061F94648"/>
+                      <LastState Value="" RealAddress="2071E670A48"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>++client.CPlayer_MovementServices.m_nButtons</Address>
@@ -5199,7 +5839,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1590</ID>
                           <Description>"VFTable"</Description>
-                          <LastState Value="00007FFCCB795540" RealAddress="28061F94648"/>
+                          <LastState Value="00007FFF96F90980" RealAddress="2071E670A48"/>
                           <ShowAsHex>1</ShowAsHex>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>8 Bytes</VariableType>
@@ -5208,7 +5848,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1591</ID>
                           <Description>"m_nValue"</Description>
-                          <LastState Value="0000000000000000" RealAddress="28061F94650"/>
+                          <LastState Value="0000000000000000" RealAddress="2071E670A50"/>
                           <ShowAsHex>1</ShowAsHex>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>8 Bytes</VariableType>
@@ -5217,7 +5857,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1592</ID>
                           <Description>"m_nValueChanged"</Description>
-                          <LastState Value="0000000000000000" RealAddress="28061F94658"/>
+                          <LastState Value="0000000000000000" RealAddress="2071E670A58"/>
                           <ShowAsHex>1</ShowAsHex>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>8 Bytes</VariableType>
@@ -5226,7 +5866,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1593</ID>
                           <Description>"m_nValueScroll"</Description>
-                          <LastState Value="0000000000000000" RealAddress="28061F94660"/>
+                          <LastState Value="0000000000000000" RealAddress="2071E670A60"/>
                           <ShowAsHex>1</ShowAsHex>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>8 Bytes</VariableType>
@@ -5238,7 +5878,7 @@ CSGOSKINx=nil;
                       <ID>1594</ID>
                       <Description>"vecOldViewAngles"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="28061F947C4"/>
+                      <LastState Value="" RealAddress="2071E670BC4"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>+client.CPlayer_MovementServices.m_vecOldViewAngles</Address>
@@ -5246,7 +5886,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1595</ID>
                           <Description>"0"</Description>
-                          <LastState Value="0" RealAddress="28061F947C4"/>
+                          <LastState Value="0" RealAddress="2071E670BC4"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+0</Address>
@@ -5254,7 +5894,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1596</ID>
                           <Description>"1"</Description>
-                          <LastState Value="0" RealAddress="28061F947C8"/>
+                          <LastState Value="0" RealAddress="2071E670BC8"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+4</Address>
@@ -5264,7 +5904,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1597</ID>
                       <Description>"m_flForwardMove"</Description>
-                      <LastState Value="0" RealAddress="28061F947AC"/>
+                      <LastState Value="0" RealAddress="2071E670BAC"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CPlayer_MovementServices.m_flForwardMove</Address>
@@ -5272,7 +5912,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1598</ID>
                       <Description>"m_bInCrouch"</Description>
-                      <LastState Value="0" RealAddress="28061F947E0"/>
+                      <LastState Value="0" RealAddress="2071E670BE0"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CPlayer_MovementServices_Humanoid.m_bInCrouch</Address>
@@ -5280,7 +5920,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1599</ID>
                       <Description>"m_bDucked"</Description>
-                      <LastState Value="0" RealAddress="28061F947EC"/>
+                      <LastState Value="0" RealAddress="2071E670BEC"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>+client.CPlayer_MovementServices_Humanoid.m_bDucked</Address>
@@ -5288,7 +5928,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1600</ID>
                       <Description>"m_bInDuckJump"</Description>
-                      <LastState Value="0" RealAddress="28061F947EE"/>
+                      <LastState Value="0" RealAddress="2071E670BEE"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>+client.CPlayer_MovementServices_Humanoid.m_bInDuckJump</Address>
@@ -5296,7 +5936,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1601</ID>
                       <Description>"m_nStepside"</Description>
-                      <LastState Value="0" RealAddress="28061F94810"/>
+                      <LastState Value="0" RealAddress="2071E670C10"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CPlayer_MovementServices_Humanoid.m_nStepside</Address>
@@ -5304,7 +5944,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1602</ID>
                       <Description>"+client.CPlayer_MovementServices.m_vecOldViewAngles"</Description>
-                      <LastState Value="0" RealAddress="28061F947C4"/>
+                      <LastState Value="0" RealAddress="2071E670BC4"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CPlayer_MovementServices.m_vecOldViewAngles</Address>
@@ -5312,7 +5952,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1603</ID>
                           <Description>"X"</Description>
-                          <LastState Value="0" RealAddress="28061F947C8"/>
+                          <LastState Value="0" RealAddress="2071E670BC8"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+4</Address>
@@ -5324,7 +5964,7 @@ CSGOSKINx=nil;
                 <CheatEntry>
                   <ID>1604</ID>
                   <Description>"m_CHitboxComponent"</Description>
-                  <LastState Value="" RealAddress="28065E81D60"/>
+                  <LastState Value="" RealAddress="2073EED1D60"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BaseModelEntity.m_CHitboxComponent</Address>
@@ -5333,7 +5973,7 @@ CSGOSKINx=nil;
                   <ID>1605</ID>
                   <Description>"m_Glow"</Description>
                   <Options moHideChildren="1"/>
-                  <LastState Value="" RealAddress="28065E81F20"/>
+                  <LastState Value="" RealAddress="2073EED1F20"/>
                   <ShowAsSigned>0</ShowAsSigned>
                   <GroupHeader>1</GroupHeader>
                   <Address>+client.C_BaseModelEntity.m_Glow</Address>
@@ -5342,7 +5982,7 @@ CSGOSKINx=nil;
                       <ID>1606</ID>
                       <Description>"m_fGlowColor"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="28065E81F28"/>
+                      <LastState Value="" RealAddress="2073EED1F28"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>+client.CGlowProperty.m_fGlowColor</Address>
@@ -5350,7 +5990,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1607</ID>
                           <Description>"0"</Description>
-                          <LastState Value="0" RealAddress="28065E81F28"/>
+                          <LastState Value="0" RealAddress="2073EED1F28"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+0</Address>
@@ -5358,7 +5998,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1608</ID>
                           <Description>"1"</Description>
-                          <LastState Value="0" RealAddress="28065E81F2C"/>
+                          <LastState Value="0" RealAddress="2073EED1F2C"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+4</Address>
@@ -5366,7 +6006,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1609</ID>
                           <Description>"2"</Description>
-                          <LastState Value="0" RealAddress="28065E81F30"/>
+                          <LastState Value="0" RealAddress="2073EED1F30"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+8</Address>
@@ -5376,7 +6016,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1610</ID>
                       <Description>"m_iGlowType"</Description>
-                      <LastState Value="0" RealAddress="28065E81F50"/>
+                      <LastState Value="0" RealAddress="2073EED1F50"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CGlowProperty.m_iGlowType</Address>
@@ -5384,7 +6024,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1611</ID>
                       <Description>"m_iGlowTeam"</Description>
-                      <LastState Value="4294967295" RealAddress="28065E81F54"/>
+                      <LastState Value="4294967295" RealAddress="2073EED1F54"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CGlowProperty.m_iGlowTeam</Address>
@@ -5392,7 +6032,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1612</ID>
                       <Description>"m_nGlowRange"</Description>
-                      <LastState Value="0" RealAddress="28065E81F58"/>
+                      <LastState Value="0" RealAddress="2073EED1F58"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CGlowProperty.m_nGlowRange</Address>
@@ -5400,7 +6040,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1613</ID>
                       <Description>"m_nGlowRangeMin"</Description>
-                      <LastState Value="0" RealAddress="28065E81F5C"/>
+                      <LastState Value="0" RealAddress="2073EED1F5C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CGlowProperty.m_nGlowRangeMin</Address>
@@ -5409,7 +6049,7 @@ CSGOSKINx=nil;
                       <ID>1614</ID>
                       <Description>"m_glowColorOverride"</Description>
                       <Options moHideChildren="1"/>
-                      <LastState Value="" RealAddress="28065E81F60"/>
+                      <LastState Value="" RealAddress="2073EED1F60"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <GroupHeader>1</GroupHeader>
                       <Address>+client.CGlowProperty.m_glowColorOverride</Address>
@@ -5417,7 +6057,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1615</ID>
                           <Description>"0"</Description>
-                          <LastState Value="-1.701463555E38" RealAddress="28065E81F60"/>
+                          <LastState Value="-1.701463555E38" RealAddress="2073EED1F60"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+0</Address>
@@ -5425,7 +6065,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1616</ID>
                           <Description>"1"</Description>
-                          <LastState Value="0" RealAddress="28065E81F64"/>
+                          <LastState Value="0" RealAddress="2073EED1F64"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+4</Address>
@@ -5433,7 +6073,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1617</ID>
                           <Description>"2"</Description>
-                          <LastState Value="0" RealAddress="28065E81F68"/>
+                          <LastState Value="0" RealAddress="2073EED1F68"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <VariableType>Float</VariableType>
                           <Address>+8</Address>
@@ -5443,7 +6083,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1618</ID>
                       <Description>"m_bFlashing"</Description>
-                      <LastState Value="0" RealAddress="28065E81F64"/>
+                      <LastState Value="0" RealAddress="2073EED1F64"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>4 Bytes</VariableType>
                       <Address>+client.CGlowProperty.m_bFlashing</Address>
@@ -5451,7 +6091,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1619</ID>
                       <Description>"m_flGlowTime"</Description>
-                      <LastState Value="0" RealAddress="28065E81F68"/>
+                      <LastState Value="0" RealAddress="2073EED1F68"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CGlowProperty.m_flGlowTime</Address>
@@ -5459,7 +6099,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1620</ID>
                       <Description>"m_flGlowStartTime"</Description>
-                      <LastState Value="2697.500244" RealAddress="28065E81F6C"/>
+                      <LastState Value="2057.93335" RealAddress="2073EED1F6C"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Float</VariableType>
                       <Address>+client.CGlowProperty.m_flGlowStartTime</Address>
@@ -5474,7 +6114,7 @@ CSGOSKINx=nil;
                     <CheatEntry>
                       <ID>1622</ID>
                       <Description>"m_bGlowing"</Description>
-                      <LastState Value="0" RealAddress="28065E81F70"/>
+                      <LastState Value="0" RealAddress="2073EED1F70"/>
                       <ShowAsSigned>0</ShowAsSigned>
                       <VariableType>Byte</VariableType>
                       <Address>+client.CGlowProperty.m_bGlowing</Address>
@@ -5706,7 +6346,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1720</ID>
                           <Description>"GetEnt"</Description>
-                          <LastState Value="" RealAddress="28060531800"/>
+                          <LastState Value="" RealAddress="206937D0000"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <GroupHeader>1</GroupHeader>
                           <Address>GetEntityByIndex:0x149</Address>
@@ -6514,7 +7154,7 @@ CSGOSKINx=nil;
                         <CheatEntry>
                           <ID>1907</ID>
                           <Description>"GetEnt"</Description>
-                          <LastState Value="" RealAddress="28060531800"/>
+                          <LastState Value="" RealAddress="206937D0000"/>
                           <ShowAsSigned>0</ShowAsSigned>
                           <GroupHeader>1</GroupHeader>
                           <Address>GetEntityByIndex:0x149</Address>
@@ -7199,224 +7839,32 @@ CSGOSKINx=nil;
   </CheatEntries>
   <UserdefinedSymbols>
     <SymbolEntry>
-      <Name>GetMapPathInstruction</Name>
-      <Address>7FFCF947E9E9</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CNetworkGameClient</Name>
-      <Address>7FFCF9AA4E38</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CNetworkGameClient.MapPathOffsetInstruction</Name>
-      <Address>7FFCF947E9FE</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CNetworkGameClient.MapPathOffset</Name>
-      <Address>210</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>LocalPlayerInstruction</Name>
-      <Address>7FFCC9F0B830</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>LocalPlayerPawnPtr</Name>
-      <Address>7FFCCC0AF300</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>Engine2CommandBufferInstruction</Name>
-      <Address>7FFCF95CD515</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>Engine2CommandBuffer</Name>
-      <Address>7FFCF9A66188</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>ViewMatrixInstruction</Name>
-      <Address>7FFCCA4F0EAB</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>ViewMatrix</Name>
-      <Address>7FFCCC3C3E30</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CameraInstruction</Name>
-      <Address>7FFCCA1712B0</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CameraManager</Name>
-      <Address>7FFCCC227960</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CSchemaSystem::Instruction</Name>
-      <Address>7FFD82B02F26</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CSchemaSystem::Pointer</Name>
-      <Address>7FFD82B3F6B0</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CSchemaSystem::Base</Name>
-      <Address>7FFD82B467A0</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CSchemaSystem::ReadRoot::Instruction</Name>
-      <Address>7FFD82AE34F0</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CSchemaSystem::TypeScope::Instruction</Name>
-      <Address>7FFD82AE352B</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CSchemaSystem::TypeScope::Offset</Name>
-      <Address>190</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CSchemaSystem::ReadTypeScope::CallToInstruction</Name>
-      <Address>7FFD82AE3539</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CSchemaSystem::ReadTypeScope::Instruction</Name>
-      <Address>7FFD82AE1CC0</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CSchemaSystem::TypeScope::Classes::Instruction</Name>
-      <Address>7FFD82AE2071</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CSchemaSystem::TypeScope::Classes</Name>
-      <Address>440</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CSchemaSystem::TypeScope::Enums::Instruction</Name>
-      <Address>7FFD82AE26B1</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CSchemaSystem::TypeScope::Enums</Name>
-      <Address>468</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>GameResourceServiceInstruction</Name>
-      <Address>7FFCF95E0527</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>GameResourceService</Name>
-      <Address>7FFCF99CCCE0</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>EntityListInstruction</Name>
-      <Address>7FFCF95B5692</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>EntityList_OFFSET</Name>
-      <Address>58</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>EntityList</Name>
-      <Address>27FDF9C0000</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CVarInstruction</Name>
-      <Address>7FFCCB43ED74</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CVarPtr</Name>
-      <Address>7FFCCC4557A8</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>PE_SEGMENTS</Name>
-      <Address>7FF7E8F40220</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CUIEngineSource2Instruction</Name>
-      <Address>7FFCE9FAD643</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CUIEngineSource2</Name>
-      <Address>7FFCEA4886D8</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CLabelVFTInstruction</Name>
-      <Address>7FFCCB280CAE</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CLabelVFT</Name>
-      <Address>7FFCCBBE1240</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CPanel2DVFTInstruction</Name>
-      <Address>7FFCCB270C31</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CPanel2DVFT</Name>
-      <Address>7FFCCBBDC790</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CHud_PerfStatsBasicsVFTInstruction</Name>
-      <Address>7FFCCA7B8D9F</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CHud_PerfStatsBasicsVFT</Name>
-      <Address>7FFCCB8FE1E8</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CImagePanelVFTInstruction</Name>
-      <Address>7FFCCB2A8B28</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CImagePanelVFT</Name>
-      <Address>7FFCCBBE6668</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CCitadelInputInstruction</Name>
-      <Address>7FFCCABE067B</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>CInput</Name>
-      <Address>7FFCCBFBDE60</Address>
-    </SymbolEntry>
-    <SymbolEntry>
       <Name>DeadLockInputUpdateInstruction</Name>
-      <Address>7FFCCAC68D1C</Address>
+      <Address>7FFF965C1619</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>DeadLockInputUpdateInstructionHook</Name>
-      <Address>7FFCC9E40000</Address>
+      <Address>7FFF957D0000</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>PSilentAngsRefE</Name>
-      <Address>7FFCC9E40500</Address>
+      <Address>7FFF957D0500</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>PSilentAngsRefX</Name>
-      <Address>7FFCC9E40508</Address>
+      <Address>7FFF957D0508</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>PSilentAngsRefY</Name>
-      <Address>7FFCC9E40510</Address>
+      <Address>7FFF957D0510</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>PSilentAngsRefY2</Name>
-      <Address>7FFCC9E40518</Address>
+      <Address>7FFF957D0518</Address>
     </SymbolEntry>
     <SymbolEntry>
       <Name>PSilentAngsRefZ</Name>
-      <Address>7FFCC9E40540</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>AimPosRefE</Name>
-      <Address>7FFCC9E40520</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>AimPosRefX</Name>
-      <Address>7FFCC9E40528</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>AimPosRefY</Name>
-      <Address>7FFCC9E40530</Address>
-    </SymbolEntry>
-    <SymbolEntry>
-      <Name>AimPosRefZ</Name>
-      <Address>7FFCC9E40538</Address>
+      <Address>7FFF957D0540</Address>
     </SymbolEntry>
   </UserdefinedSymbols>
   <LuaScript>--[[
@@ -8034,6 +8482,7 @@ client.dll+E40AFA - E8 51FB7EFF           - call client.dll+630650
 client.dll+E40AFF - 84 C0                 - test al,al
 client.dll+E40B01 - 74 01                 - je client.dll+E40B04
 client.dll+E40B03 - CC                    - int 3
+C6 84 24 A8 00 00 00 00 4D 8D BC 24 ?? ?? ?? ?? 49 03 EE 48 8D 8C 24
 
 client.dll+677007 - 48 C1 E3 06           - shl rbx,06 { 6 }
 client.dll+67700B - 48 8D 05 CE70E601     - lea rax,[ViewMatrix] { (0.52) }
@@ -8042,12 +8491,64 @@ client.dll+677015 - 48 83 C4 20           - add rsp,20 { 32 }
 client.dll+677019 - 5B                    - pop rbx
 client.dll+67701A - C3                    - ret
 48 C1 E3 06 48 8D 05
+48 03 C3 48 83 C4 20 5B C3
 ]]
-local ViewMatrixInstruction=NHA_CE.UniqueScanModule("48 C1 E3 06 48 8D 05","client.dll")+0x4;
-RegisterAndPrint("ViewMatrixInstruction",ViewMatrixInstruction);
-RegisterAndPrint("ViewMatrix",NHA_CE.CBUFF(ViewMatrixInstruction,0x3));
+--[[
+48 8B 05 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? 48 8B DA BA FF FF
+MOV_RAX:STATIC_CViewRender - 48 8B 05 B391BF01     - mov rax,[CViewRender] { (7FFF906285E8) }
+LEA_RCX:STATIC_CViewRender - 48 8D 0D AC91BF01     - lea rcx,[CViewRender] { (7FFF906285E8) }
+client.dll+34F034          - 48 8B DA              - mov rbx,rdx
+client.dll+34F037          - BA FFFFFFFF           - mov edx,FFFFFFFF { -1 }
+client.dll+34F03C          - FF 50 38              - call qword ptr [rax+38]
+client.dll+34F03F          - F3 0F10 53 04         - movss xmm2,[rbx+04]
+client.dll+34F044          - 4C 8D 05 65C01801     - lea r8,[client.dll+14DB0B0] { (0) }
 
-local CameraInstruction=NHA_CE.UniqueScanModule("48 8D 3D ?? ?? ?? ?? 8B D9 89 4C 24 48 8B 0D ?? ?? ?? ?? 41 B8","client.dll");
+
+]]
+local CViewRenderInstruction=NHA_CE.UniqueScanModule("48 8B 05 ?? ?? ?? ?? 48 8D 0D ?? ?? ?? ?? 48 8B DA BA FF FF","client.dll");
+RegisterAndPrint("CViewRenderInstruction",CViewRenderInstruction);
+RegisterAndPrint("CViewRender",NHA_CE.CBUFF(CViewRenderInstruction,0x3));
+
+--[[
+48 8D 8F ?? ?? ?? ?? 48 8D 97 ?? ?? ?? ?? 0F 10 00 0F 11 01 0F 10 48 10
+client.dll+1207226 - 48 8D 8F 88020000     - lea rcx,[rdi+00000288]
+client.dll+120722D - 48 8D 97 C8020000     - lea rdx,[rdi+000002C8]
+client.dll+1207234 - 0F10 00               - movups xmm0,[rax]
+client.dll+1207237 - 0F11 01               - movups [rcx],xmm0
+client.dll+120723A - 0F10 48 10            - movups xmm1,[rax+10]
+client.dll+120723E - 0F11 49 10            - movups [rcx+10],xmm1
+client.dll+1207242 - 0F10 40 20            - movups xmm0,[rax+20]
+client.dll+1207246 - 0F11 41 20            - movups [rcx+20],xmm0
+client.dll+120724A - 0F10 48 30            - movups xmm1,[rax+30]
+client.dll+120724E - 0F11 49 30            - movups [rcx+30],xmm1
+
+]]
+local ModuleBase=getAddress("client.dll");
+local ViewMatrixInstructions=NHA_CE.MultiScan("48 8D 8F ?? ?? ?? ?? 48 8D 97 ?? ?? ?? ?? 0F 10 00",ModuleBase,ModuleBase+getModuleSize("client.dll"));
+local Ind=1;local Val=0xFFFFFF;local Test=0;local RInd=0;
+for Ind=1,#ViewMatrixInstructions,1 do
+Test=readInteger(getAddress(ViewMatrixInstructions[Ind])+0x3);
+if Test&lt;Val and Test&gt;0x150 and Test&lt;0x500 then
+RInd=Ind;
+Val=Test+0x10;
+end
+end
+
+RegisterAndPrint("ViewMatrixInstruction",getAddress(ViewMatrixInstructions[RInd]));
+RegisterAndPrint("ViewMatrix",getAddress("CViewRender")+Val);
+
+--[[
+client.dll+2D5A93 - 48 8D 3D 96F6C601     - lea rdi,[CCitadelCameraManager] { (7FFF9061D9E0) }
+client.dll+2D5A9A - 8B D9                 - mov ebx,ecx
+client.dll+2D5A9C - 41 B8 38000000        - mov r8d,00000038 { 56 }
+client.dll+2D5AA2 - 8B 0D E0EAE901        - mov ecx,[client.dll+2174588]
+client.dll+2D5AA8 - 48 8B 14 C8           - mov rdx,[rax+rcx*8]
+client.dll+2D5AAC - 41 8B 04 10           - mov eax,[r8+rdx]
+client.dll+2D5AB0 - 39 05 EAF6C601        - cmp [client.dll+1F451A0],eax { (800008DC) }
+client.dll+2D5AB6 - 7F 48                 - jg client.dll+2D5B00
+48 8D 3D ?? ?? ?? ?? 8B D9 41 B8
+]]
+local CameraInstruction=NHA_CE.UniqueScanModule("48 8D 3D ?? ?? ?? ?? 8B D9","client.dll");
 RegisterAndPrint("CameraInstruction",CameraInstruction);
 RegisterAndPrint("CameraManager",NHA_CE.CBUFF(CameraInstruction,0x3));
 
@@ -9000,7 +9501,9 @@ ControllerToPawn=function(PlayerController)
 if(PlayerController==nil or PlayerController==0) then return 0;end;
 local game_entity_system=GetGameEntitySystem();
 if game_entity_system==nil or game_entity_system==0 then;return 0;end;
-local pawn_handle=ReadInteger(PlayerController+getAddressSafe("client.CBasePlayerController.m_hPawn"));
+local HPawn=getAddressSafe("client.CBasePlayerController.m_hPawn");
+if HPawn==nil or HPawn==0 then;return 0;end;
+local pawn_handle=ReadInteger(PlayerController+HPawn);
 if (pawn_handle==0 or pawn_handle &gt;=0x7FFFFFF) then return 0;end
 local identities_chunk  =ReadPointer(game_entity_system+ 0x10 +(0x8*((pawn_handle &amp; 0x7FFF)&gt;&gt; 9)));
 if (identities_chunk ==0) then return 0;end;
@@ -9913,6 +10416,7 @@ FNR("CS2SendWarning");
 end;
 
 if 1 then;--Symbol Callbacks,
+
 SOURCE2_RSLC= registerSymbolLookupCallback(function(INPUT)
 local INDEX=0;
 local QUERY="GetEntityByIndex:";
@@ -10084,12 +10588,15 @@ return O_;
 end;
 FNR("SOURCE2_RSLC_AddElement");
 
-SOURCE2_RSDOFILLSTRUCTURE=function(structure, Class,IsParent,VFTAddress);end;
-SOURCE2_RSDOFILLSTRUCTURE=function(structure, Class,IsParent,VFTAddress)
+SOURCE2_RSDOFILLSTRUCTURE=function(structure, Class,IsParent,VFTAddress,StartOffset);end;
+SOURCE2_RSDOFILLSTRUCTURE=function(structure, Class,IsParent,VFTAddress,StartOffset)
+if StartOffset==nil then;StartOffset=0;end;
 if Class~=nil then
 local Type=vtPointer;
 local F=0;
+local TST=nil;
 for F=1,#(Class.Fields),1 do
+TST=nil;
 Type=vtPointer;
 if --[[IsHandle]]string.find(Class.Fields[F].Type,"CHandle&lt;")==1 or Class.Fields[F].Type=="int32" or Class.Fields[F].Type=="uint32" then
 Type=vtDword;
@@ -10103,25 +10610,33 @@ elseif Class.Fields[F].Type=="float32" then
 Type=vtSingle;
 elseif Class.Fields[F].Type=="bool" or (Class.Fields[F].Type=="int8" or Class.Fields[F].Type=="uint8") then
 Type=vtByte;
+else
+TST=CSchemaSystem.GetClassByName(Class.Fields[F].Type,VFTAddress);
+if TST~=nil then
+SOURCE2_RSDOFILLSTRUCTURE(structure,TST,true,VFTAddress,Class.Fields[F].Offset);
 end
+end
+
 if Class.Fields[F].Type=="Vector" then;
 Type=vtSingle;
-SOURCE2_RSLC_AddElement(structure,Class.Fields[F].Offset,Type,Class.Fields[F].Name..".X",false);
-SOURCE2_RSLC_AddElement(structure,Class.Fields[F].Offset+0x4,Type,Class.Fields[F].Name..".Y",false);
-SOURCE2_RSLC_AddElement(structure,Class.Fields[F].Offset+0x8,Type,Class.Fields[F].Name..".Z",false);
+SOURCE2_RSLC_AddElement(structure,StartOffset+Class.Fields[F].Offset,Type,Class.Fields[F].Name..".X",false);
+SOURCE2_RSLC_AddElement(structure,StartOffset+Class.Fields[F].Offset+0x4,Type,Class.Fields[F].Name..".Y",false);
+SOURCE2_RSLC_AddElement(structure,StartOffset+Class.Fields[F].Offset+0x8,Type,Class.Fields[F].Name..".Z",false);
 else
-SOURCE2_RSLC_AddElement(structure,Class.Fields[F].Offset,Type,Class.Fields[F].Name,Type==vtPointer);
+SOURCE2_RSLC_AddElement(structure,StartOffset+Class.Fields[F].Offset,Type,Class.Fields[F].Name,Type==vtPointer);
 end;
 
 end;
 
 if Class.Parent~=nil then
 --print(Class.Name..": Parent: "..Class.Parent.." &gt; "..NHA_CE.GetHexAddress(VFTAddress));
-SOURCE2_RSDOFILLSTRUCTURE(structure,CSchemaSystem.GetClassByName(Class.Parent,VFTAddress),true,VFTAddress);
+SOURCE2_RSDOFILLSTRUCTURE(structure,CSchemaSystem.GetClassByName(Class.Parent,VFTAddress),true,VFTAddress,StartOffset);
 end;
 end;
 end;
 FNR("SOURCE2_RSDOFILLSTRUCTURE");
+
+
 
 FNR("SOURCE2_RSLC");
 SOURCE2_RSDO=registerStructureDissectOverride(function(structure, baseaddress)
@@ -10282,13 +10797,19 @@ FNR("SetScaledWindowSize");
 MatrixCache={};
 function CacheMatrix(MatrixAddress)
 local i=0;
+local F=0;
 for i=0,16,1 do
-MatrixCache[i]=readFloat(MatrixAddress+(i*0x4));
+F=readFloat(MatrixAddress+(i*0x4));
+if F==nil then;F=0;end;
+MatrixCache[i]=F;
 end
 end
 FNR("CacheMatrix");
 
 function WorldtoScreen(pos_X,pos_Y,pos_Z)
+if pos_X==nil or pos_Y==nil or pos_Z==nil or MatrixCache==nil or WindowScalerSize==nil then;
+return {X=0,Y=0};
+end
 local screenW = ((MatrixCache[12] * pos_X) + (MatrixCache[13] * pos_Y) + (MatrixCache[14] * pos_Z) + MatrixCache[15])/WindowScalerSize;
 local screenX =( (MatrixCache[0] * pos_X) + (MatrixCache[1] * pos_Y) + (MatrixCache[2] * pos_Z) + MatrixCache[3])/WindowScalerSize;
 local ScreenZ=(screenX / screenW);
@@ -10329,21 +10850,24 @@ local m_hController=getAddressSafe("client.C_BasePlayerPawn.m_hController");
 local m_iszPlayerName=getAddressSafe("client.CBasePlayerController.m_iszPlayerName");
 local iTeamNum=getAddressSafe("C_BaseEntity.m_iTeamNum");
 local bLocal=getAddressSafe("client.CBasePlayerController.m_bIsLocalPlayerController");
-OVL.OnPaint=function(X)
+local iHealth=getAddressSafe("client.C_BaseEntity.m_iHealth");
+local CBodyComponent=getAddressSafe("client.C_BaseEntity.m_CBodyComponent");
 local INDEX=0;
-
-if Origin==nil then;return;end;
+local CNT=nil;
 local Pawn0=nil;
 local L2D=nil;
+OVL.OnPaint=function(X)
+if Origin==nil then;return;end;
 for INDEX=1,64,1 do
 Pawn0=getAddressSafe("GetPawnByIndex:"..INDEX);
 if Pawn0~=nil and Pawn0~=0 then;
-local CNT=HandleToEntity(readSmallInteger(Pawn0+m_hController));
+CNT=HandleToEntity(readSmallInteger(Pawn0+m_hController));
 if CNT~=nil then;
 if readByte(CNT+bLocal)==1 then
 LPAddress=Pawn0;
 SelfTeam=readByte(LPAddress+iTeamNum);
-elseif readByte(Pawn0+iTeamNum)~=SelfTeam then
+elseif readByte(Pawn0+iTeamNum)~=SelfTeam and readInteger(Pawn0+iHealth)&gt;0
+and readPointer(Pawn0+CBodyComponent)~=0 then
 L2D = WorldtoScreen(readFloat(Pawn0+Origin),readFloat(Pawn0+Origin+0x4),readFloat(Pawn0+Origin+0x8));
 if L2D.X~=0 and L2D.Y~=0 then
 OVL.Canvas.textOut(L2D.X, L2D.Y-15 ,NHA_CE.ReadString( CNT+m_iszPlayerName))
