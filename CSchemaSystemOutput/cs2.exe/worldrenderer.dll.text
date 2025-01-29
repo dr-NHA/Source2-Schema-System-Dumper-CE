@@ -1,0 +1,239 @@
+NHAs Schema System Dumper
+Based Off Public Sources
+Cheat Engine Is A Very Interactive Enviroment To Develop In <3
+
+Type:12: worldrenderer.dll, Enums: 1
+Enum:1: ObjectTypeFlags_t, Values: 15
+OBJECT_TYPE_NONE, Offset: 0x0,
+OBJECT_TYPE_MODEL, Offset: 0x8,
+OBJECT_TYPE_BLOCK_LIGHT, Offset: 0x10,
+OBJECT_TYPE_NO_SHADOWS, Offset: 0x20,
+OBJECT_TYPE_WORLDSPACE_TEXURE_BLEND, Offset: 0x40,
+OBJECT_TYPE_DISABLED_IN_LOW_QUALITY, Offset: 0x80,
+OBJECT_TYPE_NO_SUN_SHADOWS, Offset: 0x100,
+OBJECT_TYPE_RENDER_WITH_DYNAMIC, Offset: 0x200,
+OBJECT_TYPE_RENDER_TO_CUBEMAPS, Offset: 0x400,
+OBJECT_TYPE_MODEL_HAS_LODS, Offset: 0x800,
+OBJECT_TYPE_OVERLAY, Offset: 0x2000,
+OBJECT_TYPE_PRECOMPUTED_VISMEMBERS, Offset: 0x4000,
+OBJECT_TYPE_STATIC_CUBE_MAP, Offset: 0x8000,
+OBJECT_TYPE_DISABLE_VIS_CULLING, Offset: 0x10000,
+OBJECT_TYPE_BAKED_GEOMETRY, Offset: 0x20000,
+
+Type:12: worldrenderer.dll, Classes: 32
+Class:1: CScriptComponent, Fields: 1, Parent: CEntityComponent
+m_scriptClassName, Offset: 0x30, Type: CUtlSymbolLarge,
+
+Class:2: EntityIOConnectionData_t, Fields: 7, Parent: None
+m_outputName, Offset: 0x0, Type: CUtlString,
+m_targetType, Offset: 0x8, Type: uint32,
+m_targetName, Offset: 0x10, Type: CUtlString,
+m_inputName, Offset: 0x18, Type: CUtlString,
+m_overrideParam, Offset: 0x20, Type: CUtlString,
+m_flDelay, Offset: 0x28, Type: float32,
+m_nTimesToFire, Offset: 0x2C, Type: int32,
+
+Class:3: EntityKeyValueData_t, Fields: 2, Parent: None
+m_connections, Offset: 0x8, Type: CUtlVector< EntityIOConnectionData_t >,
+m_keyValuesData, Offset: 0x20, Type: CUtlBinaryBlock,
+
+Class:4: PermEntityLumpData_t, Fields: 3, Parent: None
+m_name, Offset: 0x8, Type: CUtlString,
+m_childLumps, Offset: 0x10, Type: CUtlVector< CStrongHandleCopyable< InfoForResourceTypeCEntityLump > >,
+m_entityKeyValues, Offset: 0x28, Type: CUtlLeanVector< EntityKeyValueData_t >,
+
+Class:5: SceneObject_t, Fields: 14, Parent: None
+m_nObjectID, Offset: 0x0, Type: uint32,
+m_vTransform, Offset: 0x4, Type: Vector4D[3],
+m_flFadeStartDistance, Offset: 0x34, Type: float32,
+m_flFadeEndDistance, Offset: 0x38, Type: float32,
+m_vTintColor, Offset: 0x3C, Type: Vector4D,
+m_skin, Offset: 0x50, Type: CUtlString,
+m_nObjectTypeFlags, Offset: 0x58, Type: ObjectTypeFlags_t,
+m_vLightingOrigin, Offset: 0x5C, Type: Vector,
+m_nOverlayRenderOrder, Offset: 0x68, Type: int16,
+m_nLODOverride, Offset: 0x6A, Type: int16,
+m_nCubeMapPrecomputedHandshake, Offset: 0x6C, Type: int32,
+m_nLightProbeVolumePrecomputedHandshake, Offset: 0x70, Type: int32,
+m_renderableModel, Offset: 0x78, Type: CStrongHandle< InfoForResourceTypeCModel >,
+m_renderable, Offset: 0x80, Type: CStrongHandle< InfoForResourceTypeCRenderMesh >,
+
+Class:6: BaseSceneObjectOverride_t, Fields: 1, Parent: None
+m_nSceneObjectIndex, Offset: 0x0, Type: uint32,
+
+Class:7: ExtraVertexStreamOverride_t, Fields: 4, Parent: BaseSceneObjectOverride_t
+m_nSubSceneObject, Offset: 0x4, Type: uint32,
+m_nDrawCallIndex, Offset: 0x8, Type: uint32,
+m_nAdditionalMeshDrawPrimitiveFlags, Offset: 0xC, Type: MeshDrawPrimitiveFlags_t,
+m_extraBufferBinding, Offset: 0x10, Type: CRenderBufferBinding,
+
+Class:8: MaterialOverride_t, Fields: 3, Parent: BaseSceneObjectOverride_t
+m_nSubSceneObject, Offset: 0x4, Type: uint32,
+m_nDrawCallIndex, Offset: 0x8, Type: uint32,
+m_pMaterial, Offset: 0x10, Type: CStrongHandle< InfoForResourceTypeIMaterial2 >,
+
+Class:9: InfoOverlayData_t, Fields: 10, Parent: None
+m_transform, Offset: 0x0, Type: matrix3x4_t,
+m_flWidth, Offset: 0x30, Type: float32,
+m_flHeight, Offset: 0x34, Type: float32,
+m_flDepth, Offset: 0x38, Type: float32,
+m_vUVStart, Offset: 0x3C, Type: Vector2D,
+m_vUVEnd, Offset: 0x44, Type: Vector2D,
+m_pMaterial, Offset: 0x50, Type: CStrongHandle< InfoForResourceTypeIMaterial2 >,
+m_nRenderOrder, Offset: 0x58, Type: int32,
+m_vTintColor, Offset: 0x5C, Type: Vector4D,
+m_nSequenceOverride, Offset: 0x6C, Type: int32,
+
+Class:10: BakedLightingInfo_t, Fields: 9, Parent: None
+m_nLightmapVersionNumber, Offset: 0x0, Type: uint32,
+m_nLightmapGameVersionNumber, Offset: 0x4, Type: uint32,
+m_vLightmapUvScale, Offset: 0x8, Type: Vector2D,
+m_bHasLightmaps, Offset: 0x10, Type: bool,
+m_bBakedShadowsGamma20, Offset: 0x11, Type: bool,
+m_bCompressionEnabled, Offset: 0x12, Type: bool,
+m_nChartPackIterations, Offset: 0x13, Type: uint8,
+m_nVradQuality, Offset: 0x14, Type: uint8,
+m_lightMaps, Offset: 0x18, Type: CUtlVector< CStrongHandle< InfoForResourceTypeCTextureBase > >,
+
+Class:11: WorldNodeOnDiskBufferData_t, Fields: 4, Parent: None
+m_nElementCount, Offset: 0x0, Type: int32,
+m_nElementSizeInBytes, Offset: 0x4, Type: int32,
+m_inputLayoutFields, Offset: 0x8, Type: CUtlVector< RenderInputLayoutField_t >,
+m_pData, Offset: 0x20, Type: CUtlVector< uint8 >,
+
+Class:12: AggregateMeshInfo_t, Fields: 9, Parent: None
+m_nVisClusterMemberOffset, Offset: 0x0, Type: uint32,
+m_nVisClusterMemberCount, Offset: 0x4, Type: uint8,
+m_bHasTransform, Offset: 0x5, Type: bool,
+m_nDrawCallIndex, Offset: 0x6, Type: int16,
+m_nLODSetupIndex, Offset: 0x8, Type: int16,
+m_nLODGroupMask, Offset: 0xA, Type: uint8,
+m_vTintColor, Offset: 0xB, Type: Color,
+m_objectFlags, Offset: 0x10, Type: ObjectTypeFlags_t,
+m_nLightProbeVolumePrecomputedHandshake, Offset: 0x14, Type: int32,
+
+Class:13: AggregateLODSetup_t, Fields: 3, Parent: None
+m_vLODOrigin, Offset: 0x0, Type: Vector,
+m_fMaxObjectScale, Offset: 0xC, Type: float32,
+m_fSwitchDistances, Offset: 0x10, Type: CUtlVector< float32 >,
+
+Class:14: AggregateSceneObject_t, Fields: 8, Parent: None
+m_allFlags, Offset: 0x0, Type: ObjectTypeFlags_t,
+m_anyFlags, Offset: 0x4, Type: ObjectTypeFlags_t,
+m_nLayer, Offset: 0x8, Type: int16,
+m_aggregateMeshes, Offset: 0x10, Type: CUtlVector< AggregateMeshInfo_t >,
+m_lodSetups, Offset: 0x28, Type: CUtlVector< AggregateLODSetup_t >,
+m_visClusterMembership, Offset: 0x40, Type: CUtlVector< uint16 >,
+m_fragmentTransforms, Offset: 0x58, Type: CUtlVector< matrix3x4_t >,
+m_renderableModel, Offset: 0x70, Type: CStrongHandle< InfoForResourceTypeCModel >,
+
+Class:15: ClutterTile_t, Fields: 3, Parent: None
+m_nFirstInstance, Offset: 0x0, Type: uint32,
+m_nLastInstance, Offset: 0x4, Type: uint32,
+m_BoundsWs, Offset: 0x8, Type: AABB_t,
+
+Class:16: ClutterSceneObject_t, Fields: 8, Parent: None
+m_Bounds, Offset: 0x0, Type: AABB_t,
+m_flags, Offset: 0x18, Type: ObjectTypeFlags_t,
+m_nLayer, Offset: 0x1C, Type: int16,
+m_instancePositions, Offset: 0x20, Type: CUtlVector< Vector >,
+m_instanceScales, Offset: 0x50, Type: CUtlVector< float32 >,
+m_instanceTintSrgb, Offset: 0x68, Type: CUtlVector< Color >,
+m_tiles, Offset: 0x80, Type: CUtlVector< ClutterTile_t >,
+m_renderableModel, Offset: 0x98, Type: CStrongHandle< InfoForResourceTypeCModel >,
+
+Class:17: WorldNode_t, Fields: 14, Parent: None
+m_sceneObjects, Offset: 0x0, Type: CUtlVector< SceneObject_t >,
+m_infoOverlays, Offset: 0x18, Type: CUtlVector< InfoOverlayData_t >,
+m_visClusterMembership, Offset: 0x30, Type: CUtlVector< uint16 >,
+m_aggregateSceneObjects, Offset: 0x48, Type: CUtlVector< AggregateSceneObject_t >,
+m_clutterSceneObjects, Offset: 0x60, Type: CUtlVector< ClutterSceneObject_t >,
+m_extraVertexStreamOverrides, Offset: 0x78, Type: CUtlVector< ExtraVertexStreamOverride_t >,
+m_materialOverrides, Offset: 0x90, Type: CUtlVector< MaterialOverride_t >,
+m_extraVertexStreams, Offset: 0xA8, Type: CUtlVector< WorldNodeOnDiskBufferData_t >,
+m_layerNames, Offset: 0xC0, Type: CUtlVector< CUtlString >,
+m_sceneObjectLayerIndices, Offset: 0xD8, Type: CUtlVector< uint8 >,
+m_overlayLayerIndices, Offset: 0xF0, Type: CUtlVector< uint8 >,
+m_grassFileName, Offset: 0x108, Type: CUtlString,
+m_nodeLightingInfo, Offset: 0x110, Type: BakedLightingInfo_t,
+m_bHasBakedGeometryFlag, Offset: 0x140, Type: bool,
+
+Class:18: WorldBuilderParams_t, Fields: 5, Parent: None
+m_flMinDrawVolumeSize, Offset: 0x0, Type: float32,
+m_bBuildBakedLighting, Offset: 0x4, Type: bool,
+m_bakedLightingInfo, Offset: 0x8, Type: BakedLightingInfo_t,
+m_nCompileTimestamp, Offset: 0x38, Type: uint64,
+m_nCompileFingerprint, Offset: 0x40, Type: uint64,
+
+Class:19: NodeData_t, Fields: 7, Parent: None
+m_nParent, Offset: 0x0, Type: int32,
+m_vOrigin, Offset: 0x4, Type: Vector,
+m_vMinBounds, Offset: 0x10, Type: Vector,
+m_vMaxBounds, Offset: 0x1C, Type: Vector,
+m_flMinimumDistance, Offset: 0x28, Type: float32,
+m_ChildNodeIndices, Offset: 0x30, Type: CUtlVector< int32 >,
+m_worldNodePrefix, Offset: 0x48, Type: CUtlString,
+
+Class:20: World_t, Fields: 4, Parent: None
+m_builderParams, Offset: 0x0, Type: WorldBuilderParams_t,
+m_worldNodes, Offset: 0x48, Type: CUtlVector< NodeData_t >,
+m_worldLightingInfo, Offset: 0x60, Type: BakedLightingInfo_t,
+m_entityLumps, Offset: 0x90, Type: CUtlVector< CStrongHandleCopyable< InfoForResourceTypeCEntityLump > >,
+
+Class:21: VoxelVisBlockOffset_t, Fields: 2, Parent: None
+m_nOffset, Offset: 0x0, Type: uint32,
+m_nElementCount, Offset: 0x4, Type: uint32,
+
+Class:22: CVoxelVisibility, Fields: 13, Parent: None
+m_nBaseClusterCount, Offset: 0x40, Type: uint32,
+m_nPVSBytesPerCluster, Offset: 0x44, Type: uint32,
+m_vMinBounds, Offset: 0x48, Type: Vector,
+m_vMaxBounds, Offset: 0x54, Type: Vector,
+m_flGridSize, Offset: 0x60, Type: float32,
+m_nSkyVisibilityCluster, Offset: 0x64, Type: uint32,
+m_nSunVisibilityCluster, Offset: 0x68, Type: uint32,
+m_NodeBlock, Offset: 0x6C, Type: VoxelVisBlockOffset_t,
+m_RegionBlock, Offset: 0x74, Type: VoxelVisBlockOffset_t,
+m_EnclosedClusterListBlock, Offset: 0x7C, Type: VoxelVisBlockOffset_t,
+m_EnclosedClustersBlock, Offset: 0x84, Type: VoxelVisBlockOffset_t,
+m_MasksBlock, Offset: 0x8C, Type: VoxelVisBlockOffset_t,
+m_nVisBlocks, Offset: 0x94, Type: VoxelVisBlockOffset_t,
+
+Class:23: VMapResourceData_t, Fields: 0, Parent: None
+Class:24: InfoForResourceTypeVMapResourceData_t, Fields: 0, Parent: None
+Class:25: CEntityComponent, Fields: 0, Parent: None
+Class:26: CEntityIdentity, Fields: 11, Parent: None
+m_nameStringableIndex, Offset: 0x14, Type: int32,
+m_name, Offset: 0x18, Type: CUtlSymbolLarge,
+m_designerName, Offset: 0x20, Type: CUtlSymbolLarge,
+m_flags, Offset: 0x30, Type: uint32,
+m_worldGroupId, Offset: 0x38, Type: WorldGroupId_t,
+m_fDataObjectTypes, Offset: 0x3C, Type: uint32,
+m_PathIndex, Offset: 0x40, Type: ChangeAccessorFieldPathIndex_t,
+m_pPrev, Offset: 0x58, Type: CEntityIdentity*,
+m_pNext, Offset: 0x60, Type: CEntityIdentity*,
+m_pPrevByClass, Offset: 0x68, Type: CEntityIdentity*,
+m_pNextByClass, Offset: 0x70, Type: CEntityIdentity*,
+
+Class:27: CEntityInstance, Fields: 4, Parent: None
+m_iszPrivateVScripts, Offset: 0x8, Type: CUtlSymbolLarge,
+m_pEntity, Offset: 0x10, Type: CEntityIdentity*,
+m_CScriptComponent, Offset: 0x28, Type: CScriptComponent*,
+m_bVisibleinPVS, Offset: 0x30, Type: bool,
+
+Class:28: CUtlVector< CAnimFrameSegment >, Fields: 0, Parent: None
+Class:29: CAnimBone, Fields: 7, Parent: None
+m_name, Offset: 0x0, Type: CBufferString,
+m_parent, Offset: 0x10, Type: int32,
+m_pos, Offset: 0x14, Type: Vector,
+m_quat, Offset: 0x20, Type: QuaternionStorage,
+m_scale, Offset: 0x30, Type: float32,
+m_qAlignment, Offset: 0x34, Type: QuaternionStorage,
+m_flags, Offset: 0x44, Type: int32,
+
+Class:30: CUtlVector< CAnimBone >, Fields: 0, Parent: None
+Class:31: CAnimUser, Fields: 2, Parent: None
+m_name, Offset: 0x0, Type: CBufferString,
+m_nType, Offset: 0x10, Type: int32,
+
+Class:32: CUtlVector< CAnimUser >, Fields: 0, Parent: None
