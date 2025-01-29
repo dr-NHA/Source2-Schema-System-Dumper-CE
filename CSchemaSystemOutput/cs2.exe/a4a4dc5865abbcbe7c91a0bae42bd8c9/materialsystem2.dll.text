@@ -1,0 +1,121 @@
+NHAs Schema System Dumper
+Based Off Public Sources
+Cheat Engine Is A Very Interactive Enviroment To Develop In <3
+
+Type:5: materialsystem2.dll, Enums: 5
+Enum:1: HorizJustification_e, Values: 4
+HORIZ_JUSTIFICATION_LEFT, Offset: 0x0,
+HORIZ_JUSTIFICATION_CENTER, Offset: 0x1,
+HORIZ_JUSTIFICATION_RIGHT, Offset: 0x2,
+HORIZ_JUSTIFICATION_NONE, Offset: 0x3,
+
+Enum:3: LayoutPositionType_e, Values: 3
+LAYOUTPOSITIONTYPE_VIEWPORT_RELATIVE, Offset: 0x0,
+LAYOUTPOSITIONTYPE_FRACTIONAL, Offset: 0x1,
+LAYOUTPOSITIONTYPE_NONE, Offset: 0x2,
+
+Enum:4: BloomBlendMode_t, Values: 3
+BLOOM_BLEND_ADD, Offset: 0x0,
+BLOOM_BLEND_SCREEN, Offset: 0x1,
+BLOOM_BLEND_BLUR, Offset: 0x2,
+
+Enum:5: ViewFadeMode_t, Values: 3
+VIEW_FADE_CONSTANT_COLOR, Offset: 0x0,
+VIEW_FADE_MODULATE, Offset: 0x1,
+VIEW_FADE_MOD2X, Offset: 0x2,
+
+Type:5: materialsystem2.dll, Classes: 13
+Class:1: MaterialParam_t, Fields: 1, Parent: None
+m_name, Offset: 0x0, Type: CUtlString,
+
+Class:2: MaterialParamInt_t, Fields: 1, Parent: MaterialParam_t
+m_nValue, Offset: 0x8, Type: int32,
+
+Class:3: MaterialParamFloat_t, Fields: 1, Parent: MaterialParam_t
+m_flValue, Offset: 0x8, Type: float32,
+
+Class:4: MaterialParamVector_t, Fields: 1, Parent: MaterialParam_t
+m_value, Offset: 0x8, Type: Vector4D,
+
+Class:5: MaterialParamTexture_t, Fields: 1, Parent: MaterialParam_t
+m_pValue, Offset: 0x8, Type: CStrongHandle< InfoForResourceTypeCTextureBase >,
+
+Class:6: MaterialParamString_t, Fields: 1, Parent: MaterialParam_t
+m_value, Offset: 0x8, Type: CUtlString,
+
+Class:7: MaterialParamBuffer_t, Fields: 1, Parent: MaterialParam_t
+m_value, Offset: 0x8, Type: CUtlBinaryBlock,
+
+Class:8: MaterialResourceData_t, Fields: 14, Parent: None
+m_materialName, Offset: 0x0, Type: CUtlString,
+m_shaderName, Offset: 0x8, Type: CUtlString,
+m_intParams, Offset: 0x10, Type: CUtlVector< MaterialParamInt_t >,
+m_floatParams, Offset: 0x28, Type: CUtlVector< MaterialParamFloat_t >,
+m_vectorParams, Offset: 0x40, Type: CUtlVector< MaterialParamVector_t >,
+m_textureParams, Offset: 0x58, Type: CUtlVector< MaterialParamTexture_t >,
+m_dynamicParams, Offset: 0x70, Type: CUtlVector< MaterialParamBuffer_t >,
+m_dynamicTextureParams, Offset: 0x88, Type: CUtlVector< MaterialParamBuffer_t >,
+m_intAttributes, Offset: 0xA0, Type: CUtlVector< MaterialParamInt_t >,
+m_floatAttributes, Offset: 0xB8, Type: CUtlVector< MaterialParamFloat_t >,
+m_vectorAttributes, Offset: 0xD0, Type: CUtlVector< MaterialParamVector_t >,
+m_textureAttributes, Offset: 0xE8, Type: CUtlVector< MaterialParamTexture_t >,
+m_stringAttributes, Offset: 0x100, Type: CUtlVector< MaterialParamString_t >,
+m_renderAttributesUsed, Offset: 0x118, Type: CUtlVector< CUtlString >,
+
+Class:9: PostProcessingTonemapParameters_t, Fields: 15, Parent: None
+m_flExposureBias, Offset: 0x0, Type: float32,
+m_flShoulderStrength, Offset: 0x4, Type: float32,
+m_flLinearStrength, Offset: 0x8, Type: float32,
+m_flLinearAngle, Offset: 0xC, Type: float32,
+m_flToeStrength, Offset: 0x10, Type: float32,
+m_flToeNum, Offset: 0x14, Type: float32,
+m_flToeDenom, Offset: 0x18, Type: float32,
+m_flWhitePoint, Offset: 0x1C, Type: float32,
+m_flLuminanceSource, Offset: 0x20, Type: float32,
+m_flExposureBiasShadows, Offset: 0x24, Type: float32,
+m_flExposureBiasHighlights, Offset: 0x28, Type: float32,
+m_flMinShadowLum, Offset: 0x2C, Type: float32,
+m_flMaxShadowLum, Offset: 0x30, Type: float32,
+m_flMinHighlightLum, Offset: 0x34, Type: float32,
+m_flMaxHighlightLum, Offset: 0x38, Type: float32,
+
+Class:10: PostProcessingBloomParameters_t, Fields: 10, Parent: None
+m_blendMode, Offset: 0x0, Type: BloomBlendMode_t,
+m_flBloomStrength, Offset: 0x4, Type: float32,
+m_flScreenBloomStrength, Offset: 0x8, Type: float32,
+m_flBlurBloomStrength, Offset: 0xC, Type: float32,
+m_flBloomThreshold, Offset: 0x10, Type: float32,
+m_flBloomThresholdWidth, Offset: 0x14, Type: float32,
+m_flSkyboxBloomStrength, Offset: 0x18, Type: float32,
+m_flBloomStartValue, Offset: 0x1C, Type: float32,
+m_flBlurWeight, Offset: 0x20, Type: float32[5],
+m_vBlurTint, Offset: 0x34, Type: Vector[5],
+
+Class:11: PostProcessingVignetteParameters_t, Fields: 6, Parent: None
+m_flVignetteStrength, Offset: 0x0, Type: float32,
+m_vCenter, Offset: 0x4, Type: Vector2D,
+m_flRadius, Offset: 0xC, Type: float32,
+m_flRoundness, Offset: 0x10, Type: float32,
+m_flFeather, Offset: 0x14, Type: float32,
+m_vColorTint, Offset: 0x18, Type: Vector,
+
+Class:12: PostProcessingLocalContrastParameters_t, Fields: 5, Parent: None
+m_flLocalContrastStrength, Offset: 0x0, Type: float32,
+m_flLocalContrastEdgeStrength, Offset: 0x4, Type: float32,
+m_flLocalContrastVignetteStart, Offset: 0x8, Type: float32,
+m_flLocalContrastVignetteEnd, Offset: 0xC, Type: float32,
+m_flLocalContrastVignetteBlur, Offset: 0x10, Type: float32,
+
+Class:13: PostProcessingResource_t, Fields: 11, Parent: None
+m_bHasTonemapParams, Offset: 0x0, Type: bool,
+m_toneMapParams, Offset: 0x4, Type: PostProcessingTonemapParameters_t,
+m_bHasBloomParams, Offset: 0x40, Type: bool,
+m_bloomParams, Offset: 0x44, Type: PostProcessingBloomParameters_t,
+m_bHasVignetteParams, Offset: 0xB4, Type: bool,
+m_vignetteParams, Offset: 0xB8, Type: PostProcessingVignetteParameters_t,
+m_bHasLocalContrastParams, Offset: 0xDC, Type: bool,
+m_localConstrastParams, Offset: 0xE0, Type: PostProcessingLocalContrastParameters_t,
+m_nColorCorrectionVolumeDim, Offset: 0xF4, Type: int32,
+m_colorCorrectionVolumeData, Offset: 0xF8, Type: CUtlBinaryBlock,
+m_bHasColorCorrection, Offset: 0x110, Type: bool,
+
